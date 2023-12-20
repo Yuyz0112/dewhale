@@ -44,6 +44,7 @@
     "date-fns": "^3.0.1",
     "lucide-react": "^0.298.0",
     "react": "^18.2.0",
+    "react-copy-to-clipboard": "^5.1.0",
     "react-day-picker": "^8.9.1",
     "react-dom": "^18.2.0",
     "tailwind-merge": "^2.1.0",
