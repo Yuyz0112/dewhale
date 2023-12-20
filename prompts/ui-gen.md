@@ -850,6 +850,8 @@ function DotChart(props) {
 ### Component Example 41, HeatmapChart:
 
 ```jsx
+import { ResponsiveHeatMap } from "@nivo/heatmap";
+
 function HeatmapChart(props) {
   return (
     <div {...props}>
@@ -884,6 +886,8 @@ function HeatmapChart(props) {
 ### Component Example 42, LineChart:
 
 ```jsx
+import { ResponsiveLine } from "@nivo/line";
+
 function LineChart(props) {
   return (
     <div {...props}>
@@ -925,6 +929,8 @@ function LineChart(props) {
 ### Component Example 43, PieChart:
 
 ```jsx
+import { ResponsivePie } from "@nivo/pie";
+
 function PieChart(props) {
   return (
     <div {...props}>

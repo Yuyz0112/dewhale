@@ -462,6 +462,17 @@
     lodash "^4.17.21"
     prop-types "^15.7.2"
 
+"@nivo/arcs@0.84.0":
+  version "0.84.0"
+  resolved "https://registry.npmjs.org/@nivo/arcs/-/arcs-0.84.0.tgz#e080cdc7d09e4abaf7f74004f9cc5af69b80d22f"
+  integrity sha512-6i6CQmqdk7KZnaYmg8l0jqElQM19LJ/29WlxwVtDW43iQD0AqDzXb/eIwzZSZwf8sfGP8e8vvapkESlfkmzuPw==
+  dependencies:
+    "@nivo/colors" "0.84.0"
+    "@nivo/core" "0.84.0"
+    "@react-spring/web" "9.4.5 || ^9.7.2"
+    "@types/d3-shape" "^2.0.0"
+    d3-shape "^1.3.5"
+
 "@nivo/axes@0.84.0":
   version "0.84.0"
   resolved "https://registry.npmjs.org/@nivo/axes/-/axes-0.84.0.tgz#f3d288cfc3c6f77b86c557c350f1b63fe5be7b29"
@@ -530,6 +541,22 @@
     d3-time-format "^3.0.0"
     lodash "^4.17.21"
 
+"@nivo/heatmap@^0.84.0":
+  version "0.84.0"
+  resolved "https://registry.npmjs.org/@nivo/heatmap/-/heatmap-0.84.0.tgz#212a57bd8d311dde8c8805e3c85783e8bef1f3bc"
+  integrity sha512-E7gj0Kd7DZiQp8tg5bm27uOljAXvBLMtho6d3vPOdAtzLYLUSg6xW/wWIrqvhup9IxWMOlgDvV4xENGhpoEglQ==
+  dependencies:
+    "@nivo/annotations" "0.84.0"
+    "@nivo/axes" "0.84.0"
+    "@nivo/colors" "0.84.0"
+    "@nivo/core" "0.84.0"
+    "@nivo/legends" "0.84.0"
+    "@nivo/scales" "0.84.0"
+    "@nivo/tooltip" "0.84.0"
+    "@react-spring/web" "9.4.5 || ^9.7.2"
+    "@types/d3-scale" "^3.2.3"
+    d3-scale "^3.2.3"
+
 "@nivo/legends@0.84.0":
   version "0.84.0"
   resolved "https://registry.npmjs.org/@nivo/legends/-/legends-0.84.0.tgz#d89def3427aaa509721a9b6f38c813dd38401aff"
@@ -541,6 +568,36 @@
     "@types/prop-types" "^15.7.2"
     d3-scale "^3.2.3"
     prop-types "^15.7.2"
+
+"@nivo/line@^0.84.0":
+  version "0.84.0"
+  resolved "https://registry.npmjs.org/@nivo/line/-/line-0.84.0.tgz#dd5d7d230393fce19b59eb977edeef2151ee7438"
+  integrity sha512-QE0JwZ7oIwMnsDQeSr1Q6iyqD2UBVLtBMdfMsJLhnlI3V62VkY98/L3o8M7+7Wy/V2UiEMJ+14C2qhXd+XLgsA==
+  dependencies:
+    "@nivo/annotations" "0.84.0"
+    "@nivo/axes" "0.84.0"
+    "@nivo/colors" "0.84.0"
+    "@nivo/core" "0.84.0"
+    "@nivo/legends" "0.84.0"
+    "@nivo/scales" "0.84.0"
+    "@nivo/tooltip" "0.84.0"
+    "@nivo/voronoi" "0.84.0"
+    "@react-spring/web" "9.4.5 || ^9.7.2"
+    d3-shape "^1.3.5"
+    prop-types "^15.7.2"
+
+"@nivo/pie@^0.84.0":
+  version "0.84.0"
+  resolved "https://registry.npmjs.org/@nivo/pie/-/pie-0.84.0.tgz#b295f8f8c6da8fd74460aed6e00de64e4d58a386"
+  integrity sha512-yM8oe162YlOKFZkpVhSF+9J/F3rhyUc+gS9M3M+HyVqzXM3xOKjZiqd5tckgFbvTixDK6FLsSBHzH2SRij/hDQ==
+  dependencies:
+    "@nivo/arcs" "0.84.0"
+    "@nivo/colors" "0.84.0"
+    "@nivo/core" "0.84.0"
+    "@nivo/legends" "0.84.0"
+    "@nivo/tooltip" "0.84.0"
+    "@types/d3-shape" "^2.0.0"
+    d3-shape "^1.3.5"
 
 "@nivo/recompose@0.84.0":
   version "0.84.0"
@@ -565,6 +622,26 @@
     d3-time-format "^3.0.0"
     lodash "^4.17.21"
 
+"@nivo/scatterplot@^0.84.0":
+  version "0.84.0"
+  resolved "https://registry.npmjs.org/@nivo/scatterplot/-/scatterplot-0.84.0.tgz#c745afa43999660a099ddeead0b8a5acdd3d000f"
+  integrity sha512-E4AE0vspLo/7CwTNbL/lAO1K//51CpJhtWTbZwWcmjdo/SKv559CA4PPqXBgS6QgdzzE6Kn3hgp2io76UqIZvQ==
+  dependencies:
+    "@nivo/annotations" "0.84.0"
+    "@nivo/axes" "0.84.0"
+    "@nivo/colors" "0.84.0"
+    "@nivo/core" "0.84.0"
+    "@nivo/legends" "0.84.0"
+    "@nivo/scales" "0.84.0"
+    "@nivo/tooltip" "0.84.0"
+    "@nivo/voronoi" "0.84.0"
+    "@react-spring/web" "9.4.5 || ^9.7.2"
+    "@types/d3-scale" "^3.2.3"
+    "@types/d3-shape" "^2.0.0"
+    d3-scale "^3.2.3"
+    d3-shape "^1.3.5"
+    lodash "^4.17.21"
+
 "@nivo/tooltip@0.84.0":
   version "0.84.0"
   resolved "https://registry.npmjs.org/@nivo/tooltip/-/tooltip-0.84.0.tgz#f033798f1d09af5b2de7fa36ee91faa75543c5d8"
@@ -572,6 +649,17 @@
   dependencies:
     "@nivo/core" "0.84.0"
     "@react-spring/web" "9.4.5 || ^9.7.2"
+
+"@nivo/voronoi@0.84.0":
+  version "0.84.0"
+  resolved "https://registry.npmjs.org/@nivo/voronoi/-/voronoi-0.84.0.tgz#c4e2ae2a968d7a5901fe69b75cc865f1c35b1333"
+  integrity sha512-CJTb0sQWYNbfjjrCEK3W0jt1v+hqAd4fDUNJxB3SNRHEEQtF+MCr2EG3p/CWyxIb3avjF4N53/03tQpnuDwBvQ==
+  dependencies:
+    "@nivo/core" "0.84.0"
+    "@types/d3-delaunay" "^5.3.0"
+    "@types/d3-scale" "^3.2.3"
+    d3-delaunay "^5.3.0"
+    d3-scale "^3.2.3"
 
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
@@ -1525,6 +1613,11 @@
   resolved "https://registry.npmjs.org/@types/d3-color/-/d3-color-2.0.6.tgz#88a9a06afea2d3a400ea650a6c3e60e9bf9b0f2a"
   integrity sha512-tbaFGDmJWHqnenvk3QGSvD3RVwr631BjKRD7Sc7VLRgrdX5mk5hTyoeBL6rXZaeoXzmZwIl1D2HPogEdt1rHBg==
 
+"@types/d3-delaunay@^5.3.0":
+  version "5.3.4"
+  resolved "https://registry.npmjs.org/@types/d3-delaunay/-/d3-delaunay-5.3.4.tgz#6440a78e48bbfc3652a2ec007a710e046c421a10"
+  integrity sha512-GEQuDXVKQvHulQ+ecKyCubOmVjXrifAj7VR26rWVAER/IbWemaT/Tmo84ESiTtoDghg5ILdMZH7pYXQEt/Vu9A==
+
 "@types/d3-format@^1.4.1":
   version "1.4.5"
   resolved "https://registry.npmjs.org/@types/d3-format/-/d3-format-1.4.5.tgz#6392303c2ca3c287c3a1a2046455cd0a0bd50bbe"
@@ -1977,6 +2070,13 @@ d3-array@2, d3-array@^2.3.0:
   resolved "https://registry.npmjs.org/d3-color/-/d3-color-3.1.0.tgz#395b2833dfac71507f12ac2f7af23bf819de24e2"
   integrity sha512-zg/chbXyeBtMQ1LbD/WSoW2DpC3I0mpmPdW+ynRTj/x2DAWYrIY7qeZIHidozwV24m4iavr15lNwIwLxRmOxhA==
 
+d3-delaunay@^5.3.0:
+  version "5.3.0"
+  resolved "https://registry.npmjs.org/d3-delaunay/-/d3-delaunay-5.3.0.tgz#b47f05c38f854a4e7b3cea80e0bb12e57398772d"
+  integrity sha512-amALSrOllWVLaHTnDLHwMIiz0d1bBu9gZXd1FiLfXf8sHcX9jrcj81TVZOqD4UX7MgBZZ07c8GxzEgBpJqc74w==
+  dependencies:
+    delaunator "4"
+
 "d3-format@1 - 2":
   version "2.0.0"
   resolved "https://registry.npmjs.org/d3-format/-/d3-format-2.0.0.tgz#a10bcc0f986c372b729ba447382413aabf5b0767"
@@ -2093,6 +2193,11 @@ define-properties@^1.1.3, define-properties@^1.2.0, define-properties@^1.2.1:
     define-data-property "^1.0.1"
     has-property-descriptors "^1.0.0"
     object-keys "^1.1.1"
+
+delaunator@4:
+  version "4.0.1"
+  resolved "https://registry.npmjs.org/delaunator/-/delaunator-4.0.1.tgz#3d779687f57919a7a418f8ab947d3bddb6846957"
+  integrity sha512-WNPWi1IRKZfCt/qIDMfERkDp93+iZEmOxN2yy4Jg+Xhv8SLk2UTqqbe1sfiipn0and9QrE914/ihdx82Y/Giag==
 
 detect-node-es@^1.1.0:
   version "1.1.0"
