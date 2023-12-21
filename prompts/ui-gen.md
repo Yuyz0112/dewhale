@@ -3,11 +3,11 @@ When using static JSX, the React component does not accept any props and everyth
 DON'T assume that the component can get any data from outside, all required data should be included in your generated code.
 Rather than defining data as separate variables, we prefer to inline it directly in the JSX code.
 
-The JSX code should ONLY use the following components:
+The JSX code should ONLY use the following components, there are no other libs available:
 
 - The `@/components/ui/$name` provided by the following available examples.
 - SVG icons provided by the lucide-react lib.
-- The chart components provided by the nivo chart lib.
+- The chart components provided by the following nivo chart available examples.
 
 ALWAYS import UI components from a SUB_PATH such as `@/components/ui/$name`, like `@/components/ui/button`.
 
