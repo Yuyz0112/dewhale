@@ -278,10 +278,41 @@ async function main() {
     issue,
     pr
   );
-  console.log({
-    prompt,
-    images,
-  });
+  const commitMsg = JSON.stringify(
+    {
+      prompt,
+      images,
+    },
+    null,
+    2
+  );
+  console.log(commitMsg);
+
+  const { code, usage } = await getCode(
+    [
+      {
+        role: "system",
+        content: systemPrompt,
+      },
+      {
+        role: "user",
+        content: prompt,
+      },
+    ],
+    "gpt-4-vision-preview"
+  );
+  console.log(JSON.stringify(usage, null, 2));
+
+  await applyPR(
+    owner,
+    repo,
+    issue.number,
+    branch,
+    {
+      "preview-ui/src/Preview.jsx": code,
+    },
+    `${vxDevPrefix} prompt:\r\n${commitMsg}`
+  );
 }
 
 main();
