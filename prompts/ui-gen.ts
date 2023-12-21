@@ -316,7 +316,6 @@ async function main() {
     "gpt-4-vision-preview"
   );
   console.log(JSON.stringify(usage, null, 2));
-  console.log(code);
 
   await applyPR(
     owner,
