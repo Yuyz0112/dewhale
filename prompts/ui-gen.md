@@ -10,7 +10,7 @@ The JSX code should ONLY use the following components, there are no other libs a
 
 ALWAYS import UI components from a SUB_PATH such as `@/components/ui/$name`, like `@/components/ui/button`.
 
-You should ONLY import icons in the following list, if they don't meet your needs, you can use the `Home` icon as a placeholder.
+You should ONLY import icons in the following list, other icon does not exist in our project:
 
 ```
 1. ArrowRight
