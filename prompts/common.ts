@@ -50,10 +50,11 @@ export async function getCode(
         throw new Error(`invalid code blocks ${JSON.stringify(codeBlocks)}`);
       }
 
+      remove(tree, "code");
       return {
         code: codeBlocks[0],
         usage: chatCompletion.usage,
-        description: toMarkdown(remove(tree, "code")),
+        description: toMarkdown(tree),
       };
     },
     { delay: 100, maxTry: 3 }
