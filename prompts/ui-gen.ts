@@ -323,7 +323,7 @@ async function main() {
   );
   console.log(commitMsg);
 
-  const { code, usage } = await getCode(
+  const { code, usage, description } = await getCode(
     [
       {
         role: "system",
@@ -362,6 +362,13 @@ async function main() {
     },
     `${vxDevPrefix} prompt:\r\n${commitMsg}`
   );
+
+  await octokit.rest.issues.createComment({
+    owner,
+    repo,
+    issue_number: pr.number,
+    body: `${vxDevPrefix}: ${description}`,
+  });
 }
 
 main();
