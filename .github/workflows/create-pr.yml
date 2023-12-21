@@ -1,0 +1,21 @@
+name: Create PR
+
+on:
+  issues:
+    types: [opened, edited]
+  issue_comment:
+    types: [created, edited, deleted]
+
+jobs:
+  handle_issue:
+    runs-on: ubuntu-latest
+    name: Create PR
+    steps:
+      - name: Setup Deno
+        uses: denoland/setup-deno@v1
+        with:
+          deno-version: 1.38.3
+      - name: Test Deno
+        run: deno run https://deno.land/std@0.198.0/examples/welcome.ts
+      - name: Dump Env
+        run: deno run -A prompts/ui-gen.ts
