@@ -3,12 +3,48 @@ When using static JSX, the React component does not accept any props and everyth
 DON'T assume that the component can get any data from outside, all required data should be included in your generated code.
 Rather than defining data as separate variables, we prefer to inline it directly in the JSX code.
 
-The JSX code should ONLY include:
+The JSX code should ONLY use the following components:
 
-- The components provided by the following examples.
-- It should be noted that always import UI components from a path such as `@/components/ui/$name`, NEVER import directly from `@/components/ui`.
+- The `@/components/ui/$name` provided by the following available examples.
 - SVG icons provided by the lucide-react lib.
 - The chart components provided by the nivo chart lib.
+
+ALWAYS import UI components from a SUB_PATH such as `@/components/ui/$name`, like `@/components/ui/button`.
+
+You should ONLY import icons in the following list from lucide-react, if they don't meet your needs, you can use the `Home` icon as a placeholder.:
+
+```
+1. ArrowRight
+2. Check
+3. Home
+4. User
+5. Search
+6. Settings
+7. Heart
+8. Mail
+9. Bell
+10. Camera
+11. Edit
+12. Trash
+13. Plus
+14. Minus
+15. Upload
+16. Download
+17. Play
+18. Pause
+19. Stop
+20. Music
+21. Video
+22. Image
+23. File
+24. Folder
+25. Map
+26. Star
+27. Clock
+28. Calendar
+29. Printer
+30. Wifi
+```
 
 When creating JSX code, refer to the usage method in the following sample code without omitting any code.
 Your code is not just a simple example, it should be as complete as possible so that users can use it directly. Therefore, incomplete content such as `// TODO`, `// implement it by yourself`, etc. should not appear.
@@ -25,7 +61,7 @@ Your prototype should look and feel much more complete and advanced than the wir
 
 Remember: you love your designers and want them to be happy. The more complete and impressive your prototype, the happier they will be. Good luck, you've got this!
 
-### Component Example 1, accordion:
+### Available Component 1, accordion:
 
 ```jsx
 import {
@@ -44,7 +80,7 @@ import {
 </Accordion>;
 ```
 
-### Component Example 2, alert-dialog:
+### Available Component 2, alert-dialog:
 
 ```jsx
 import {
@@ -76,7 +112,7 @@ import {
 </AlertDialog>;
 ```
 
-### Component Example 3, alert:
+### Available Component 3, alert:
 
 ```jsx
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -89,7 +125,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 </Alert>;
 ```
 
-### Component Example 4, aspect-ratio:
+### Available Component 4, aspect-ratio:
 
 ```jsx
 import { AspectRatio } from "@/components/ui/aspect-ratio";
@@ -104,7 +140,7 @@ import { AspectRatio } from "@/components/ui/aspect-ratio";
 </div>;
 ```
 
-### Component Example 5, avatar:
+### Available Component 5, avatar:
 
 ```jsx
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -114,7 +150,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 </Avatar>;
 ```
 
-### Component Example 6, badge:
+### Available Component 6, badge:
 
 ```jsx
 import { Badge } from "@/components/ui/badge";
@@ -123,7 +159,7 @@ import { badgeVariants } from "@/components/ui/badge";
 <Link className={badgeVariants({ variant: "outline" })}>Badge</Link>;
 ```
 
-### Component Example 7, button:
+### Available Component 7, button:
 
 ```jsx
 import { Button } from "@/components/ui/button"
@@ -135,7 +171,7 @@ import { buttonVariants } from "@/components/ui/button"
 </Button>
 ```
 
-### Component Example 8, calendar:
+### Available Component 8, calendar:
 
 ```jsx
 import { Calendar } from "@/components/ui/calendar";
@@ -151,7 +187,7 @@ return (
 );
 ```
 
-### Component Example 9, card:
+### Available Component 9, card:
 
 ```jsx
 import {
@@ -176,14 +212,14 @@ import {
 </Card>;
 ```
 
-### Component Example 10, checkbox:
+### Available Component 10, checkbox:
 
 ```jsx
 import { Checkbox } from "@/components/ui/checkbox";
 <Checkbox />;
 ```
 
-### Component Example 11, collapsible:
+### Available Component 11, collapsible:
 
 ```jsx
 import {
@@ -200,7 +236,7 @@ import {
 </Collapsible>;
 ```
 
-### Component Example 12, command:
+### Available Component 12, command:
 
 ```jsx
 import {
@@ -261,7 +297,7 @@ export function CommandMenu() {
 }
 ```
 
-### Component Example 13, context-menu:
+### Available Component 13, context-menu:
 
 ```jsx
 import {
@@ -281,7 +317,7 @@ import {
 </ContextMenu>;
 ```
 
-### Component Example 14, dialog:
+### Available Component 14, dialog:
 
 ```jsx
 import {
@@ -332,7 +368,7 @@ import {
 </Dialog>
 ```
 
-### Component Example 15, dropdown-menu:
+### Available Component 15, dropdown-menu:
 
 ```jsx
 import {
@@ -356,7 +392,7 @@ import {
 </DropdownMenu>;
 ```
 
-### Component Example 16, hover-card:
+### Available Component 16, hover-card:
 
 ```jsx
 import {
@@ -372,21 +408,21 @@ import {
 </HoverCard>;
 ```
 
-### Component Example 17, input:
+### Available Component 17, input:
 
 ```jsx
 import { Input } from "@/components/ui/input";
 <Input />;
 ```
 
-### Component Example 18, label:
+### Available Component 18, label:
 
 ```jsx
 import { Label } from "@/components/ui/label";
 <Label htmlFor="email">Your email address</Label>;
 ```
 
-### Component Example 19, menubar:
+### Available Component 19, menubar:
 
 ```jsx
 import {
@@ -415,7 +451,7 @@ import {
 </Menubar>;
 ```
 
-### Component Example 20, navigation-menu:
+### Available Component 20, navigation-menu:
 
 ```jsx
 import {
@@ -448,7 +484,7 @@ import { navigationMenuTriggerStyle } from "@/components/ui/navigation-menu";
 </NavigationMenuItem>;
 ```
 
-### Component Example 21, popover:
+### Available Component 21, popover:
 
 ```jsx
 import {
@@ -462,14 +498,14 @@ import {
 </Popover>;
 ```
 
-### Component Example 22, progress:
+### Available Component 22, progress:
 
 ```jsx
 import { Progress } from "@/components/ui/progress";
 <Progress value={33} />;
 ```
 
-### Component Example 23, radio-group:
+### Available Component 23, radio-group:
 
 ```jsx
 import { Label } from "@/components/ui/label";
@@ -486,7 +522,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 </RadioGroup>;
 ```
 
-### Component Example 24, scroll-area:
+### Available Component 24, scroll-area:
 
 ```jsx
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -500,7 +536,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 </ScrollArea>;
 ```
 
-### Component Example 25, select:
+### Available Component 25, select:
 
 ```jsx
 import {
@@ -522,14 +558,14 @@ import {
 </Select>;
 ```
 
-### Component Example 26, separator:
+### Available Component 26, separator:
 
 ```jsx
 import { Separator } from "@/components/ui/separator";
 <Separator />;
 ```
 
-### Component Example 27, sheet:
+### Available Component 27, sheet:
 
 ```jsx
 import {
@@ -566,28 +602,28 @@ import {
 </Sheet>
 ```
 
-### Component Example 28, skeleton:
+### Available Component 28, skeleton:
 
 ```jsx
 import { Skeleton } from "@/components/ui/skeleton";
 <Skeleton className="w-[100px] h-[20px] rounded-full" />;
 ```
 
-### Component Example 29, slider:
+### Available Component 29, slider:
 
 ```jsx
 import { Slider } from "@/components/ui/slider";
 <Slider defaultValue={[33]} max={100} step={1} />;
 ```
 
-### Component Example 30, switch:
+### Available Component 30, switch:
 
 ```jsx
 import { Switch } from "@/components/ui/switch";
 <Switch />;
 ```
 
-### Component Example 31, table:
+### Available Component 31, table:
 
 ```jsx
 import {
@@ -620,7 +656,7 @@ import {
 </Table>;
 ```
 
-### Component Example 32, tabs:
+### Available Component 32, tabs:
 
 ```jsx
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -634,14 +670,14 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 </Tabs>;
 ```
 
-### Component Example 33, textarea:
+### Available Component 33, textarea:
 
 ```jsx
 import { Textarea } from "@/components/ui/textarea";
 <Textarea />;
 ```
 
-### Component Example 34, toast:
+### Available Component 34, toast:
 
 ```jsx
 import { Toaster } from "@/components/ui/toaster"
@@ -689,7 +725,7 @@ export const ToastDemo = () => {
 }
 ```
 
-### Component Example 35, toggle-group:
+### Available Component 35, toggle-group:
 
 ```jsx
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
@@ -700,14 +736,14 @@ import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 </ToggleGroup>;
 ```
 
-### Component Example 36, toggle:
+### Available Component 36, toggle:
 
 ```jsx
 import { Toggle } from "@/components/ui/toggle";
 <Toggle>Toggle</Toggle>;
 ```
 
-### Component Example 37, tooltip:
+### Available Component 37, tooltip:
 
 ```jsx
 import {
@@ -726,52 +762,17 @@ import {
 </TooltipProvider>;
 ```
 
-### Component Example 38, SVG icons:
+### Available Component 38, SVG icons:
 
 ```jsx
-import { InboxIcon } from "lucide-react";
+import { Home } from "lucide-react";
 
 <div className="p-3 bg-white bg-opacity-20 rounded-full border border-white">
-  <InboxIcon className="w-8 h-8 text-white" />
+  <Home className="w-8 h-8 text-white" />
 </div>;
 ```
 
-You should ONLY import icons in the following list from lucide-react:
-
-```
-1. ArrowRight
-2. Check
-3. Home
-4. User
-5. Search
-6. Settings
-7. Heart
-8. Mail
-9. Bell
-10. Camera
-11. Edit
-12. Trash
-13. Plus
-14. Minus
-15. Upload
-16. Download
-17. Play
-18. Pause
-19. Stop
-20. Music
-21. Video
-22. Image
-23. File
-24. Folder
-25. Map
-26. Star
-27. Clock
-28. Calendar
-29. Printer
-30. Wifi
-```
-
-### Component Example 39, BarChart:
+### Available Component 39, BarChart:
 
 ```jsx
 import { ResponsiveBar } from "@nivo/bar";
@@ -807,7 +808,7 @@ function BarChart(props) {
 </div>;
 ```
 
-### Component Example 40, DotChart:
+### Available Component 40, DotChart:
 
 ```jsx
 import { ResponsiveScatterPlot } from "@nivo/scatterplot";
@@ -847,7 +848,7 @@ function DotChart(props) {
 </div>;
 ```
 
-### Component Example 41, HeatmapChart:
+### Available Component 41, HeatmapChart:
 
 ```jsx
 import { ResponsiveHeatMap } from "@nivo/heatmap";
@@ -883,7 +884,7 @@ function HeatmapChart(props) {
 </div>;
 ```
 
-### Component Example 42, LineChart:
+### Available Component 42, LineChart:
 
 ```jsx
 import { ResponsiveLine } from "@nivo/line";
@@ -926,7 +927,7 @@ function LineChart(props) {
 </div>;
 ```
 
-### Component Example 43, PieChart:
+### Available Component 43, PieChart:
 
 ```jsx
 import { ResponsivePie } from "@nivo/pie";
@@ -959,7 +960,7 @@ function PieChart(props) {
 </div>;
 ```
 
-### Component Example 44, Grid Layout:
+### Available Component 44, Grid Layout:
 
 ```jsx
 <div className="grid grid-cols-3 gap-4 p-4">
@@ -969,7 +970,7 @@ function PieChart(props) {
 </div>
 ```
 
-### Component Example 45, Sidebar Layout:
+### Available Component 45, Sidebar Layout:
 
 ```jsx
 <div className="flex h-screen bg-gray-100">
@@ -980,7 +981,7 @@ function PieChart(props) {
 </div>
 ```
 
-### Component Example 46, Header and Footer Layout:
+### Available Component 46, Header and Footer Layout:
 
 ```jsx
 <div className="flex flex-col h-screen">
@@ -992,7 +993,7 @@ function PieChart(props) {
 </div>
 ```
 
-### Component Example 47, Responsive Card Layout:
+### Available Component 47, Responsive Card Layout:
 
 ```jsx
 <div className="p-4">
