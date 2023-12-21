@@ -1,25 +1,31 @@
 import React from 'react';
 
 const CalculatorUI = () => {
+  const buttonStyles = "w-16 h-16 flex items-center justify-center text-2xl font-semibold rounded shadow-lg focus:outline-none";
+  const operatorButtonStyles = "bg-orange-500 text-white hover:bg-orange-600";
+
   return (
-    <div className="flex justify-center items-center h-screen bg-gray-100">
-      <div className="bg-white p-6 rounded-lg shadow-lg" style={{ width: '300px' }}>
-        <div className="bg-gray-200 p-4 rounded mb-4">
-          <div className="text-right text-gray-700 text-lg" aria-label="Calculator Display">
-            0
-          </div>
+    <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
+      <div className="bg-white p-4 rounded-lg shadow-xl">
+        <div className="flex justify-between items-center mb-4 p-4 bg-gray-200 rounded">
+          <span className="text-3xl">0</span>
         </div>
-        <div className="grid grid-cols-4 gap-2">
-          {['7', '8', '9', '×', '4', '5', '6', '-', '1', '2', '3', '+', '0', '%', 'C', '='].map((buttonLabel) => (
-            <button
-              key={buttonLabel}
-              className="bg-gray-300 text-gray-700 font-semibold py-3 rounded shadow-inner focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50"
-              style={{ boxShadow: 'inset 0 4px rgba(0,0,0,0.2)' }}
-              aria-label={`Button ${buttonLabel}`}
-            >
-              {buttonLabel}
-            </button>
-          ))}
+        <div className="grid grid-cols-4 gap-4">
+          <button className={`${buttonStyles} bg-gray-300 hover:bg-gray-400`}>7</button>
+          <button className={`${buttonStyles} bg-gray-300 hover:bg-gray-400`}>8</button>
+          <button className={`${buttonStyles} bg-gray-300 hover:bg-gray-400`}>9</button>
+          <button className={`${buttonStyles} ${operatorButtonStyles}`}>×</button>
+          <button className={`${buttonStyles} bg-gray-300 hover:bg-gray-400`}>4</button>
+          <button className={`${buttonStyles} bg-gray-300 hover:bg-gray-400`}>5</button>
+          <button className={`${buttonStyles} bg-gray-300 hover:bg-gray-400`}>6</button>
+          <button className={`${buttonStyles} ${operatorButtonStyles}`}>-</button>
+          <button className={`${buttonStyles} bg-gray-300 hover:bg-gray-400`}>1</button>
+          <button className={`${buttonStyles} bg-gray-300 hover:bg-gray-400`}>2</button>
+          <button className={`${buttonStyles} bg-gray-300 hover:bg-gray-400`}>3</button>
+          <button className={`${buttonStyles} ${operatorButtonStyles}`}>+</button>
+          <button className={`${buttonStyles} bg-gray-300 hover:bg-gray-400 col-span-2`}>0</button>
+          <button className={`${buttonStyles} bg-gray-300 hover:bg-gray-400`}>%</button>
+          <button className={`${buttonStyles} ${operatorButtonStyles}`}>=</button>
         </div>
       </div>
     </div>
