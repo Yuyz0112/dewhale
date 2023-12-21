@@ -1,52 +1,94 @@
-import { Star } from 'lucide-react';
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { Star } from "lucide-react";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 export default function ReviewAndRatingPage() {
+  const reviews = [
+    {
+      id: 1,
+      name: "Nina Holloway",
+      date: "29 Aug 2017",
+      comment: "So you're going abroad, you've chosen your destination and now you have to choose a hotel. Ten years ago, you'd have probably visited your local travel agent and trusted the face-to-face advice you were given by the so called 'experts'. Whether its a driving tour, a cruise or a bus, leaf viewing is a great way to spend",
+      rating: 5,
+      helpfulCount: 7,
+    },
+    {
+      id: 2,
+      name: "Steve Fletcher",
+      date: "30 Aug 2017",
+      comment: "Whether its a driving tour, a cruise or a bus, leaf viewing is a great way to spend a fall vacation. It's also big tour business and the are many options. As you dream of that hot apple cider on a crisp afternoon do a quick check list whether its a driving tour, a cruise or a bus, leaf viewing is a great way to spend a fall vacation. It's also big tour business.",
+      rating: 4,
+      helpfulCount: 6,
+    },
+    {
+      id: 3,
+      name: "Oscar Rogers",
+      date: "29 Aug 2017",
+      comment: "It's also big tour business and the are many options. As you dream of that hot apple cider on a crisp afternoon do a quick check list whether its a driving tour, a cruise or a bus, leaf viewing is a great way to spend a fall vacation. It's also big tour business and the are many options. As you dream of that hot apple cider on a crisp afternoon do a quick check list",
+      rating: 3,
+      helpfulCount: 2,
+    },
+  ];
+
   return (
-    <div className="flex h-screen bg-gray-100">
-      <aside className="w-64 bg-white p-4 hidden sm:block">
-        {/* Sidebar content can be added here */}
-      </aside>
-      <main className="flex-1 p-4">
-        <div className="max-w-4xl mx-auto">
-          <h1 className="text-2xl font-semibold mb-6">Review and rating › Marshall Islands</h1>
-          <div className="space-y-4">
-            {/* Review Card 1 */}
-            <Card>
-              <CardContent className="flex space-x-4">
+    <div className="p-4 bg-gray-100">
+      <div className="max-w-4xl mx-auto">
+        <h1 className="text-2xl font-semibold mb-6">Review and rating › Marshall Islands</h1>
+        <div className="bg-white rounded-lg shadow-lg p-6">
+          {reviews.map((review) => (
+            <Card key={review.id} className="mb-4">
+              <CardContent className="flex items-start space-x-4">
                 <Avatar>
-                  <AvatarImage src="https://i.pravatar.cc/300?img=1" />
-                  <AvatarFallback>NH</AvatarFallback>
+                  <AvatarImage src={`https://i.pravatar.cc/150?u=${review.id}`} alt={review.name} />
+                  <AvatarFallback>{review.name.charAt(0)}</AvatarFallback>
                 </Avatar>
-                <div>
-                  <p className="text-sm font-medium">Nina Holloway</p>
-                  <p className="text-xs text-gray-500">29 Aug 2017</p>
+                <div className="flex-1">
+                  <p className="text-sm font-semibold">{review.name}</p>
+                  <p className="text-xs text-gray-500">{review.date}</p>
                   <div className="flex items-center mt-1">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 text-yellow-400" />
+                    {[...Array(5)].map((_, index) => (
+                      <Star key={index} className={`w-4 h-4 ${index < review.rating ? 'text-yellow-400' : 'text-gray-300'}`} />
                     ))}
-                    <Badge variant="outline" className="ml-2">7</Badge>
                   </div>
-                  <p className="mt-2 text-sm text-gray-600">
-                    So you're going abroad, you've chosen your destination and now you have to choose a hotel. Ten years ago, you'd have probably visited your local travel agent and trusted the face-to-face advice you were given by the so called 'experts'. Whether its a driving tour, a cruise or a bus, leaf viewing is a great way to spend
-                  </p>
+                  <p className="text-sm text-gray-600 mt-2">{review.comment}</p>
                 </div>
               </CardContent>
-              <CardFooter className="flex justify-end space-x-2">
-                <Button variant="outline">Share Review</Button>
-                <Button variant="outline">Respond</Button>
-                <Button variant="outline">Download</Button>
-                <Button variant="outline">Delete Review</Button>
+              <CardFooter className="flex items-center justify-between">
+                <Button variant="ghost" className="text-green-600">
+                  <Star className="w-4 h-4 mr-1" />
+                  {review.helpfulCount}
+                </Button>
+                <div className="flex space-x-2">
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button variant="ghost" className="text-yellow-600">
+                        <Share className="w-4 h-4" />
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>Share Review</TooltipContent>
+                  </Tooltip>
+                  <Button variant="ghost" className="text-blue-600">
+                    <Reply className="w-4 h-4" />
+                  </Button>
+                  <Button variant="ghost" className="text-gray-600">
+                    <Download className="w-4 h-4" />
+                  </Button>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button variant="ghost" className="text-red-600">
+                        <Trash className="w-4 h-4" />
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>Delete Review</TooltipContent>
+                  </Tooltip>
+                </div>
               </CardFooter>
             </Card>
-            {/* Review Card 2 */}
-            {/* Additional review cards can be added following the same structure as above */}
-          </div>
+          ))}
         </div>
-      </main>
+      </div>
     </div>
   );
 }
