@@ -12,6 +12,7 @@ type IssueEvent = {
     labels: { name: string }[];
     user: { login: string };
     pull_request?: { url: string };
+    state: string;
   };
   comment?: {
     body: string;
@@ -233,26 +234,34 @@ async function main() {
 
   console.log(githubEvent.action, eventName, githubEvent.issue);
 
+  const isPr = Boolean(githubEvent.issue.pull_request);
+
+  // only accept issue with ui-gen label
   if (githubEvent.issue.labels.every((l) => l.name !== uiGenLabel)) {
     return;
   }
 
+  // only accept issue/PR created by whitelist users
   if (whitelist.every((item) => item !== githubEvent.issue.user.login)) {
     return;
   }
-
-  const isPr = Boolean(githubEvent.issue.pull_request);
 
   // ignore non-comments event in PR
   if (isPr && eventName === "issues") {
     return;
   }
+
   // ignore invalid comment
   if (
     eventName === "issue_comment" &&
     githubEvent.comment &&
     !isValidComment(githubEvent.comment)
   ) {
+    return;
+  }
+
+  // ignore closed issue/PR
+  if (githubEvent.issue.state !== "open") {
     return;
   }
 
