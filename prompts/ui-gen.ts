@@ -296,7 +296,21 @@ async function main() {
       },
       {
         role: "user",
-        content: prompt,
+        content: [
+          {
+            type: "text",
+            text: prompt,
+          },
+          ...images.map(
+            (image) =>
+              ({
+                type: "image_url",
+                image_url: {
+                  url: image,
+                },
+              } as const)
+          ),
+        ],
       },
     ],
     "gpt-4-vision-preview"
