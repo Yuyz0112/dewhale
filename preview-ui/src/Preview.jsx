@@ -1,119 +1,137 @@
-import React from 'react';
-import { Folder, File, FileText, Image, Music, Video, Archive, Upload, Plus, Edit, Trash, Download, ArrowRight, Settings, User } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { Switch } from '@/components/ui/switch';
+import { useState } from 'react';
+import { Folder, File, FileText, Image, Music, Video, Download, Upload, Plus, Minus, Trash, Settings, ArrowRight, Home } from 'lucide-react';
+import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { Switch } from "@/components/ui/switch";
 
 export default function FileManager() {
+  const [darkMode, setDarkMode] = useState(false);
+
+  const fileIcon = (extension) => {
+    switch (extension) {
+      case 'png':
+      case 'jpg':
+      case 'jpeg':
+      case 'gif':
+        return <Image />;
+      case 'mp3':
+      case 'wav':
+        return <Music />;
+      case 'mp4':
+      case 'avi':
+        return <Video />;
+      case 'txt':
+      case 'doc':
+      case 'docx':
+        return <FileText />;
+      default:
+        return <File />;
+    }
+  };
+
   return (
-    <div className="flex h-screen bg-gray-100 dark:bg-gray-800">
-      <div className="bg-white dark:bg-gray-900 w-64 p-6 hidden sm:block">
-        <div className="flex items-center justify-between mb-6">
-          <h1 className="text-xl font-bold dark:text-white">Turbo Folder</h1>
-          <Switch />
+    <div className={`flex h-screen ${darkMode ? 'bg-gray-800' : 'bg-gray-100'}`}>
+      <div className={`bg-white w-64 p-6 hidden sm:block ${darkMode ? 'bg-gray-900 text-white' : ''}`}>
+        <div className="flex items-center space-x-2 mb-6">
+          <Home className="w-6 h-6" />
+          <span className="font-bold text-lg">Turbo Folder</span>
         </div>
-        <nav>
-          <ul>
-            <li className="flex items-center space-x-2 mb-4">
-              <Folder className="text-gray-500 dark:text-gray-400" />
-              <span className="dark:text-gray-300">My Drive</span>
-            </li>
-            <li className="flex items-center space-x-2 mb-4">
-              <Trash className="text-gray-500 dark:text-gray-400" />
-              <span className="dark:text-gray-300">Trash</span>
-            </li>
-            <li className="flex items-center space-x-2 mb-4">
-              <User className="text-gray-500 dark:text-gray-400" />
-              <span className="dark:text-gray-300">Users</span>
-            </li>
-            <li className="flex items-center space-x-2">
-              <Settings className="text-gray-500 dark:text-gray-400" />
-              <span className="dark:text-gray-300">Logs</span>
-            </li>
-          </ul>
-        </nav>
-        <div className="absolute bottom-0 left-0 p-6 w-64">
-          <Button variant="outline" className="dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white">
-            Sign out
+        <div className="space-y-2">
+          <Button variant="ghost" className="w-full justify-start">
+            <Folder className="w-5 h-5 mr-2" /> My Drive
+          </Button>
+          <Button variant="ghost" className="w-full justify-start">
+            <Trash className="w-5 h-5 mr-2" /> Trash
+          </Button>
+          <Button variant="ghost" className="w-full justify-start">
+            <User className="w-5 h-5 mr-2" /> Users
+          </Button>
+          <Button variant="ghost" className="w-full justify-start">
+            <Settings className="w-5 h-5 mr-2" /> Logs
           </Button>
         </div>
       </div>
       <div className="flex-1 p-6">
         <div className="flex justify-between items-center mb-4">
+          <h1 className="text-xl font-semibold">My Drive</h1>
           <div className="flex space-x-2">
-            <Button variant="outline" className="dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white">
+            <Button variant="solid" className="flex items-center">
               <Upload className="w-4 h-4 mr-2" /> Upload
             </Button>
-            <Button variant="outline" className="dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white">
+            <Button variant="solid" className="flex items-center">
               <Plus className="w-4 h-4 mr-2" /> New folder
             </Button>
-            <Button variant="outline" className="dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white">
-              <FileText className="w-4 h-4 mr-2" /> New file
+            <Button variant="solid" className="flex items-center">
+              <File className="w-4 h-4 mr-2" /> New file
             </Button>
           </div>
-          <TooltipProvider>
+        </div>
+        <Table>
+          <TableCaption>Total 3 items in the current directory.</TableCaption>
+          <TableHead>
+            <TableRow>
+              <TableHeader className="w-[50px]"></TableHeader>
+              <TableHeader>Name</TableHeader>
+              <TableHeader>Size</TableHeader>
+              <TableHeader>Last modified</TableHeader>
+              <TableHeader>Created at</TableHeader>
+              <TableHeader className="w-[150px]"></TableHeader>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {/* Example file row */}
+            <TableRow>
+              <TableCell>
+                <Checkbox />
+              </TableCell>
+              <TableCell className="flex items-center">
+                {fileIcon('png')}
+                <span className="ml-2">example_image.png</span>
+              </TableCell>
+              <TableCell>2.2 MB</TableCell>
+              <TableCell>Apr 10, 2023</TableCell>
+              <TableCell>Apr 10, 2023</TableCell>
+              <TableCell>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="ghost">Actions</Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent>
+                    <DropdownMenuItem>Open</DropdownMenuItem>
+                    <DropdownMenuItem>Download</DropdownMenuItem>
+                    <DropdownMenuItem>Share</DropdownMenuItem>
+                    <DropdownMenuItem>Move</DropdownMenuItem>
+                    <DropdownMenuItem>Copy</DropdownMenuItem>
+                    <DropdownMenuItem>Compress</DropdownMenuItem>
+                    <DropdownMenuItem>Extract</DropdownMenuItem>
+                    <DropdownMenuItem>Delete</DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </TableCell>
+            </TableRow>
+            {/* More file rows... */}
+          </TableBody>
+        </Table>
+      </div>
+      <footer className={`bg-white p-4 shadow-md ${darkMode ? 'bg-gray-900 text-white' : ''}`}>
+        <div className="flex justify-between items-center">
+          <div className="flex items-center">
             <Tooltip>
               <TooltipTrigger asChild>
-                <Button variant="outline" className="dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white">
-                  <ArrowRight className="w-4 h-4" />
+                <Button variant="ghost" onClick={() => setDarkMode(!darkMode)}>
+                  <Settings className="w-5 h-5" />
                 </Button>
               </TooltipTrigger>
-              <TooltipContent>Next</TooltipContent>
+              <TooltipContent>Theme</TooltipContent>
             </Tooltip>
-          </TooltipProvider>
+            <Switch checked={darkMode} onCheckedChange={setDarkMode} />
+          </div>
+          <Button variant="ghost">Sign out</Button>
         </div>
-        <div className="bg-white dark:bg-gray-900 rounded shadow p-6">
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableHeader className="w-[100px] dark:text-gray-300">Name</TableHeader>
-                <TableHeader className="dark:text-gray-300">Size</TableHeader>
-                <TableHeader className="dark:text-gray-300">Last modified</TableHeader>
-                <TableHeader className="dark:text-gray-300">Created at</TableHeader>
-                <TableHeader className="dark:text-gray-300">Actions</TableHeader>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {/* Placeholder for file and folder rows */}
-              <TableRow>
-                <TableCell className="font-medium dark:text-white">
-                  <div className="flex items-center space-x-2">
-                    <Folder className="text-yellow-500" />
-                    <span>Directory</span>
-                  </div>
-                </TableCell>
-                <TableCell className="dark:text-gray-300">64 B</TableCell>
-                <TableCell className="dark:text-gray-300">Nov 22, 2023</TableCell>
-                <TableCell className="dark:text-gray-300">Nov 22, 2023</TableCell>
-                <TableCell>
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button variant="outline" className="dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white">
-                        <Edit className="w-4 h-4" />
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent>
-                      <DropdownMenuItem>Open in new tab</DropdownMenuItem>
-                      <DropdownMenuItem>Download</DropdownMenuItem>
-                      <DropdownMenuItem>Share</DropdownMenuItem>
-                      <DropdownMenuSeparator />
-                      <DropdownMenuItem>Rename</DropdownMenuItem>
-                      <DropdownMenuItem>Move</DropdownMenuItem>
-                      <DropdownMenuItem>Copy</DropdownMenuItem>
-                      <DropdownMenuItem>Compress</DropdownMenuItem>
-                      <DropdownMenuItem>Extract</DropdownMenuItem>
-                      <DropdownMenuItem>Move to trash</DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </TableCell>
-              </TableRow>
-              {/* Repeat for each file/folder */}
-            </TableBody>
-          </Table>
-        </div>
-      </div>
+      </footer>
     </div>
   );
 }
