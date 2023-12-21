@@ -1,83 +1,104 @@
-import { ArrowRight, InboxIcon, Edit, Bell, Wifi, Star, Clock, Settings } from 'lucide-react';
-import { Card, CardContent, CardDescription, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+import { Mail, Settings, Star, InboxIcon, Wifi, Clock, Edit, Camera, File } from 'lucide-react';
+import { AspectRatio } from "@/components/ui/aspect-ratio";
 
-export default function EmailClientComponent() {
+const HeroSection = () => {
   return (
-    <div className="flex flex-col h-screen bg-gradient-to-br from-gray-900 to-black">
-      <div className="flex-1 flex items-center justify-center p-6 bg-[url('https://www.transparenttextures.com/patterns/asfalt-dark.png')]">
-        <div className="text-center">
-          <h1 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-gray-700 to-gray-900 mb-4">
-            Simplify Your Email Experience
-          </h1>
-          <p className="text-gray-400 mb-6">
-            Manage your emails with ease and enhance productivity with our intuitive email client.
-          </p>
-          <Badge variant="outline" className="text-white border-gray-700">
-            Get Started <ArrowRight className="ml-2" />
-          </Badge>
-        </div>
+    <div className="h-screen flex flex-col items-center justify-center bg-[url('/images/pattern.png')] bg-cover bg-fixed text-white">
+      <div className="text-center p-4">
+        <h1 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-gray-700 to-gray-900 mb-4">
+          Revolutionize Your Inbox
+        </h1>
+        <p className="max-w-md mx-auto mb-6">
+          Experience the ultimate email client that brings efficiency and style to your email management. Stay connected, organized, and in control.
+        </p>
       </div>
-      <div className="bg-white p-6">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl text-center text-gray-800 font-bold mb-10">
-            Powerful Features
-          </h2>
-          <div className="grid grid-cols-3 gap-8">
-            {features.map((feature, index) => (
-              <Card key={index} className="bg-gray-800 rounded-lg border border-gray-700">
-                <CardContent className="p-6 text-center">
-                  <div className="p-3 bg-gray-700 bg-opacity-20 rounded-full border border-gray-600 mb-4">
-                    {feature.icon}
-                  </div>
-                  <CardTitle className="text-xl text-white">{feature.title}</CardTitle>
-                  <CardDescription className="text-gray-400">
-                    {feature.description}
-                  </CardDescription>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+      <AspectRatio ratio={16 / 9} className="w-full max-w-2xl">
+        <div className="bg-gradient-to-r from-gray-800 to-black rounded-md shadow-lg"></div>
+      </AspectRatio>
+    </div>
+  );
+};
+
+const Feature = ({ icon, title, description }) => {
+  return (
+    <div className="flex flex-col items-center p-4 border-r border-gray-700 last:border-r-0">
+      <div className="p-3 bg-white bg-opacity-10 rounded-full mb-3">
+        {icon}
+      </div>
+      <h3 className="text-lg font-semibold mb-2">{title}</h3>
+      <p className="text-gray-300 text-center">{description}</p>
+    </div>
+  );
+};
+
+const FeaturesSection = () => {
+  return (
+    <div className="bg-black bg-opacity-50 py-12">
+      <div className="max-w-6xl mx-auto px-4">
+        <h2 className="text-3xl font-bold text-center text-white mb-8">
+          Everything You Need at Your Fingertips
+        </h2>
+        <div className="grid grid-cols-3 gap-8">
+          <Feature
+            icon={<Mail className="w-8 h-8 text-white opacity-70" />}
+            title="Unified Inbox"
+            description="Manage all your emails from multiple accounts in one single place."
+          />
+          <Feature
+            icon={<Settings className="w-8 h-8 text-white opacity-70" />}
+            title="Customizable Interface"
+            description="Tailor your email experience with customizable settings and themes."
+          />
+          <Feature
+            icon={<Star className="w-8 h-8 text-white opacity-70" />}
+            title="Important First"
+            description="Prioritize your most important emails so you never miss a thing."
+          />
+          <Feature
+            icon={<InboxIcon className="w-8 h-8 text-white opacity-70" />}
+            title="Smart Organization"
+            description="Automatic filters and tags to keep your inbox tidy."
+          />
+          <Feature
+            icon={<Wifi className="w-8 h-8 text-white opacity-70" />}
+            title="Always Connected"
+            description="Stay updated with real-time notifications and sync."
+          />
+          <Feature
+            icon={<Clock className="w-8 h-8 text-white opacity-70" />}
+            title="Scheduled Send"
+            description="Write now, send later with scheduled email delivery."
+          />
+          <Feature
+            icon={<Edit className="w-8 h-8 text-white opacity-70" />}
+            title="Effortless Composing"
+            description="Compose emails with ease using our intuitive editor."
+          />
+          <Feature
+            icon={<Camera className="w-8 h-8 text-white opacity-70" />}
+            title="Multimedia Friendly"
+            description="Easily manage and send multimedia attachments."
+          />
+          <Feature
+            icon={<File className="w-8 h-8 text-white opacity-70" />}
+            title="Document Integration"
+            description="Seamlessly integrate with popular document management systems."
+          />
         </div>
       </div>
     </div>
   );
-}
+};
 
-const features = [
-  {
-    title: "Unified Inbox",
-    description: "Access all your emails from different accounts in one convenient location.",
-    icon: <InboxIcon className="w-8 h-8 text-white opacity-75" />,
-  },
-  {
-    title: "Seamless Integration",
-    description: "Integrate with your favorite apps and services without any hassle.",
-    icon: <Wifi className="w-8 h-8 text-white opacity-75" />,
-  },
-  {
-    title: "Instant Notifications",
-    description: "Never miss an important email with real-time notifications.",
-    icon: <Bell className="w-8 h-8 text-white opacity-75" />,
-  },
-  {
-    title: "Smart Organization",
-    description: "Automatically categorize emails for efficient management.",
-    icon: <Edit className="w-8 h-8 text-white opacity-75" />,
-  },
-  {
-    title: "Customizable Themes",
-    description: "Personalize your email client with themes that reflect your style.",
-    icon: <Star className="w-8 h-8 text-white opacity-75" />,
-  },
-  {
-    title: "Scheduled Sending",
-    description: "Compose emails now and schedule them to send later at the perfect time.",
-    icon: <Clock className="w-8 h-8 text-white opacity-75" />,
-  },
-  {
-    title: "Advanced Security",
-    description: "Protect your privacy with leading security protocols and encryption.",
-    icon: <Settings className="w-8 h-8 text-white opacity-75" />,
-  },
-];
+const EmailClientComponent = () => {
+  return (
+    <div className="flex flex-col bg-gray-900 text-white">
+      <HeroSection />
+      <div className="my-12">
+        <FeaturesSection />
+      </div>
+    </div>
+  );
+};
+
+export default EmailClientComponent;
