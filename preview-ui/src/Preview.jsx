@@ -1,8 +1,8 @@
 import React from 'react';
-import { Folder, File, Upload, Plus, Minus, Download, Edit, Trash, Image, Video, Music, FileText, Archive, ChevronDown, ChevronUp, Sun, Moon, LogOut } from 'lucide-react';
+import { Folder, File, Upload, Plus, Download, Trash, Image, Video, Music, File as FileIcon, Archive, Copy, ArrowRight, Home, Settings, Star } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Table, TableBody, TableCell, TableHeader, TableHead, TableRow } from '@/components/ui/table';
-import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
+import { Table, TableBody, TableCaption, TableCell, TableHeader, TableHead, TableRow } from '@/components/ui/table';
+import { Switch } from '@/components/ui/switch';
 import { TooltipProvider, Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 
 export default function FileManager() {
@@ -11,10 +11,13 @@ export default function FileManager() {
       <div className="flex flex-col h-screen bg-gray-100 dark:bg-gray-800">
         {/* Sidebar */}
         <div className="bg-white dark:bg-gray-900 w-64 p-6 hidden sm:block">
-          <div className="text-gray-900 dark:text-white font-bold mb-4">Turbo Folder</div>
+          <div className="flex items-center space-x-2 mb-6">
+            <Folder className="w-6 h-6" />
+            <span className="font-bold text-lg">Turbo Folder</span>
+          </div>
           <div className="space-y-2">
             <Button variant="ghost" className="justify-start w-full">
-              <Folder className="w-5 h-5 mr-2" /> My Drive
+              <Home className="w-5 h-5 mr-2" /> My Drive
             </Button>
             <Button variant="ghost" className="justify-start w-full">
               <Trash className="w-5 h-5 mr-2" /> Trash
@@ -23,36 +26,30 @@ export default function FileManager() {
               <User className="w-5 h-5 mr-2" /> Users
             </Button>
             <Button variant="ghost" className="justify-start w-full">
-              <FileText className="w-5 h-5 mr-2" /> Logs
+              <Settings className="w-5 h-5 mr-2" /> Logs
             </Button>
           </div>
         </div>
 
         {/* Main content */}
-        <div className="flex-1 p-6">
+        <main className="flex-1 overflow-y-auto p-6">
           <div className="flex justify-between items-center mb-4">
+            <h1 className="text-xl font-semibold">My Drive</h1>
             <div className="flex space-x-2">
-              <Button variant="ghost">
-                <ChevronUp className="w-5 h-5" />
+              <Button variant="outline" className="flex items-center">
+                <Upload className="w-4 h-4 mr-1" /> Upload
               </Button>
-              <Button variant="ghost">
-                <ChevronDown className="w-5 h-5" />
+              <Button variant="outline" className="flex items-center">
+                <Plus className="w-4 h-4 mr-1" /> New folder
               </Button>
-            </div>
-            <div className="flex space-x-2">
-              <Button variant="solid" className="flex items-center">
-                <Upload className="w-5 h-5 mr-2" /> Upload
-              </Button>
-              <Button variant="solid" className="flex items-center">
-                <Plus className="w-5 h-5 mr-2" /> New folder
-              </Button>
-              <Button variant="solid" className="flex items-center">
-                <File className="w-5 h-5 mr-2" /> New file
+              <Button variant="outline" className="flex items-center">
+                <FileIcon className="w-4 h-4 mr-1" /> New file
               </Button>
             </div>
           </div>
 
           <Table>
+            <TableCaption>Total 3 items in the current directory.</TableCaption>
             <TableHeader>
               <TableRow>
                 <TableHead className="w-[50px]"></TableHead>
@@ -63,50 +60,55 @@ export default function FileManager() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {/* Example file */}
               <TableRow>
+                <TableCell><Checkbox /></TableCell>
                 <TableCell>
-                  <Checkbox />
-                </TableCell>
-                <TableCell>
-                  <Folder className="w-5 h-5 mr-2 inline" />
+                  <Folder className="inline-block w-5 h-5 mr-2" />
                   Directory
                 </TableCell>
                 <TableCell>64 B</TableCell>
                 <TableCell>Nov 22, 2023</TableCell>
                 <TableCell>Nov 22, 2023</TableCell>
               </TableRow>
-              {/* Example file */}
               <TableRow>
+                <TableCell><Checkbox /></TableCell>
                 <TableCell>
-                  <Checkbox />
-                </TableCell>
-                <TableCell>
-                  <File className="w-5 h-5 mr-2 inline" />
+                  <FileIcon className="inline-block w-5 h-5 mr-2" />
                   Document.pdf
                 </TableCell>
                 <TableCell>1.2 MB</TableCell>
                 <TableCell>Nov 20, 2023</TableCell>
                 <TableCell>Nov 18, 2023</TableCell>
               </TableRow>
+              <TableRow>
+                <TableCell><Checkbox /></TableCell>
+                <TableCell>
+                  <Image className="inline-block w-5 h-5 mr-2" />
+                  Image.png
+                </TableCell>
+                <TableCell>2.5 MB</TableCell>
+                <TableCell>Nov 15, 2023</TableCell>
+                <TableCell>Nov 15, 2023</TableCell>
+              </TableRow>
             </TableBody>
           </Table>
-        </div>
+        </main>
 
         {/* Footer */}
-        <div className="bg-white dark:bg-gray-900 p-4 shadow-md flex justify-between items-center">
-          <ToggleGroup type="single" defaultValue="light">
-            <ToggleGroupItem value="light" aria-label="Light mode">
-              <Sun className="w-5 h-5" />
-            </ToggleGroupItem>
-            <ToggleGroupItem value="dark" aria-label="Dark mode">
-              <Moon className="w-5 h-5" />
-            </ToggleGroupItem>
-          </ToggleGroup>
+        <footer className="bg-white dark:bg-gray-900 p-4 flex justify-between items-center">
+          <div className="flex items-center">
+            <Tooltip>
+              <TooltipTrigger>
+                <Switch className="mr-2" />
+              </TooltipTrigger>
+              <TooltipContent>Toggle theme</TooltipContent>
+            </Tooltip>
+            <span>Theme</span>
+          </div>
           <Button variant="ghost" className="flex items-center">
-            <LogOut className="w-5 h-5 mr-2" /> Sign out
+            <ArrowRight className="w-5 h-5 mr-2" /> Sign out
           </Button>
-        </div>
+        </footer>
       </div>
     </TooltipProvider>
   );
