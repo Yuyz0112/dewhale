@@ -680,48 +680,29 @@ import { Textarea } from "@/components/ui/textarea";
 ### Available Component 34, toast:
 
 ```jsx
-import { Toaster } from "@/components/ui/toaster"
+import { Toaster } from "@/components/ui/toaster";
+import { useToast } from "@/components/ui/use-toast";
 
 export default function RootLayout({ children }) {
-  return (
-    <html lang="en">
-      <head />
-      <body>
-        <main>{children}</main>
-        <Toaster />
-      </body>
-    </html>
-  )
-}
-import { Toaster } from "@/components/ui/toaster"
-
-export default function RootLayout({ children }) {
-  return (
-    <html lang="en">
-      <head />
-      <body>
-        <main>{children}</main>
-        <Toaster />
-      </body>
-    </html>
-  )
-}
-import { useToast } from "@/components/ui/use-toast"
-export const ToastDemo = () => {
-  const { toast } = useToast()
+  const { toast } = useToast();
 
   return (
-    <Button
-      onClick={() => {
-        toast({
-          title: "Scheduled: Catch up",
-          description: "Friday, February 10, 2023 at 5:57 PM",
-        })
-      }}
-    >
-      Show Toast
-    </Button>
-  )
+    <>
+      <main>
+        <Button
+          onClick={() => {
+            toast({
+              title: "Scheduled: Catch up",
+              description: "Friday, February 10, 2023 at 5:57 PM",
+            });
+          }}
+        >
+          Show Toast
+        </Button>
+      </main>
+      <Toaster />
+    </>
+  );
 }
 ```
 
