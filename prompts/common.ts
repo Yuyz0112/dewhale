@@ -39,6 +39,8 @@ export async function getCode(
         temperature: 0.2,
       });
 
+      console.log("raw output> ", chatCompletion.choices[0].message.content);
+
       const codeBlocks: string[] = [];
       const tree = fromMarkdown(chatCompletion.choices[0].message.content);
       // deno-lint-ignore no-explicit-any
