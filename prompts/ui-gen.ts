@@ -5,6 +5,7 @@ import { join } from "https://deno.land/std@0.188.0/path/mod.ts";
 import { getCode } from "./common.ts";
 
 type IssueEvent = {
+  action: string;
   issue: {
     body: string;
     number: number;
@@ -219,13 +220,22 @@ async function main() {
     })
   ).default;
 
-  console.log(githubEvent.issue);
+  console.log(githubEvent.action, githubEvent.issue);
 
   if (githubEvent.issue.labels.every((l) => l.name !== uiGenLabel)) {
     return;
   }
 
   if (whitelist.every((item) => item !== githubEvent.issue.user.login)) {
+    return;
+  }
+
+  const isPr = Boolean(githubEvent.issue.pull_request);
+  const eventName = Deno.env.get("GITHUB_EVENT_NAME");
+  assert(eventName, "failed to get event name");
+
+  // ignore non-comments event in PR
+  if (isPr && eventName === "issues") {
     return;
   }
 
@@ -236,21 +246,17 @@ async function main() {
   assert(repo, "failed to get repo name");
   repo = repo.replace(`${owner}/`, "");
 
-  const branch = `ui-gen-issue-${githubEvent.issue.number}`;
+  const issue = isPr
+    ? await getConnectedIssue(owner, repo, githubEvent.issue.body)
+    : githubEvent.issue;
 
-  let issue: { number: number; body?: string | null } = {
-    number: -1,
-    body: "",
-  };
+  const branch = `ui-gen-issue-${issue.number}`;
+
   let pr: { number: number } = { number: -1 };
-
-  if (githubEvent.issue.pull_request) {
+  if (isPr) {
     // is PR event
     pr = githubEvent.issue;
-    issue = await getConnectedIssue(owner, repo, githubEvent.issue.body);
   } else {
-    issue = githubEvent.issue;
-
     const connectedPrNumber = await getConnectedPr(owner, repo, issue.number);
     pr = connectedPrNumber
       ? (

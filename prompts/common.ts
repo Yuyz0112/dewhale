@@ -29,7 +29,7 @@ export async function getCode(
         messages,
         model,
         max_tokens: 3000,
-        temperature: 1,
+        temperature: 0.2,
       });
 
       const codeBlocks: string[] = [];
