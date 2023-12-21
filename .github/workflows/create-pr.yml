@@ -21,4 +21,5 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          WHITELIST: ${{ secrets.WHITELIST }}
         run: deno run -A prompts/ui-gen.ts

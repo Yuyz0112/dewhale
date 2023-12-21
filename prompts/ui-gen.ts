@@ -27,7 +27,9 @@ const octokit: Octokit = new PatchedOctokit({
   auth: ghToken,
 });
 
-const whitelist = ["Yuyz0112"];
+const whitelistStr = Deno.env.get("WHITELIST");
+assert(whitelistStr, "failed to get whitelist");
+const whitelist = whitelistStr.split(",");
 
 const vxDevPrefix = `[vx.dev]`;
 const uiGenLabel = `ui-gen`;
