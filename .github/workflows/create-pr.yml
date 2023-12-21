@@ -2,7 +2,7 @@ name: Create PR
 
 on:
   issues:
-    types: [opened, edited, labeled, unlabeled]
+    types: [edited, labeled, unlabeled]
   issue_comment:
     types: [created, edited, deleted]
 
