@@ -1,6 +1,7 @@
 import { Octokit } from "npm:octokit";
 import commitPlugin from "npm:octokit-commit-multiple-files";
 import { assert } from "https://deno.land/std@0.201.0/assert/assert.ts";
+import { join } from "https://deno.land/std@0.188.0/path/mod.ts";
 import { getCode } from "./common.ts";
 
 type IssueEvent = {
@@ -26,7 +27,8 @@ const whitelist = ["Yuyz0112"];
 const vxDevPrefix = `[vx.dev]`;
 const uiGenLabel = `ui-gen`;
 
-const systemPrompt = await Deno.readTextFile("./ui-gen.md");
+const __dirname = new URL(".", import.meta.url).pathname;
+const systemPrompt = await Deno.readTextFile(join(__dirname, "./ui-gen.md"));
 console.log(systemPrompt);
 
 async function getConnectedPr(
