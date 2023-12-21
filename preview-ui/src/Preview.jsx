@@ -1,99 +1,69 @@
-import { useState } from 'react';
-import { ResponsiveBar } from "@nivo/bar";
-import { ArrowRight, CloudRain, Sun, Wind } from 'lucide-react';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import React from 'react';
+import { AspectRatio } from "@/components/ui/aspect-ratio";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { WeatherIcon } from "lucide-react";
+import { ResponsiveLine } from "@nivo/line";
 
 export default function WeatherApp() {
-  const [selectedDay, setSelectedDay] = useState('Today');
-
-  const days = [
-    { name: 'Today', high: 76, low: 68, icon: <Sun className="w-8 h-8 text-yellow-300" /> },
-    { name: 'Mon', high: 70, low: 65, icon: <CloudRain className="w-8 h-8 text-gray-300" /> },
-    { name: 'Tue', high: 75, low: 64, icon: <Wind className="w-8 h-8 text-gray-300" /> },
-    { name: 'Wed', high: 80, low: 70, icon: <Sun className="w-8 h-8 text-yellow-300" /> },
-    { name: 'Thu', high: 78, low: 67, icon: <CloudRain className="w-8 h-8 text-gray-300" /> },
-  ];
-
-  const hourlyData = [
-    { hour: 'Now', temperature: 76 },
-    { hour: '1 PM', temperature: 75 },
-    { hour: '2 PM', temperature: 74 },
-    { hour: '3 PM', temperature: 73 },
-    { hour: '4 PM', temperature: 72 },
-    { hour: '5 PM', temperature: 71 },
-  ];
-
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-400 to-blue-600 text-white">
-      <div className="p-4">
-        <h1 className="text-4xl font-bold">San Francisco</h1>
-        <p className="text-xl">Mostly Sunny</p>
-        <div className="flex items-center justify-between my-4">
-          <div className="text-6xl font-bold">76°</div>
-          <ArrowRight className="w-8 h-8" />
-        </div>
-        <Tabs defaultValue="Today" className="mb-4">
-          <TabsList>
-            {days.map((day) => (
-              <TabsTrigger
-                key={day.name}
-                value={day.name}
-                onClick={() => setSelectedDay(day.name)}
-                className={`p-2 rounded-lg ${selectedDay === day.name ? 'bg-blue-700' : ''}`}
-              >
-                {day.icon}
-                <div>{day.name}</div>
-                <div className="text-sm">
-                  {day.high}° / {day.low}°
+    <div className="min-h-screen bg-gradient-to-b from-blue-400 to-blue-600">
+      <div className="flex justify-center items-center min-h-screen">
+        <div className="w-[500px] bg-white bg-opacity-80 rounded-lg shadow-lg p-4">
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-2xl font-bold text-gray-800">San Francisco</CardTitle>
+              <CardDescription className="text-sm text-gray-600">CA, USA</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="flex items-center justify-between py-4">
+                <div className="flex items-center">
+                  <WeatherIcon className="w-12 h-12 text-blue-500" />
+                  <div className="ml-4">
+                    <div className="text-5xl font-semibold">72°</div>
+                    <div className="text-sm text-gray-600">Sunny</div>
+                  </div>
                 </div>
-              </TabsTrigger>
-            ))}
-          </TabsList>
-        </Tabs>
-        <div className="flex overflow-x-auto space-x-4 pb-4">
-          {hourlyData.map((data) => (
-            <div key={data.hour} className="flex flex-col items-center">
-              <div className="text-sm">{data.hour}</div>
-              <div className="text-2xl font-bold">{data.temperature}°</div>
-            </div>
-          ))}
-        </div>
-        <div className="h-64">
-          <ResponsiveBar
-            data={hourlyData.map((data) => ({ hour: data.hour, temperature: data.temperature }))}
-            keys={['temperature']}
-            indexBy="hour"
-            margin={{ top: 50, right: 50, bottom: 50, left: 60 }}
-            padding={0.3}
-            valueScale={{ type: 'linear' }}
-            indexScale={{ type: 'band', round: true }}
-            colors={{ scheme: 'nivo' }}
-            borderColor={{ from: 'color', modifiers: [['darker', 1.6]] }}
-            axisTop={null}
-            axisRight={null}
-            axisBottom={{
-              tickSize: 5,
-              tickPadding: 5,
-              tickRotation: 0,
-              legend: 'Hour',
-              legendPosition: 'middle',
-              legendOffset: 32
-            }}
-            axisLeft={{
-              tickSize: 5,
-              tickPadding: 5,
-              tickRotation: 0,
-              legend: 'Temperature',
-              legendPosition: 'middle',
-              legendOffset: -40
-            }}
-            labelSkipWidth={12}
-            labelSkipHeight={12}
-            labelTextColor={{ from: 'color', modifiers: [['darker', 1.6]] }}
-            animate={true}
-            motionStiffness={90}
-            motionDamping={15}
-          />
+                <div className="text-right">
+                  <div className="text-sm text-gray-600">H: 77° L: 56°</div>
+                  <div className="text-sm text-gray-600">10% chance of rain</div>
+                </div>
+              </div>
+              <AspectRatio ratio={16 / 9} className="hidden">
+                <div className="w-full h-full">
+                  <ResponsiveLine
+                    data={[
+                      {
+                        id: "temperature",
+                        data: [
+                          { x: "6 AM", y: 56 },
+                          { x: "9 AM", y: 60 },
+                          { x: "12 PM", y: 68 },
+                          { x: "3 PM", y: 72 },
+                          { x: "6 PM", y: 70 },
+                          { x: "9 PM", y: 65 },
+                        ],
+                      },
+                    ]}
+                    margin={{ top: 20, right: 20, bottom: 60, left: 80 }}
+                    xScale={{ type: "point" }}
+                    yScale={{ type: "linear", min: "auto", max: "auto" }}
+                    axisTop={null}
+                    axisRight={null}
+                    enableGridX={false}
+                    enableGridY={false}
+                    colors={{ scheme: "nivo" }}
+                    lineWidth={3}
+                    pointSize={10}
+                    pointColor={{ from: 'color', modifiers: [] }}
+                    pointBorderWidth={2}
+                    pointBorderColor={{ from: 'serieColor' }}
+                    useMesh={true}
+                    legends={[]}
+                  />
+                </div>
+              </AspectRatio>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </div>
