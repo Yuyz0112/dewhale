@@ -1,6 +1,7 @@
 import { Octokit } from "npm:octokit";
 import commitPlugin from "npm:octokit-commit-multiple-files";
 import { assert } from "https://deno.land/std@0.201.0/assert/assert.ts";
+import { getCode } from "./common.ts";
 
 type IssueEvent = {
   issue: {
@@ -24,6 +25,9 @@ const whitelist = ["Yuyz0112"];
 
 const vxDevPrefix = `[vx.dev]`;
 const uiGenLabel = `ui-gen`;
+
+const systemPrompt = await Deno.readTextFile("./ui-gen.md");
+console.log(systemPrompt);
 
 async function getConnectedPr(
   owner: string,
@@ -213,7 +217,7 @@ async function main() {
     })
   ).default;
 
-  console.log(githubEvent);
+  console.log(githubEvent.issue);
 
   if (githubEvent.issue.labels.every((l) => l.name !== uiGenLabel)) {
     return;
