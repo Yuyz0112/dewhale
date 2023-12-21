@@ -1,128 +1,116 @@
 import React from 'react';
-import { Folder, File, Upload, Plus, Minus, Download, Edit, Trash, Image, Video, Music, FileText, Archive, ChevronDown, Sun, Moon } from 'lucide-react';
-import { Table, TableBody, TableCaption, TableCell, TableHeader, TableHead, TableRow } from "@/components/ui/table";
+import { Folder, FileText, UploadCloud, Plus, FilePlus, Compress, Copy, Move, Trash2 } from 'lucide-react';
+import { Table, TableBody, TableCaption, TableCell, TableHeader, TableRow } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Toaster, useToast } from "@/components/ui/toaster";
+import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuTrigger } from "@/components/ui/context-menu";
+import { TooltipProvider, Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { Switch } from "@/components/ui/switch";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 export default function FileManager() {
-  // This data would typically be fetched from an API, but is hardcoded here for the static prototype.
+  const { toast } = useToast();
+
+  // Dummy data for files and folders
   const files = [
     { name: 'Directory', size: '64 B', modified: 'Nov 22, 2023 06:26 AM', created: 'Nov 22, 2023 06:26 AM', type: 'folder' },
-    { name: 'Facebook_Lite_381.0.0.3.100_apkcombo.com.apk', size: '2.22 MiB', modified: 'Nov 11, 2023 04:38 PM', created: 'Nov 22, 2023 06:22 AM', type: 'apk' },
-    { name: 'WhatsApp_Business_2.23.24.18_apkcombo.com.apk', size: '0 B', modified: 'Nov 11, 2023 04:26 PM', created: 'Nov 22, 2023 06:22 AM', type: 'apk' },
+    { name: 'Facebook Lite_381.0.0.3.100_apkcombo.com.apk', size: '2.22 MiB', modified: 'Nov 11, 2023 04:38 PM', created: 'Nov 22, 2023 06:22 AM', type: 'file' },
+    { name: 'WhatsApp Business_2.23.24.18_apkcombo.com.apk', size: '0 B', modified: 'Nov 11, 2023 04:26 PM', created: 'Nov 22, 2023 06:22 AM', type: 'file' },
   ];
 
-  // File type to icon mapping
-  const fileTypeIcons = {
-    folder: <Folder />,
-    apk: <File />,
-    image: <Image />,
-    video: <Video />,
-    audio: <Music />,
-    document: <FileText />,
-    archive: <Archive />,
-    // Add more file type mappings here
+  // Function to simulate file upload and show toast
+  const handleUpload = () => {
+    toast({
+      title: 'Files uploaded.',
+      description: 'Your files have been successfully uploaded.',
+    });
   };
 
   return (
-    <div className="flex flex-col h-screen bg-gray-100 dark:bg-gray-800">
-      <header className="flex justify-between items-center p-4 bg-white dark:bg-gray-900 shadow-md">
-        <h1 className="text-xl font-semibold text-gray-900 dark:text-white">Turbo Folder</h1>
-        <div className="flex items-center">
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button variant="outline" className="mr-2">
-                <Sun />
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent>Light Mode</TooltipContent>
-          </Tooltip>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button variant="outline">
-                <Moon />
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent>Dark Mode</TooltipContent>
-          </Tooltip>
-        </div>
-      </header>
-      <div className="flex flex-1 overflow-hidden">
-        <div className="bg-white dark:bg-gray-900 w-64 p-6 hidden sm:block">
-          <nav>
-            <ul>
-              <li className="mb-2"><Button asChild><a href="#">My Drive</a></Button></li>
-              <li className="mb-2"><Button asChild><a href="#">Trash</a></Button></li>
-              <li className="mb-2"><Button asChild><a href="#">Users</a></Button></li>
-              <li className="mb-2"><Button asChild><a href="#">Logs</a></Button></li>
-            </ul>
-          </nav>
-        </div>
-        <main className="flex-1 overflow-y-auto p-4">
-          <Table>
-            <TableCaption className="text-left text-sm font-semibold text-gray-900 dark:text-white mb-4">My Drive</TableCaption>
-            <TableHeader>
-              <TableRow>
-                <TableHead className="w-[50px]"></TableHead>
-                <TableHead>Name</TableHead>
-                <TableHead>Size</TableHead>
-                <TableHead>Last modified</TableHead>
-                <TableHead>Created at</TableHead>
-                <TableHead className="w-[150px] text-right">Actions</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {files.map((file, index) => (
-                <TableRow key={index}>
-                  <TableCell>{fileTypeIcons[file.type] || <File />}</TableCell>
-                  <TableCell>{file.name}</TableCell>
-                  <TableCell>{file.size}</TableCell>
-                  <TableCell>{file.modified}</TableCell>
-                  <TableCell>{file.created}</TableCell>
-                  <TableCell className="text-right">
-                    <DropdownMenu>
-                      <DropdownMenuTrigger asChild>
-                        <Button variant="outline" aria-label="Options">
-                          <ChevronDown />
-                        </Button>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent>
-                        <DropdownMenuItem>Open</DropdownMenuItem>
-                        <DropdownMenuItem>Download</DropdownMenuItem>
-                        <DropdownMenuItem>Share</DropdownMenuItem>
-                        <DropdownMenuItem>Move</DropdownMenuItem>
-                        <DropdownMenuItem>Copy</DropdownMenuItem>
-                        <DropdownMenuItem>Compress</DropdownMenuItem>
-                        <DropdownMenuItem>Extract</DropdownMenuItem>
-                        <DropdownMenuItem>Delete</DropdownMenuItem>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
-                  </TableCell>
+    <TooltipProvider>
+      <div className="flex flex-col h-screen">
+        <header className="bg-white p-4 shadow-md flex justify-between items-center">
+          <h1 className="text-xl font-semibold">Turbo Folder</h1>
+          <div>
+            <Button onClick={handleUpload} className="mr-2">
+              <UploadCloud className="w-4 h-4 mr-1" /> Upload
+            </Button>
+            <Button className="mr-2">
+              <Plus className="w-4 h-4 mr-1" /> New folder
+            </Button>
+            <Button>
+              <FilePlus className="w-4 h-4 mr-1" /> New file
+            </Button>
+          </div>
+        </header>
+        <div className="flex flex-1 overflow-hidden">
+          <div className="bg-white w-64 p-6 hidden sm:block">
+            <div className="flex items-center mb-4">
+              <Folder className="w-5 h-5 mr-2" /> My Drive
+            </div>
+            <div className="flex items-center mb-4">
+              <Trash2 className="w-5 h-5 mr-2" /> Trash
+            </div>
+            <div className="flex items-center mb-4">
+              <FileText className="w-5 h-5 mr-2" /> Users
+            </div>
+            <div className="flex items-center">
+              <FileText className="w-5 h-5 mr-2" /> Logs
+            </div>
+          </div>
+          <main className="flex-1 overflow-y-auto p-4">
+            <Table>
+              <TableCaption>Total {files.length} items in the current directory.</TableCaption>
+              <TableHeader>
+                <TableRow>
+                  <TableCell><Checkbox /></TableCell>
+                  <TableCell>Name</TableCell>
+                  <TableCell>Size</TableCell>
+                  <TableCell>Last modified</TableCell>
+                  <TableCell>Created at</TableCell>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </main>
+              </TableHeader>
+              <TableBody>
+                {files.map((file, index) => (
+                  <TableRow key={index}>
+                    <TableCell><Checkbox /></TableCell>
+                    <TableCell>
+                      {file.type === 'folder' ? <Folder className="inline w-4 h-4 mr-2" /> : <FileText className="inline w-4 h-4 mr-2" />}
+                      {file.name}
+                    </TableCell>
+                    <TableCell>{file.size}</TableCell>
+                    <TableCell>{file.modified}</TableCell>
+                    <TableCell>{file.created}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </main>
+        </div>
+        <footer className="bg-white p-4 shadow-md flex justify-between items-center">
+          <div>
+            <Switch /> Theme
+          </div>
+          <Button variant="outline">Sign out</Button>
+        </footer>
+        <Toaster />
+        <ContextMenu>
+          <ContextMenuTrigger asChild>
+            <Button className="absolute bottom-4 right-4">...</Button>
+          </ContextMenuTrigger>
+          <ContextMenuContent>
+            <ContextMenuItem>Open in new tab</ContextMenuItem>
+            <ContextMenuItem>Download</ContextMenuItem>
+            <ContextMenuItem>Share</ContextMenuItem>
+            <ContextMenuItem>Rename</ContextMenuItem>
+            <ContextMenuItem>Move</ContextMenuItem>
+            <ContextMenuItem>Copy</ContextMenuItem>
+            <ContextMenuItem>Compress</ContextMenuItem>
+            <ContextMenuItem>Extract</ContextMenuItem>
+            <ContextMenuItem>Move to trash</ContextMenuItem>
+          </ContextMenuContent>
+        </ContextMenu>
       </div>
-      <footer className="flex justify-between items-center p-4 bg-white dark:bg-gray-900 shadow-md">
-        <div>
-          <Button variant="outline" className="mr-2">
-            <Upload className="mr-1" /> Upload
-          </Button>
-          <Button variant="outline" className="mr-2">
-            <Plus className="mr-1" /> New folder
-          </Button>
-          <Button variant="outline">
-            <File className="mr-1" /> New file
-          </Button>
-        </div>
-        <div>
-          <Switch id="theme-toggle" className="mr-2" />
-          <label htmlFor="theme-toggle" className="text-sm font-medium text-gray-900 dark:text-white">Dark Mode</label>
-        </div>
-      </footer>
-    </div>
+    </TooltipProvider>
   );
 }
