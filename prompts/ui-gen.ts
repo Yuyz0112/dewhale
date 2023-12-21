@@ -13,6 +13,9 @@ type IssueEvent = {
     user: { login: string };
     pull_request?: { url: string };
   };
+  comment?: {
+    body: string;
+  };
 };
 
 const PatchedOctokit = Octokit.plugin(commitPlugin);
@@ -30,7 +33,16 @@ const uiGenLabel = `ui-gen`;
 
 const __dirname = new URL(".", import.meta.url).pathname;
 const systemPrompt = await Deno.readTextFile(join(__dirname, "./ui-gen.md"));
-console.log(systemPrompt);
+
+function isValidComment(comment: {
+  body?: string;
+  user?: { login: string } | null;
+}) {
+  return (
+    !comment.body?.includes(vxDevPrefix) &&
+    whitelist.some((item) => item === comment.user?.login)
+  );
+}
 
 async function getConnectedPr(
   owner: string,
@@ -116,8 +128,8 @@ async function applyPR(
     repo,
     branch: newBranch,
     createBranch: true,
-    base: baseBranch,
-    forkFromBaseBranch: true,
+    // base: baseBranch,
+    // forkFromBaseBranch: true,
     changes: [
       {
         message: commitMsg,
@@ -177,11 +189,7 @@ async function collectPromptAndImages(
 
   const commentsStr = issueComments
     .concat(prComments)
-    .filter(
-      (c) =>
-        !c.body?.includes(vxDevPrefix) &&
-        whitelist.some((item) => item === c.user?.login)
-    )
+    .filter((c) => isValidComment(c))
     .sort(
       (a, b) =>
         new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
@@ -220,7 +228,10 @@ async function main() {
     })
   ).default;
 
-  console.log(githubEvent.action, githubEvent.issue);
+  const eventName = Deno.env.get("GITHUB_EVENT_NAME");
+  assert(eventName, "failed to get event name");
+
+  console.log(githubEvent.action, eventName, githubEvent.issue);
 
   if (githubEvent.issue.labels.every((l) => l.name !== uiGenLabel)) {
     return;
@@ -231,11 +242,17 @@ async function main() {
   }
 
   const isPr = Boolean(githubEvent.issue.pull_request);
-  const eventName = Deno.env.get("GITHUB_EVENT_NAME");
-  assert(eventName, "failed to get event name");
 
   // ignore non-comments event in PR
   if (isPr && eventName === "issues") {
+    return;
+  }
+  // ignore invalid comment
+  if (
+    eventName === "issue_comment" &&
+    githubEvent.comment &&
+    !isValidComment(githubEvent.comment)
+  ) {
     return;
   }
 
@@ -272,9 +289,10 @@ async function main() {
           issue.number,
           branch,
           {
-            "vx.dev.txt": "placeholder",
+            "preview-ui/src/Preview.jsx":
+              "export default function VxDev() { return <p>vx.dev placeholder</p>; }",
           },
-          "vx.dev: init the PR"
+          "[Skip CI] vx.dev: init the PR"
         );
   }
 

@@ -1,3 +1,3 @@
-export default function Empty() {
+export default function VxDev() {
   return <p>vx.dev</p>;
 }
