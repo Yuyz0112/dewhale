@@ -732,11 +732,14 @@ import { Toggle } from "@/components/ui/toggle";
 
 ```jsx
 import {
+  TooltipProvider,
   Tooltip,
   TooltipContent,
-  TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+
+// always include the TooltipProvider at the top level when you want to use tooltip
+
 <TooltipProvider>
   <Tooltip>
     <TooltipTrigger>Hover</TooltipTrigger>
