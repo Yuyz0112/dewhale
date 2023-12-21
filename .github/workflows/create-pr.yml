@@ -1,24 +1,24 @@
-name: Create PR
+# name: Create PR
 
-on:
-  issues:
-    types: [opened, edited, labeled, unlabeled]
-  issue_comment:
-    types: [created, edited, deleted]
+# on:
+#   issues:
+#     types: [opened, edited, labeled, unlabeled]
+#   issue_comment:
+#     types: [created, edited, deleted]
 
-jobs:
-  handle_issue:
-    runs-on: ubuntu-latest
-    name: Create PR
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-      - name: Setup Deno
-        uses: denoland/setup-deno@v1
-        with:
-          deno-version: 1.38.3
-      - name: generate UI
-        env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-        run: deno run -A prompts/ui-gen.ts
+# jobs:
+#   handle_issue:
+#     runs-on: ubuntu-latest
+#     name: Create PR
+#     steps:
+#       - name: Checkout repository
+#         uses: actions/checkout@v3
+#       - name: Setup Deno
+#         uses: denoland/setup-deno@v1
+#         with:
+#           deno-version: 1.38.3
+#       - name: generate UI
+#         env:
+#           GH_TOKEN: ${{ secrets.GH_TOKEN }}
+#           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+#         run: deno run -A prompts/ui-gen.ts
