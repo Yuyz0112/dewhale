@@ -1,13 +1,14 @@
 import { useState } from 'react';
-import { Home, User, Settings, Bell, File, Calendar, Printer } from 'lucide-react';
+import { ArrowRight, Home, User, Settings, Clock, Calendar, File, Trash } from 'lucide-react';
 import {
   NavigationMenu,
+  NavigationMenuContent,
   NavigationMenuList,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuTrigger,
-  NavigationMenuContent,
-  NavigationMenuViewport,
+} from "@/components/ui/navigation-menu";
+import {
   Table,
   TableBody,
   TableCaption,
@@ -15,62 +16,41 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui';
+} from "@/components/ui/table";
 
 export default function EcommerceDashboard() {
-  const [selectedMenuItem, setSelectedMenuItem] = useState('dashboard');
+  const [selectedMenu, setSelectedMenu] = useState('dashboard');
 
   return (
     <div className="flex h-screen bg-gray-100">
-      <aside className="w-64 bg-white p-4">
+      <aside className="w-64 bg-white p-6">
         <NavigationMenu>
           <NavigationMenuList>
             <NavigationMenuItem>
               <NavigationMenuLink
                 as="button"
-                className={`flex items-center p-2 rounded-md hover:bg-gray-200 ${
-                  selectedMenuItem === 'dashboard' ? 'bg-gray-200' : ''
-                }`}
-                onClick={() => setSelectedMenuItem('dashboard')}
+                className={selectedMenu === 'dashboard' ? 'text-blue-500' : ''}
+                onClick={() => setSelectedMenu('dashboard')}
               >
-                <Home className="mr-2" />
-                Dashboard
+                <Home className="inline-block w-5 h-5 mr-2" /> Dashboard
               </NavigationMenuLink>
             </NavigationMenuItem>
             <NavigationMenuItem>
               <NavigationMenuLink
                 as="button"
-                className={`flex items-center p-2 rounded-md hover:bg-gray-200 ${
-                  selectedMenuItem === 'orders' ? 'bg-gray-200' : ''
-                }`}
-                onClick={() => setSelectedMenuItem('orders')}
+                className={selectedMenu === 'orders' ? 'text-blue-500' : ''}
+                onClick={() => setSelectedMenu('orders')}
               >
-                <File className="mr-2" />
-                Orders
+                <File className="inline-block w-5 h-5 mr-2" /> Orders
               </NavigationMenuLink>
             </NavigationMenuItem>
             <NavigationMenuItem>
               <NavigationMenuLink
                 as="button"
-                className={`flex items-center p-2 rounded-md hover:bg-gray-200 ${
-                  selectedMenuItem === 'calendar' ? 'bg-gray-200' : ''
-                }`}
-                onClick={() => setSelectedMenuItem('calendar')}
+                className={selectedMenu === 'settings' ? 'text-blue-500' : ''}
+                onClick={() => setSelectedMenu('settings')}
               >
-                <Calendar className="mr-2" />
-                Calendar
-              </NavigationMenuLink>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <NavigationMenuLink
-                as="button"
-                className={`flex items-center p-2 rounded-md hover:bg-gray-200 ${
-                  selectedMenuItem === 'settings' ? 'bg-gray-200' : ''
-                }`}
-                onClick={() => setSelectedMenuItem('settings')}
-              >
-                <Settings className="mr-2" />
-                Settings
+                <Settings className="inline-block w-5 h-5 mr-2" /> Settings
               </NavigationMenuLink>
             </NavigationMenuItem>
           </NavigationMenuList>
@@ -78,45 +58,33 @@ export default function EcommerceDashboard() {
       </aside>
       <main className="flex-1 p-6">
         <div className="bg-white rounded shadow p-6">
+          <h1 className="text-xl font-bold mb-4">Recent Orders</h1>
           <Table>
-            <TableCaption>Recent Orders</TableCaption>
+            <TableCaption>A list of your recent orders.</TableCaption>
             <TableHeader>
               <TableRow>
-                <TableHead>Order ID</TableHead>
+                <TableHead className="w-[100px]">Order ID</TableHead>
                 <TableHead>Date</TableHead>
                 <TableHead>Status</TableHead>
-                <TableHead>Total</TableHead>
-                <TableHead>Actions</TableHead>
+                <TableHead className="text-right">Total</TableHead>
+                <TableHead className="text-right">Actions</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               <TableRow>
-                <TableCell>#001</TableCell>
-                <TableCell>2023-03-10</TableCell>
+                <TableCell className="font-medium">ORD12345</TableCell>
+                <TableCell>
+                  <Calendar className="inline-block w-4 h-4 mr-1" />
+                  2023-03-15
+                </TableCell>
                 <TableCell>Shipped</TableCell>
-                <TableCell>$250.00</TableCell>
-                <TableCell>
-                  <Printer className="cursor-pointer hover:text-blue-500" />
+                <TableCell className="text-right">$150.00</TableCell>
+                <TableCell className="text-right">
+                  <Trash className="inline-block w-4 h-4 mr-2 cursor-pointer" />
+                  <ArrowRight className="inline-block w-4 h-4 cursor-pointer" />
                 </TableCell>
               </TableRow>
-              <TableRow>
-                <TableCell>#002</TableCell>
-                <TableCell>2023-03-11</TableCell>
-                <TableCell>Processing</TableCell>
-                <TableCell>$120.00</TableCell>
-                <TableCell>
-                  <Printer className="cursor-pointer hover:text-blue-500" />
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>#003</TableCell>
-                <TableCell>2023-03-12</TableCell>
-                <TableCell>Delivered</TableCell>
-                <TableCell>$180.00</TableCell>
-                <TableCell>
-                  <Printer className="cursor-pointer hover:text-blue-500" />
-                </TableCell>
-              </TableRow>
+              {/* Repeat TableRow for more orders */}
             </TableBody>
           </Table>
         </div>
