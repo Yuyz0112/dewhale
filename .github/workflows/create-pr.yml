@@ -17,7 +17,7 @@ jobs:
         uses: denoland/setup-deno@v1
         with:
           deno-version: 1.38.3
-      - name: Test Deno
-        run: deno run https://deno.land/std@0.198.0/examples/welcome.ts
       - name: Dump Env
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: deno run -A prompts/ui-gen.ts
