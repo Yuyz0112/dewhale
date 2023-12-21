@@ -631,10 +631,14 @@ import {
   TableBody,
   TableCaption,
   TableCell,
-  TableHead,
   TableHeader,
+  TableHead,
   TableRow,
 } from "@/components/ui/table";
+
+// DON'T misunderstand:
+// TableHeader represents <thead>, while TableHead represents <th>
+
 <Table>
   <TableCaption>A list of your recent invoices.</TableCaption>
   <TableHeader>
@@ -746,10 +750,12 @@ import {
 ### Available Component 38, SVG icons:
 
 ```jsx
-import { Home } from "lucide-react";
+import { Home, User, Settings } from "lucide-react";
 
 <div className="p-3 bg-white bg-opacity-20 rounded-full border border-white">
   <Home className="w-8 h-8 text-white" />
+  <User className="w-8 h-8 text-white" />
+  <Settings className="w-8 h-8 text-white" />
 </div>;
 ```
 
