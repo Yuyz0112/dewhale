@@ -234,7 +234,12 @@ async function main() {
   const eventName = Deno.env.get("GITHUB_EVENT_NAME");
   assert(eventName, "failed to get event name");
 
-  console.log(githubEvent.action, eventName, githubEvent.issue);
+  console.log(
+    githubEvent.action,
+    eventName,
+    githubEvent.issue,
+    githubEvent.comment
+  );
 
   const isPr = Boolean(githubEvent.issue.pull_request);
 

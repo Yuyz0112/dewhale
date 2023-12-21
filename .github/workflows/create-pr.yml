@@ -10,6 +10,7 @@ jobs:
   handle_issue:
     runs-on: ubuntu-latest
     name: Create PR
+    if: "!contains(github.event.comment.body , '[vx.dev]')"
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
