@@ -1,23 +1,26 @@
-import { Card, CardContent, Avatar, AvatarImage, AvatarFallback, Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui";
-import { User } from "lucide-react";
+import React from 'react';
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 
-export default function TeamMemberCard() {
+const TeamMemberCard = () => {
   return (
-    <Card className="max-w-md mx-auto bg-white rounded-lg overflow-hidden shadow-lg p-6">
+    <div className="bg-white rounded-lg p-4 shadow-md max-w-md mx-auto">
       <h2 className="text-lg font-semibold">Team Members</h2>
       <p className="text-sm text-gray-600 mb-4">Invite your team members to collaborate.</p>
-      <CardContent>
-        <div className="flex items-center space-x-4 mb-3">
-          <Avatar>
-            <AvatarImage src="https://images.unsplash.com/photo-1607746882042-944635dfe10e?w=800&dpr=2&q=80" alt="Sofia Davis" />
-            <AvatarFallback delayMs={600}>SD</AvatarFallback>
-          </Avatar>
-          <div className="flex-1">
-            <div className="font-medium text-gray-800">Sofia Davis</div>
-            <div className="text-gray-500 text-sm">m@example.com</div>
+      <div className="space-y-4">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-3">
+            <Avatar>
+              <AvatarImage src="https://images.unsplash.com/photo-1564564295391-7f24f26f568b?w=250&dpr=2&q=80" alt="Sofia Davis" />
+              <AvatarFallback>SD</AvatarFallback>
+            </Avatar>
+            <div>
+              <div className="font-medium text-gray-800">Sofia Davis</div>
+              <div className="text-sm text-gray-500">m@example.com</div>
+            </div>
           </div>
           <Select>
-            <SelectTrigger className="w-24">
+            <SelectTrigger className="border-gray-300">
               <SelectValue placeholder="Owner" />
             </SelectTrigger>
             <SelectContent>
@@ -26,17 +29,19 @@ export default function TeamMemberCard() {
             </SelectContent>
           </Select>
         </div>
-        <div className="flex items-center space-x-4">
-          <Avatar>
-            <AvatarImage src="https://images.unsplash.com/photo-1607746881559-7b8c535e29f9?w=800&dpr=2&q=80" alt="Jackson Lee" />
-            <AvatarFallback delayMs={600}>JL</AvatarFallback>
-          </Avatar>
-          <div className="flex-1">
-            <div className="font-medium text-gray-800">Jackson Lee</div>
-            <div className="text-gray-500 text-sm">p@example.com</div>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-3">
+            <Avatar>
+              <AvatarImage src="https://images.unsplash.com/photo-1564564295391-7f24f26f568b?w=250&dpr=2&q=80" alt="Jackson Lee" />
+              <AvatarFallback>JL</AvatarFallback>
+            </Avatar>
+            <div>
+              <div className="font-medium text-gray-800">Jackson Lee</div>
+              <div className="text-sm text-gray-500">p@example.com</div>
+            </div>
           </div>
           <Select>
-            <SelectTrigger className="w-24">
+            <SelectTrigger className="border-gray-300">
               <SelectValue placeholder="Member" />
             </SelectTrigger>
             <SelectContent>
@@ -45,7 +50,9 @@ export default function TeamMemberCard() {
             </SelectContent>
           </Select>
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
-}
+};
+
+export default TeamMemberCard;
