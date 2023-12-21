@@ -6,8 +6,9 @@ type IssueEvent = {
   issue: {
     body: string;
     number: number;
-    labels: string[];
+    labels: { name: string }[];
     user: { login: string };
+    pull_request?: { url: string };
   };
 };
 
@@ -75,6 +76,23 @@ async function getConnectedPr(
   return nodes[0]?.source.number;
 }
 
+async function getConnectedIssue(owner: string, repo: string, prBody: string) {
+  const issueNumber = parseInt(
+    prBody.match(/\[vx\.dev\] This PR implements #(\d+),/)?.[1] || ""
+  );
+  if (!issueNumber) {
+    throw new Error("failed to get connected issue");
+  }
+
+  return (
+    await octokit.rest.issues.get({
+      owner,
+      repo,
+      issue_number: issueNumber,
+    })
+  ).data;
+}
+
 async function applyPR(
   owner: string,
   repo: string,
@@ -107,17 +125,16 @@ async function applyPR(
     })
   ).data.items[0];
   if (!pr) {
-    pr = // deno-lint-ignore no-explicit-any
-      (
-        await octokit.rest.pulls.create({
-          owner,
-          repo,
-          head: newBranch,
-          base: baseBranch,
-          title: "created by vx.dev",
-          body: `${vxDevPrefix} This PR implements #${issueNumber}, created by vx.dev.`,
-        })
-      ).data as any;
+    pr = (
+      await octokit.rest.pulls.create({
+        owner,
+        repo,
+        head: newBranch,
+        base: baseBranch,
+        title: `${vxDevPrefix} implements #${issueNumber}`,
+        body: `${vxDevPrefix} This PR implements #${issueNumber}, created by vx.dev.`,
+      })
+    ).data as any;
   }
 
   octokit.rest.issues.setLabels({
@@ -133,7 +150,7 @@ async function applyPR(
 async function collectPromptAndImages(
   owner: string,
   repo: string,
-  githubEvent: IssueEvent,
+  issue: { number: number; body?: string | null },
   pr: { number: number }
 ) {
   const prComments = (
@@ -147,7 +164,7 @@ async function collectPromptAndImages(
     await octokit.rest.issues.listComments({
       owner,
       repo,
-      issue_number: githubEvent.issue.number,
+      issue_number: issue.number,
     })
   ).data;
 
@@ -165,7 +182,7 @@ async function collectPromptAndImages(
     .map((c) => c.body)
     .join("\n");
 
-  let prompt = `${githubEvent.issue.body || ""}\n${commentsStr}`;
+  let prompt = `${issue.body || ""}\n${commentsStr}`;
   const regex = /!\[.*?\]\((.*?)\)/g;
   const imgRegex = /<img .*?src="(.*?)".*?>/g;
   const images = [];
@@ -198,7 +215,7 @@ async function main() {
 
   console.log(githubEvent);
 
-  if (githubEvent.issue.labels.some((l) => l === uiGenLabel)) {
+  if (githubEvent.issue.labels.every((l) => l.name !== uiGenLabel)) {
     return;
   }
 
@@ -215,35 +232,44 @@ async function main() {
 
   const branch = `ui-gen-issue-${githubEvent.issue.number}`;
 
-  const connectedPrNumber = await getConnectedPr(
-    owner,
-    repo,
-    githubEvent.issue.number
-  );
+  let issue: { number: number; body?: string | null } = {
+    number: -1,
+    body: "",
+  };
+  let pr: { number: number } = { number: -1 };
 
-  const pr = connectedPrNumber
-    ? (
-        await octokit.rest.pulls.get({
+  if (githubEvent.issue.pull_request) {
+    // is PR event
+    pr = githubEvent.issue;
+    issue = await getConnectedIssue(owner, repo, githubEvent.issue.body);
+  } else {
+    issue = githubEvent.issue;
+
+    const connectedPrNumber = await getConnectedPr(owner, repo, issue.number);
+    pr = connectedPrNumber
+      ? (
+          await octokit.rest.pulls.get({
+            owner,
+            repo,
+            pull_number: connectedPrNumber,
+          })
+        ).data
+      : await applyPR(
           owner,
           repo,
-          pull_number: connectedPrNumber,
-        })
-      ).data
-    : await applyPR(
-        owner,
-        repo,
-        githubEvent.issue.number,
-        branch,
-        {
-          "vx.dev.txt": "placeholder",
-        },
-        "vx.dev: init the PR"
-      );
+          issue.number,
+          branch,
+          {
+            "vx.dev.txt": "placeholder",
+          },
+          "vx.dev: init the PR"
+        );
+  }
 
   const { prompt, images } = await collectPromptAndImages(
     owner,
     repo,
-    githubEvent,
+    issue,
     pr
   );
   console.log({
