@@ -1,151 +1,87 @@
 import React from 'react';
-import { Folder, File, Upload, Plus, Minus, Compress, Copy, Move, Trash, Star, Calendar, Printer, Wifi } from 'lucide-react';
-import { Checkbox, Button, Table, TableBody, TableCaption, TableCell, TableHeader, TableHead, TableRow, ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuTrigger, TooltipProvider, Tooltip, TooltipContent, TooltipTrigger, Switch } from '@/components/ui';
+import { Folder, File, Upload, Plus, Minus, Trash, Image, Video, Music, Document, Archive, Settings, ArrowRight } from 'lucide-react';
+import { Button, Table, TableBody, TableCaption, TableCell, TableHead, TableRow, Checkbox, TooltipProvider, Tooltip, TooltipContent, TooltipTrigger, Switch, Avatar, AvatarImage, AvatarFallback } from '@/components/ui';
 
 export default function FileManager() {
   return (
-    <TooltipProvider>
-      <div className="flex flex-col h-screen bg-gray-100 dark:bg-gray-800">
-        <header className="bg-white dark:bg-gray-900 p-4 shadow-md flex justify-between items-center">
-          <h1 className="text-xl font-semibold text-gray-800 dark:text-white">Turbo Folder</h1>
-          <div className="flex items-center space-x-4">
-            <Tooltip>
-              <TooltipTrigger>
-                <Button variant="outline" className="flex items-center space-x-2">
-                  <Upload className="w-5 h-5" />
-                  <span>Upload</span>
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>Upload Files</TooltipContent>
-            </Tooltip>
-            <Tooltip>
-              <TooltipTrigger>
-                <Button variant="outline" className="flex items-center space-x-2">
-                  <Folder className="w-5 h-5" />
-                  <span>New folder</span>
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>Create New Folder</TooltipContent>
-            </Tooltip>
-            <Tooltip>
-              <TooltipTrigger>
-                <Button variant="outline" className="flex items-center space-x-2">
-                  <File className="w-5 h-5" />
-                  <span>New file</span>
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>Create New File</TooltipContent>
-            </Tooltip>
-            <Tooltip>
-              <TooltipTrigger>
-                <Switch />
-              </TooltipTrigger>
-              <TooltipContent>Toggle Theme</TooltipContent>
-            </Tooltip>
-          </div>
-        </header>
-        <div className="flex flex-1 overflow-hidden">
-          <div className="bg-white dark:bg-gray-900 w-64 p-6 hidden sm:block">
-            <nav className="space-y-2">
-              <Button asChild>
-                <a href="#" className="flex items-center space-x-2 text-gray-800 dark:text-white">
-                  <Home className="w-5 h-5" />
-                  <span>My Drive</span>
-                </a>
-              </Button>
-              <Button asChild>
-                <a href="#" className="flex items-center space-x-2 text-gray-800 dark:text-white">
-                  <Trash className="w-5 h-5" />
-                  <span>Trash</span>
-                </a>
-              </Button>
-              <Button asChild>
-                <a href="#" className="flex items-center space-x-2 text-gray-800 dark:text-white">
-                  <User className="w-5 h-5" />
-                  <span>Users</span>
-                </a>
-              </Button>
-              <Button asChild>
-                <a href="#" className="flex items-center space-x-2 text-gray-800 dark:text-white">
-                  <Settings className="w-5 h-5" />
-                  <span>Logs</span>
-                </a>
-              </Button>
-            </nav>
-          </div>
-          <main className="flex-1 overflow-y-auto p-6">
-            <Table>
-              <TableCaption className="text-gray-800 dark:text-white">Total 3 items in the current directory.</TableCaption>
-              <TableHeader>
-                <TableRow>
-                  <TableHead className="w-[50px]"><Checkbox /></TableHead>
-                  <TableHead>Name</TableHead>
-                  <TableHead>Size</TableHead>
-                  <TableHead>Last modified</TableHead>
-                  <TableHead>Created at</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                <TableRow>
-                  <TableCell><Checkbox /></TableCell>
-                  <TableCell>
-                    <div className="flex items-center space-x-2">
-                      <Folder className="w-5 h-5 text-yellow-500" />
-                      <span>Directory</span>
-                    </div>
-                  </TableCell>
-                  <TableCell>64 B</TableCell>
-                  <TableCell>Nov 22, 2023 06:26 AM</TableCell>
-                  <TableCell>Nov 22, 2023 06:26 AM</TableCell>
-                </TableRow>
-                {/* Repeat for each file/folder */}
-              </TableBody>
-            </Table>
-          </main>
+    <div className="flex h-screen bg-gray-100 dark:bg-gray-900">
+      <div className="bg-white dark:bg-gray-800 w-64 p-6 hidden sm:block">
+        <div className="flex items-center justify-between mb-6">
+          <h1 className="text-xl font-bold dark:text-white">Turbo Folder</h1>
+          <Switch />
         </div>
-        <footer className="bg-white dark:bg-gray-900 p-4 shadow-md flex justify-between items-center">
-          <div className="flex items-center space-x-4">
-            <Button variant="outline" className="flex items-center space-x-2">
-              <Star className="w-5 h-5" />
-              <span>Favorite</span>
+        <nav className="mb-6">
+          <ul>
+            <li className="flex items-center space-x-2 mb-2">
+              <Folder className="text-gray-500 dark:text-gray-400" />
+              <span className="dark:text-gray-300">My Drive</span>
+            </li>
+            <li className="flex items-center space-x-2 mb-2">
+              <Trash className="text-gray-500 dark:text-gray-400" />
+              <span className="dark:text-gray-300">Trash</span>
+            </li>
+            <li className="flex items-center space-x-2 mb-2">
+              <User className="text-gray-500 dark:text-gray-400" />
+              <span className="dark:text-gray-300">Users</span>
+            </li>
+            <li className="flex items-center space-x-2">
+              <Settings className="text-gray-500 dark:text-gray-400" />
+              <span className="dark:text-gray-300">Logs</span>
+            </li>
+          </ul>
+        </nav>
+        <div className="flex items-center justify-between mt-auto">
+          <Button variant="outline" className="dark:border-gray-700 dark:text-gray-300">
+            Sign out
+          </Button>
+          <Avatar>
+            <AvatarImage src="https://images.unsplash.com/photo-1494790108377-be9c29b29330" />
+            <AvatarFallback>U</AvatarFallback>
+          </Avatar>
+        </div>
+      </div>
+      <div className="flex-1 p-6">
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-lg font-semibold dark:text-white">My Drive</h2>
+          <div className="flex space-x-2">
+            <Button variant="outline" className="dark:border-gray-700 dark:text-gray-300">
+              <Upload className="w-4 h-4 mr-2" /> Upload
             </Button>
-            <Button variant="outline" className="flex items-center space-x-2">
-              <Calendar className="w-5 h-5" />
-              <span>Calendar</span>
+            <Button variant="outline" className="dark:border-gray-700 dark:text-gray-300">
+              <Plus className="w-4 h-4 mr-2" /> New folder
             </Button>
-            <Button variant="outline" className="flex items-center space-x-2">
-              <Printer className="w-5 h-5" />
-              <span>Print</span>
-            </Button>
-            <Button variant="outline" className="flex items-center space-x-2">
-              <Wifi className="w-5 h-5" />
-              <span>Offline</span>
+            <Button variant="outline" className="dark:border-gray-700 dark:text-gray-300">
+              <File className="w-4 h-4 mr-2" /> New file
             </Button>
           </div>
-          <Button variant="outline" className="flex items-center space-x-2">
-            <Minus className="w-5 h-5" />
-            <span>Sign out</span>
-          </Button>
-        </footer>
-        <ContextMenu>
-          <ContextMenuTrigger asChild>
-            <Button variant="ghost">Right click on file for options</Button>
-          </ContextMenuTrigger>
-          <ContextMenuContent>
-            <ContextMenuItem>Open in new tab</ContextMenuItem>
-            <ContextMenuItem>Download</ContextMenuItem>
-            <ContextMenuItem>Share</ContextMenuItem>
-            <ContextMenuSeparator />
-            <ContextMenuItem>Rename</ContextMenuItem>
-            <ContextMenuItem>Move</ContextMenuItem>
-            <ContextMenuItem>Copy</ContextMenuItem>
-            <ContextMenuItem>Compress</ContextMenuItem>
-            <ContextMenuItem>Extract</ContextMenuItem>
-            <ContextMenuSeparator />
-            <ContextMenuItem>Move to trash</ContextMenuItem>
-          </ContextMenuContent>
-        </ContextMenu>
+        </div>
+        <Table>
+          <TableCaption className="dark:text-gray-300">
+            Total 3 items in the current directory.
+          </TableCaption>
+          <TableRow>
+            <TableHead className="w-[100px] dark:text-gray-300">Name</TableHead>
+            <TableHead className="dark:text-gray-300">Size</TableHead>
+            <TableHead className="dark:text-gray-300">Last modified</TableHead>
+            <TableHead className="dark:text-gray-300">Created at</TableHead>
+          </TableRow>
+          <TableBody>
+            <TableRow>
+              <TableCell className="font-medium dark:text-white">
+                <Checkbox id="file1" />
+                <label htmlFor="file1" className="ml-2 flex items-center">
+                  <Folder className="text-yellow-500 dark:text-yellow-400 w-5 h-5 mr-2" />
+                  Directory
+                </label>
+              </TableCell>
+              <TableCell className="dark:text-gray-300">64 B</TableCell>
+              <TableCell className="dark:text-gray-300">Nov 22, 2023 06:26 AM</TableCell>
+              <TableCell className="dark:text-gray-300">Nov 22, 2023 06:26 AM</TableCell>
+            </TableRow>
+            {/* Repeat for other files */}
+          </TableBody>
+        </Table>
       </div>
-    </TooltipProvider>
+    </div>
   );
 }
