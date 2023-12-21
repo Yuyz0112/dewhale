@@ -36,7 +36,7 @@ export async function getCode(
         messages,
         model,
         max_tokens: 3000,
-        temperature: 0.2,
+        temperature: 0,
       });
 
       console.log("raw output> ", chatCompletion.choices[0].message.content);
