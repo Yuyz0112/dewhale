@@ -432,7 +432,7 @@ function mapImports(used: string[]) {
   for (const key in importMap) {
     const statement = `import { ${Array.from(importMap[key]).join(
       ", "
-    )} } from ${key};`;
+    )} } from '${key}';`;
     importStr += `${statement}\r\n`;
   }
 
