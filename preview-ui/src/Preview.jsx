@@ -1,99 +1,108 @@
-import { currentChannel, setCurrentChannel, message, setMessage, name, label, channel, user, text, trim, messages, push, channels, map, charAt, toUpperCase, filter, msg, index, e, target, value, key, sendMessage } from '';
 import { Button } from '@/components/ui/button';
-import { Home, Users, MessageSquare, Settings, Plus, Send } from 'lucide-react';
+import { Search, Plus, Settings, MessageSquare, Home, User } from 'lucide-react';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
+import { ScrollArea } from '@/components/ui/scroll-area';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
-import { Input } from '@/components/ui/input';
+import { Badge } from '@/components/ui/badge';
 import { useState } from 'react';
 
 export default function DiscordApp() {
-  const [currentChannel, setCurrentChannel] = useState('general');
-  const [message, setMessage] = useState('');
+  const [selectedTab, setSelectedTab] = useState('chats');
 
   const channels = [
-    { name: 'general', label: 'General' },
-    { name: 'random', label: 'Random' },
-    { name: 'tech-talk', label: 'Tech Talk' },
-    { name: 'gaming', label: 'Gaming' },
+    { name: 'general', active: true },
+    { name: 'random', active: false },
+    { name: 'games', active: false },
+    { name: 'music', active: false },
+    { name: 'tech-talk', active: false },
   ];
 
-  const messages = [
-    { channel: 'general', user: 'User1', text: 'Hey everyone!' },
-    { channel: 'general', user: 'User2', text: 'Hello!' },
-    { channel: 'tech-talk', user: 'DevDude', text: 'Have you seen the new JS update?' },
+  const chats = [
+    { name: 'Jane Doe', message: 'Hey, how are you?', time: '2:30 PM', unread: 2 },
+    { name: 'John Smith', message: 'Sent a photo', time: 'Yesterday', unread: 0 },
+    { name: 'Alice Johnson', message: 'Can you send me the file?', time: 'Yesterday', unread: 1 },
   ];
-
-  const sendMessage = () => {
-    if (message.trim() !== '') {
-      messages.push({ channel: currentChannel, user: 'You', text: message });
-      setMessage('');
-    }
-  };
 
   return (
-    <div className="flex flex-col h-screen bg-gray-100">
-      <header className="bg-purple-600 text-white p-4 shadow-md flex justify-between items-center">
-        <h1 className="text-lg font-bold">Discord Clone</h1>
-        <div className="flex space-x-2">
-          <Button variant="ghost">
-            <Home className="w-6 h-6" />
+    <div className="flex flex-col h-screen bg-purple-700 text-white">
+      <header className="flex items-center justify-between p-4 shadow-md bg-purple-800">
+        <h1 className="text-xl font-bold">Discord Clone</h1>
+        <div className="flex items-center space-x-2">
+          <Button variant="outline" className="bg-purple-600 hover:bg-purple-500">
+            <Search className="w-5 h-5" />
           </Button>
-          <Button variant="ghost">
-            <Users className="w-6 h-6" />
+          <Button variant="outline" className="bg-purple-600 hover:bg-purple-500">
+            <Plus className="w-5 h-5" />
           </Button>
-          <Button variant="ghost">
-            <MessageSquare className="w-6 h-6" />
-          </Button>
-          <Button variant="ghost">
-            <Settings className="w-6 h-6" />
+          <Button variant="outline" className="bg-purple-600 hover:bg-purple-500">
+            <Settings className="w-5 h-5" />
           </Button>
         </div>
       </header>
-      <div className="flex flex-1 overflow-hidden">
-        <div className="bg-purple-700 w-20 flex flex-col items-center py-4 space-y-2">
-          {channels.map((channel) => (
-            <Button
-              key={channel.name}
-              variant="ghost"
-              className={`w-12 h-12 rounded-full ${currentChannel === channel.name ? 'bg-purple-500' : ''}`}
-              onClick={() => setCurrentChannel(channel.name)}
-              aria-label={`Channel ${channel.label}`}
-            >
-              <span className="text-white text-sm font-semibold">{channel.label.charAt(0).toUpperCase()}</span>
-            </Button>
-          ))}
-          <Button variant="ghost" className="w-12 h-12 rounded-full bg-purple-500">
-            <Plus className="w-6 h-6 text-white" />
-          </Button>
-        </div>
-        <main className="flex-1 overflow-y-auto p-4">
-          <div className="space-y-4">
-            {messages.filter(msg => msg.channel === currentChannel).map((msg, index) => (
-              <div key={index} className="flex items-center space-x-2">
-                <Avatar>
-                  <AvatarImage src={`https://i.pravatar.cc/150?u=${msg.user}`} />
-                  <AvatarFallback>{msg.user.charAt(0)}</AvatarFallback>
-                </Avatar>
-                <div>
-                  <div className="text-sm font-semibold">{msg.user}</div>
-                  <div className="text-gray-700">{msg.text}</div>
+      <main className="flex-1 overflow-hidden">
+        <Tabs defaultValue="chats" className="flex h-full">
+          <TabsList className="w-16 bg-purple-800 flex flex-col items-center p-2 space-y-1">
+            <TabsTrigger value="chats" className="p-2 rounded hover:bg-purple-600" onClick={() => setSelectedTab('chats')}>
+              <MessageSquare className="w-6 h-6" />
+            </TabsTrigger>
+            <TabsTrigger value="channels" className="p-2 rounded hover:bg-purple-600" onClick={() => setSelectedTab('channels')}>
+              <Home className="w-6 h-6" />
+            </TabsTrigger>
+            <TabsTrigger value="profile" className="p-2 rounded hover:bg-purple-600" onClick={() => setSelectedTab('profile')}>
+              <User className="w-6 h-6" />
+            </TabsTrigger>
+          </TabsList>
+          <TabsContent value="chats" className="flex-1">
+            <ScrollArea className="h-full p-2 space-y-2">
+              {chats.map((chat, index) => (
+                <div key={index} className="flex items-center justify-between bg-purple-600 p-3 rounded-lg">
+                  <Avatar>
+                    <AvatarImage src={`https://i.pravatar.cc/150?img=${index + 1}`} />
+                    <AvatarFallback delayMs={600}>JD</AvatarFallback>
+                  </Avatar>
+                  <div className="flex-1 ml-3">
+                    <h3 className="font-semibold">{chat.name}</h3>
+                    <p className="text-purple-200 text-sm">{chat.message}</p>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-xs">{chat.time}</p>
+                    {chat.unread > 0 && (
+                      <Badge variant="solid" className="mt-1 bg-red-500">
+                        {chat.unread}
+                      </Badge>
+                    )}
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
-        </main>
-        <div className="p-4 bg-white shadow-md flex items-center space-x-2">
-          <Input
-            className="flex-1"
-            placeholder="Type a message..."
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
-          />
-          <Button variant="solid" color="purple" onClick={sendMessage}>
-            <Send className="w-5 h-5 text-white" />
-          </Button>
+              ))}
+            </ScrollArea>
+          </TabsContent>
+          <TabsContent value="channels" className="flex-1">
+            <ScrollArea className="h-full p-2 space-y-2">
+              {channels.map((channel, index) => (
+                <div key={index} className={`p-3 rounded-lg ${channel.active ? 'bg-purple-600' : 'bg-purple-500'}`}>
+                  <h3 className="font-semibold">#{channel.name}</h3>
+                </div>
+              ))}
+            </ScrollArea>
+          </TabsContent>
+          <TabsContent value="profile" className="flex-1">
+            {/* Profile content goes here */}
+          </TabsContent>
+        </Tabs>
+      </main>
+      <footer className="flex items-center justify-between p-4 bg-purple-800">
+        <Avatar>
+          <AvatarImage src="https://i.pravatar.cc/150?img=8" />
+          <AvatarFallback delayMs={600}>UN</AvatarFallback>
+        </Avatar>
+        <div className="flex-1 ml-3">
+          <h3 className="font-semibold">Username</h3>
+          <p className="text-purple-300 text-sm">#1234</p>
         </div>
-      </div>
+        <Button variant="outline" className="bg-purple-600 hover:bg-purple-500">
+          <MessageSquare className="w-5 h-5" />
+        </Button>
+      </footer>
     </div>
   );
 }
