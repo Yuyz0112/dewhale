@@ -1,50 +1,57 @@
-import { Home } from 'lucide-react';
+import { Home, Settings, Upload, Download } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
-import { Separator } from '@/components/ui/separator';
 import { useState } from 'react';
 
 export default function ASTExplorer() {
-  const [parser, setParser] = useState('babel');
+  const [code, setCode] = useState('// Paste or drop some JavaScript here and explore the AST...');
+  const [ast, setAst] = useState(null); // Placeholder for AST data
+
+  // Placeholder function to parse code to AST
+  const parseCodeToAST = (code) => {
+    // This would be replaced with actual parsing logic
+    setAst({ /* AST data structure */ });
+  };
 
   return (
     (<div className="flex flex-col h-screen">
-      <header className="bg-gray-100 p-4 flex justify-between items-center">
-        <div className="flex space-x-2">
-          <Button variant="outline">Snippet</Button>
-          <Select>
-            <SelectTrigger className="w-[180px]">
-              <SelectValue>{parser}</SelectValue>
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="babel" onSelect={() => setParser('babel')}>Babel</SelectItem>
-              <SelectItem value="typescript" onSelect={() => setParser('typescript')}>TypeScript</SelectItem>
-              <SelectItem value="flow" onSelect={() => setParser('flow')}>Flow</SelectItem>
-              <SelectItem value="espree" onSelect={() => setParser('espree')}>Espree</SelectItem>
-            </SelectContent>
-          </Select>
-          <Button variant="outline">Transform</Button>
+      <div className="bg-black p-2 flex justify-between items-center">
+        <div className="flex items-center space-x-4">
+          <Button variant="ghost" className="text-white">
+            <Home className="w-5 h-5" />
+          </Button>
+          <Button variant="ghost" className="text-white">
+            <Settings className="w-5 h-5" />
+          </Button>
         </div>
-        <div className="flex space-x-2">
-          <Button variant="outline">Tree</Button>
-          <Button variant="outline">JSON</Button>
+        <div className="flex items-center space-x-4">
+          <Button variant="ghost" className="text-white" onClick={() => parseCodeToAST(code)}>
+            <Upload className="w-5 h-5" />
+          </Button>
+          <Button variant="ghost" className="text-white">
+            <Download className="w-5 h-5" />
+          </Button>
         </div>
-      </header>
-      <main className="flex-1 flex overflow-hidden">
-        <div className="flex-1 p-4">
-          <Textarea placeholder="Paste or drop some JavaScript here and explore the syntax tree created by chosen parser." className="h-full w-full" />
+      </div>
+      <div className="flex flex-1">
+        <div className="w-1/2 p-4">
+          <Textarea
+            className="h-full w-full"
+            value={code}
+            onChange={(e) => setCode(e.target.value)}
+          />
         </div>
-        <Separator orientation="vertical" className="bg-gray-300" />
-        <div className="flex-1 p-4">
-          <Home ratio={1}>
-            <div className="bg-gray-200 rounded-md flex justify-center items-center">
-              {/* Placeholder for AST visualization */}
-              <span>AST Tree Visualization</span>
+        <div className="w-1/2 p-4 bg-gray-100">
+          {/* Placeholder for AST visualization */}
+          {ast ? (
+            <Home data={ast} />
+          ) : (
+            <div className="flex items-center justify-center h-full">
+              <p className="text-gray-500">AST will be displayed here</p>
             </div>
-          </AspectRatio>
+          )}
         </div>
-      </main>
+      </div>
     </div>)
   );
 }
