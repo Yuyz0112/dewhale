@@ -245,6 +245,10 @@ function mapImports(used: string[]) {
       source: "@/components/ui/avatar",
     },
     {
+      matcher: "^AspectRatio",
+      source: "@/components/ui/aspect-ratio",
+    },
+    {
       matcher: "^Badge",
       source: "@/components/ui/badge",
     },
@@ -279,6 +283,10 @@ function mapImports(used: string[]) {
     {
       matcher: "^Textarea",
       source: "@/components/ui/textarea",
+    },
+    {
+      matcher: "^ToggleGroup.*",
+      source: "@/components/ui/toggle-group",
     },
     {
       matcher: "^Toggle",
@@ -371,10 +379,6 @@ function mapImports(used: string[]) {
     {
       matcher: "^ContextMenu.*",
       source: "@/components/ui/context-menu",
-    },
-    {
-      matcher: "^ToggleGroup.*",
-      source: "@/components/ui/toggle-group",
     },
     {
       matcher: "^ResponsiveBar",
@@ -495,7 +499,9 @@ function refineCode(code: string) {
     visitJSXIdentifier(p) {
       const elName = p.node.name;
       if (
-        p.parent?.node.type === "JSXOpeningElement" &&
+        ["JSXOpeningElement", "JSXClosingElement"].includes(
+          p.parent?.node.type
+        ) &&
         elName[0].toUpperCase() === elName[0] &&
         !fromReact.has(elName) &&
         fallbacks.includes(elName)
