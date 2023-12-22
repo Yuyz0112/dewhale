@@ -680,35 +680,6 @@ import { Textarea } from "@/components/ui/textarea";
 <Textarea />;
 ```
 
-### Available Component 34, toast:
-
-```jsx
-import { Toaster } from "@/components/ui/toaster";
-import { useToast } from "@/components/ui/use-toast";
-
-export default function RootLayout({ children }) {
-  const { toast } = useToast();
-
-  return (
-    <>
-      <main>
-        <Button
-          onClick={() => {
-            toast({
-              title: "Scheduled: Catch up",
-              description: "Friday, February 10, 2023 at 5:57 PM",
-            });
-          }}
-        >
-          Show Toast
-        </Button>
-      </main>
-      <Toaster />
-    </>
-  );
-}
-```
-
 ### Available Component 35, toggle-group:
 
 ```jsx
