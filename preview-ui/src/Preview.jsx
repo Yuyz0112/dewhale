@@ -1,107 +1,99 @@
-import { Home, Plus, Settings, MessageSquare, Users, User, Send } from 'lucide-react';
+import { currentChannel, setCurrentChannel, message, setMessage, name, label, channel, user, text, trim, messages, push, channels, map, charAt, toUpperCase, filter, msg, index, e, target, value, key, sendMessage } from '';
 import { Button } from '@/components/ui/button';
-import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { Input } from '@/components/ui/input';
+import { Home, Users, MessageSquare, Settings, Plus, Send } from 'lucide-react';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
+import { Input } from '@/components/ui/input';
 import { useState } from 'react';
 
-export default function MobileApp() {
-  const [currentTab, setCurrentTab] = useState('chat');
+export default function DiscordApp() {
+  const [currentChannel, setCurrentChannel] = useState('general');
+  const [message, setMessage] = useState('');
+
+  const channels = [
+    { name: 'general', label: 'General' },
+    { name: 'random', label: 'Random' },
+    { name: 'tech-talk', label: 'Tech Talk' },
+    { name: 'gaming', label: 'Gaming' },
+  ];
+
+  const messages = [
+    { channel: 'general', user: 'User1', text: 'Hey everyone!' },
+    { channel: 'general', user: 'User2', text: 'Hello!' },
+    { channel: 'tech-talk', user: 'DevDude', text: 'Have you seen the new JS update?' },
+  ];
+
+  const sendMessage = () => {
+    if (message.trim() !== '') {
+      messages.push({ channel: currentChannel, user: 'You', text: message });
+      setMessage('');
+    }
+  };
 
   return (
-    (<div className="flex flex-col h-screen bg-purple-700 text-white">
-      <header className="flex items-center justify-between p-4 bg-purple-800">
-        <h1 className="text-xl font-bold">Discord Clone</h1>
+    <div className="flex flex-col h-screen bg-gray-100">
+      <header className="bg-purple-600 text-white p-4 shadow-md flex justify-between items-center">
+        <h1 className="text-lg font-bold">Discord Clone</h1>
         <div className="flex space-x-2">
           <Button variant="ghost">
-            <Plus className="w-6 h-6" />
+            <Home className="w-6 h-6" />
+          </Button>
+          <Button variant="ghost">
+            <Users className="w-6 h-6" />
+          </Button>
+          <Button variant="ghost">
+            <MessageSquare className="w-6 h-6" />
           </Button>
           <Button variant="ghost">
             <Settings className="w-6 h-6" />
           </Button>
         </div>
       </header>
-      <main className="flex-1 overflow-hidden">
-        <Tabs defaultValue="chat" className="flex h-full">
-          <TabsList className="flex-none w-16 bg-purple-900 flex flex-col items-center p-2 space-y-2">
-            <TabsTrigger value="chat" onClick={() => setCurrentTab('chat')} className={`w-full p-2 rounded ${currentTab === 'chat' ? 'bg-purple-600' : ''}`}>
-              <MessageSquare className="w-6 h-6" />
-            </TabsTrigger>
-            <TabsTrigger value="channels" onClick={() => setCurrentTab('channels')} className={`w-full p-2 rounded ${currentTab === 'channels' ? 'bg-purple-600' : ''}`}>
-              <Users className="w-6 h-6" />
-            </TabsTrigger>
-            <TabsTrigger value="profile" onClick={() => setCurrentTab('profile')} className={`w-full p-2 rounded ${currentTab === 'profile' ? 'bg-purple-600' : ''}`}>
-              <User className="w-6 h-6" />
-            </TabsTrigger>
-          </TabsList>
-          <TabsContent value="chat" className="flex-1 flex flex-col bg-purple-600">
-            <ScrollArea className="flex-1 p-4 space-y-4">
-              <Home isOwn={true} />
-              <Home />
-              <Home />
-              <Home isOwn={true} />
-              <Home />
-            </ScrollArea>
-            <div className="p-4 flex items-center space-x-2">
-              <Input className="flex-1 rounded p-2" placeholder="Type a message..." />
-              <Button variant="ghost">
-                <Send className="w-6 h-6" />
-              </Button>
-            </div>
-          </TabsContent>
-          <TabsContent value="channels" className="flex-1 bg-purple-600 p-4">
-            <ScrollArea className="space-y-2">
-              <Home name="# general" />
-              <Home name="# random" />
-              <Home name="# help" />
-              <Home name="# announcements" />
-              <Home name="# events" />
-            </ScrollArea>
-          </TabsContent>
-          <TabsContent value="profile" className="flex-1 bg-purple-600 p-4">
-            <div className="flex items-center space-x-4">
-              <Avatar>
-                <AvatarImage src="https://github.com/Yuyz0112.png" />
-                <AvatarFallback>U</AvatarFallback>
-              </Avatar>
-              <div>
-                <h2 className="text-xl font-bold">Username</h2>
-                <p>#1234</p>
+      <div className="flex flex-1 overflow-hidden">
+        <div className="bg-purple-700 w-20 flex flex-col items-center py-4 space-y-2">
+          {channels.map((channel) => (
+            <Button
+              key={channel.name}
+              variant="ghost"
+              className={`w-12 h-12 rounded-full ${currentChannel === channel.name ? 'bg-purple-500' : ''}`}
+              onClick={() => setCurrentChannel(channel.name)}
+              aria-label={`Channel ${channel.label}`}
+            >
+              <span className="text-white text-sm font-semibold">{channel.label.charAt(0).toUpperCase()}</span>
+            </Button>
+          ))}
+          <Button variant="ghost" className="w-12 h-12 rounded-full bg-purple-500">
+            <Plus className="w-6 h-6 text-white" />
+          </Button>
+        </div>
+        <main className="flex-1 overflow-y-auto p-4">
+          <div className="space-y-4">
+            {messages.filter(msg => msg.channel === currentChannel).map((msg, index) => (
+              <div key={index} className="flex items-center space-x-2">
+                <Avatar>
+                  <AvatarImage src={`https://i.pravatar.cc/150?u=${msg.user}`} />
+                  <AvatarFallback>{msg.user.charAt(0)}</AvatarFallback>
+                </Avatar>
+                <div>
+                  <div className="text-sm font-semibold">{msg.user}</div>
+                  <div className="text-gray-700">{msg.text}</div>
+                </div>
               </div>
-            </div>
-          </TabsContent>
-        </Tabs>
-      </main>
-      <footer className="flex justify-around p-2 bg-purple-800">
-        <Button variant="ghost">
-          <Home className="w-6 h-6" />
-        </Button>
-        <Button variant="ghost">
-          <MessageSquare className="w-6 h-6" />
-        </Button>
-        <Button variant="ghost">
-          <Users className="w-6 h-6" />
-        </Button>
-      </footer>
-    </div>)
-  );
-}
-
-function ChatMessage({ isOwn }) {
-  return (
-    <div className={`flex ${isOwn ? 'justify-end' : ''}`}>
-      <div className={`max-w-xs p-2 rounded-lg ${isOwn ? 'bg-purple-500' : 'bg-purple-400'}`}>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            ))}
+          </div>
+        </main>
+        <div className="p-4 bg-white shadow-md flex items-center space-x-2">
+          <Input
+            className="flex-1"
+            placeholder="Type a message..."
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
+          />
+          <Button variant="solid" color="purple" onClick={sendMessage}>
+            <Send className="w-5 h-5 text-white" />
+          </Button>
+        </div>
       </div>
-    </div>
-  );
-}
-
-function ChannelItem({ name }) {
-  return (
-    <div className="p-2 rounded hover:bg-purple-500">
-      <p>{name}</p>
     </div>
   );
 }
