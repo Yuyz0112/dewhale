@@ -238,7 +238,7 @@ try {
   }
 } catch {}
 
-function mapImports(used: string[]) {
+function mapImports(used: string[], declarations: Set<string>) {
   const rules = [
     {
       matcher: "^Avatar.*",
@@ -419,11 +419,15 @@ function mapImports(used: string[]) {
       source = "lucide-react";
     }
 
+    if (!source && declarations.has(u)) {
+      continue;
+    }
+
     if (!source) {
       // fallback to Home icon
-      // source = "lucide-react";
-      // fallback = true;
-      // fallbacks.push(u);
+      source = "lucide-react";
+      fallback = true;
+      fallbacks.push(u);
     }
 
     if (!importMap[source]) {
@@ -446,6 +450,7 @@ function mapImports(used: string[]) {
 function refineCode(code: string) {
   const fromReact = new Set<string>();
   const usedVariables = new Set<string>();
+  const declarations = new Set<string>();
 
   const ast = parse(code, {
     parser: tsParser,
@@ -475,9 +480,15 @@ function refineCode(code: string) {
       const isDecl = ["VariableDeclarator", "FunctionDeclaration"].includes(
         p.parent?.node.type
       );
-      if (!fromReact.has(varName) && !isDecl) {
-        usedVariables.add(varName);
+
+      if (isDecl) {
+        declarations.add(varName);
       }
+
+      // TODO: collect with a better strategy
+      // if (!fromReact.has(varName) && !isDecl) {
+      //   usedVariables.add(varName);
+      // }
       this.traverse(p);
     },
     visitJSXIdentifier(p) {
@@ -493,7 +504,10 @@ function refineCode(code: string) {
     },
   });
 
-  const { importStr, fallbacks } = mapImports(Array.from(usedVariables));
+  const { importStr, fallbacks } = mapImports(
+    Array.from(usedVariables),
+    declarations
+  );
 
   visit(ast, {
     visitJSXIdentifier(p) {
