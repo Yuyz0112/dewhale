@@ -161,13 +161,8 @@ import { badgeVariants } from "@/components/ui/badge";
 ### Available Component 7, button:
 
 ```jsx
-import { Button } from "@/components/ui/button"
-<Button variant="outline">Button</Button>
-import { buttonVariants } from "@/components/ui/button"
-<Link className={buttonVariants({ variant: "outline" })}>Click here</Link>
-<Button asChild>
-  <Link href="/login">Login</Link>
-</Button>
+import { Button } from "@/components/ui/button";
+<Button variant="outline">Button</Button>;
 ```
 
 ### Available Component 8, calendar:

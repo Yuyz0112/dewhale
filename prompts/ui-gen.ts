@@ -409,10 +409,10 @@ function mapImports(used: string[]) {
         source = rule.source;
         break;
       }
-      if (lucideIcons[u]) {
-        source = "lucide-react";
-        break;
-      }
+    }
+
+    if (!source && lucideIcons[u]) {
+      source = "lucide-react";
     }
 
     if (!source) {
