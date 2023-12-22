@@ -3,6 +3,7 @@ import commitPlugin from "npm:octokit-commit-multiple-files";
 import { assert } from "https://deno.land/std@0.201.0/assert/assert.ts";
 import { join } from "https://deno.land/std@0.188.0/path/mod.ts";
 import { parse, print, visit, types } from "npm:recast";
+import "npm:@babel/parser";
 import tsParser from "npm:recast/parsers/babel-ts.js";
 import { getCode } from "./common.ts";
 
