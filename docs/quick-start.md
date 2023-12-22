@@ -20,4 +20,4 @@ Under the hood, vx.dev use Github Actions to create a workflow, so you can debug
 
 vx.dev includes a preview UI feature. In the template repository, we continuously deploy via Cloudflare Pages to preview the generated UI results. Alternatively, other service providers can be used for this process.
 
-[How to configure continuously deploy](./docs/CD.md).
+[How to configure continuously deploy](./CD.md).

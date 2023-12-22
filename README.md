@@ -14,7 +14,7 @@ For detailed instructions on how to set up and use vx.dev, please refer to our [
 
 ### Lower Usage Costs
 
-vx.dev utilizes prompt engineering techniques under the GPT-4 model to issue commands. The main cost involves the number of input and completion tokens. Our current prompt, found in `prompts/ui-gen.md`, includes instructions for shadcn/ui, lucide-react, and nivo charts.
+vx.dev utilizes prompt engineering techniques under the GPT-4 model to issue commands. The main cost involves the number of input and completion tokens. Our current prompt, found in [prompts/ui-gen.md](./prompts/ui-gen.md), includes instructions for shadcn/ui, lucide-react, and nivo charts.
 
 If you do not need certain components (e.g., charts), you can reduce the API cost per generation by removing instructions from the prompt.
 
@@ -29,6 +29,10 @@ You can also customize the whole workflow by yourself, e.g., a v0.dev like Web A
 ### Seamless GitHub Integration
 
 The generated code is stored on GitHub, inherently equipped with version control, code review, and collaborative features.
+
+## How It Works
+
+To understand the underlying architecture and workings of vx.dev, please see our detailed [Architecture Overview](./docs/architecture.md).
 
 ## Roadmap
 
