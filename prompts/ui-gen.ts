@@ -421,9 +421,9 @@ function mapImports(used: string[]) {
 
     if (!source) {
       // fallback to Home icon
-      source = "lucide-react";
-      fallback = true;
-      fallbacks.push(u);
+      // source = "lucide-react";
+      // fallback = true;
+      // fallbacks.push(u);
     }
 
     if (!importMap[source]) {
