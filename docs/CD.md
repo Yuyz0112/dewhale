@@ -13,4 +13,4 @@ Follow Cloudflare's [Doc](https://developers.cloudflare.com/pages/get-started/gu
 
 ### Environment variables
 
-Add `YARN_ENABLE_IMMUTABLE_INSTALLS=false` to the production and the preview environment variables, which solved an issue of `yarn3`.
+Add `YARN_ENABLE_IMMUTABLE_INSTALLS=false` to the production and the preview environment variables, which solves an issue of `yarn3`.

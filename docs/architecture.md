@@ -13,7 +13,7 @@ vx.dev is designed as an open-source alternative to v0.dev, integrating advanced
 The prompt forms the core of vx.dev, playing a pivotal role in guiding the AI model to generate high quality code. We have meticulously designed our prompts to closely align with the output style and quality of v0.dev. This involves:
 
 - **UI Component Library**: We use `@shadcn/ui` as the UI component library, incorporating its usage documentation as examples in our prompts, with slight modifications.
-- **Icon Library**: After experiments, we allow AI more freedom in selecting icons from the known `lucide-react` icon set. Errors in icon imports are corrected in the code generation optimization phase.
+- **Icon Library**: After experiments, we allow AI more freedom in selecting icons from the known `lucide` icon set. Errors in icon imports are corrected in the code generation optimization phase.
 - **Chart Library**: Drawing from v0.dev's outputs, we've included usage examples for `@nivo/pie`, `@nivo/line`, `@nivo/heatmap`, `@nivo/scatterplot`, and `@nivo/bar` in our prompts.
 
 **An important learning from v0.dev is to generate entirely static JSX code, which, despite seemingly limiting use cases, significantly improves stability.**
@@ -23,7 +23,7 @@ The prompt forms the core of vx.dev, playing a pivotal role in guiding the AI mo
 In practice, AI tends to make repetitive mistakes that are hard to eliminate through prompt adjustments. Typical issues include:
 
 1. Incorrect import paths for UI components.
-2. Incorrect or missing imports for icons from lucide-react, or importing non-existent icons.
+2. Incorrect or missing imports for icons from lucide, or importing non-existent icons.
 
 After reverse-engineering v0.dev's approach, we've developed a method to correct these issues by analyzing the code's AST.
 
