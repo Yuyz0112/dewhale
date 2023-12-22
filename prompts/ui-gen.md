@@ -8,9 +8,7 @@ The JSX code should ONLY use the following components, there are no other libs a
 - The `@/components/ui/$name` provided by the following available examples.
 - The chart components provided by the following nivo chart available examples.
 
-ALWAYS import UI components from a SUB_PATH such as `@/components/ui/$name`, like `@/components/ui/button`.
-
-You should ONLY import icons in the following list, other icon does not exist in our project:
+You can use icons from 'lucide-react', for example:
 
 ```
 1. ArrowRight
@@ -18,31 +16,6 @@ You should ONLY import icons in the following list, other icon does not exist in
 3. Home
 4. User
 5. Search
-6. Settings
-7. Heart
-8. Mail
-9. Bell
-10. Camera
-11. Edit
-12. Trash
-13. Plus
-14. Minus
-15. Upload
-16. Download
-17. Play
-18. Pause
-19. Stop
-20. Music
-21. Video
-22. Image
-23. File
-24. Folder
-25. Map
-26. Star
-27. Clock
-28. Calendar
-29. Printer
-30. Wifi
 ```
 
 When creating JSX code, refer to the usage method in the following sample code without omitting any code.
@@ -154,8 +127,6 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 ```jsx
 import { Badge } from "@/components/ui/badge";
 <Badge variant="outline">Badge</Badge>;
-import { badgeVariants } from "@/components/ui/badge";
-<Link className={badgeVariants({ variant: "outline" })}>Badge</Link>;
 ```
 
 ### Available Component 7, button:
@@ -244,23 +215,6 @@ import {
   CommandSeparator,
   CommandShortcut,
 } from "@/components/ui/command";
-<Command>
-  <CommandInput placeholder="Type a command or search..." />
-  <CommandList>
-    <CommandEmpty>No results found.</CommandEmpty>
-    <CommandGroup heading="Suggestions">
-      <CommandItem>Calendar</CommandItem>
-      <CommandItem>Search Emoji</CommandItem>
-      <CommandItem>Calculator</CommandItem>
-    </CommandGroup>
-    <CommandSeparator />
-    <CommandGroup heading="Settings">
-      <CommandItem>Profile</CommandItem>
-      <CommandItem>Billing</CommandItem>
-      <CommandItem>Settings</CommandItem>
-    </CommandGroup>
-  </CommandList>
-</Command>;
 export function CommandMenu() {
   const [open, setOpen] = React.useState(false);
 
@@ -283,7 +237,11 @@ export function CommandMenu() {
         <CommandGroup heading="Suggestions">
           <CommandItem>Calendar</CommandItem>
           <CommandItem>Search Emoji</CommandItem>
-          <CommandItem>Calculator</CommandItem>
+        </CommandGroup>
+        <CommandSeparator />
+        <CommandGroup heading="Settings">
+          <CommandItem>Profile</CommandItem>
+          <CommandItem>Billing</CommandItem>
         </CommandGroup>
       </CommandList>
     </CommandDialog>
@@ -305,8 +263,6 @@ import {
   <ContextMenuContent>
     <ContextMenuItem>Profile</ContextMenuItem>
     <ContextMenuItem>Billing</ContextMenuItem>
-    <ContextMenuItem>Team</ContextMenuItem>
-    <ContextMenuItem>Subscription</ContextMenuItem>
   </ContextMenuContent>
 </ContextMenu>;
 ```
@@ -321,7 +277,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
+} from "@/components/ui/dialog";
 <Dialog>
   <DialogTrigger>Open</DialogTrigger>
   <DialogContent>
@@ -333,33 +289,7 @@ import {
       </DialogDescription>
     </DialogHeader>
   </DialogContent>
-</Dialog>
-<Dialog>
-  <ContextMenu>
-    <ContextMenuTrigger>Right click</ContextMenuTrigger>
-    <ContextMenuContent>
-      <ContextMenuItem>Open</ContextMenuItem>
-      <ContextMenuItem>Download</ContextMenuItem>
-      <DialogTrigger asChild>
-        <ContextMenuItem>
-          <span>Delete</span>
-        </ContextMenuItem>
-      </DialogTrigger>
-    </ContextMenuContent>
-  </ContextMenu>
-  <DialogContent>
-    <DialogHeader>
-      <DialogTitle>Are you sure absolutely sure?</DialogTitle>
-      <DialogDescription>
-        This action cannot be undone. Are you sure you want to permanently
-        delete this file from our servers?
-      </DialogDescription>
-    </DialogHeader>
-    <DialogFooter>
-      <Button type="submit">Confirm</Button>
-    </DialogFooter>
-  </DialogContent>
-</Dialog>
+</Dialog>;
 ```
 
 ### Available Component 15, dropdown-menu:
@@ -380,8 +310,6 @@ import {
     <DropdownMenuSeparator />
     <DropdownMenuItem>Profile</DropdownMenuItem>
     <DropdownMenuItem>Billing</DropdownMenuItem>
-    <DropdownMenuItem>Team</DropdownMenuItem>
-    <DropdownMenuItem>Subscription</DropdownMenuItem>
   </DropdownMenuContent>
 </DropdownMenu>;
 ```
@@ -438,8 +366,6 @@ import {
       <MenubarItem>New Window</MenubarItem>
       <MenubarSeparator />
       <MenubarItem>Share</MenubarItem>
-      <MenubarSeparator />
-      <MenubarItem>Print</MenubarItem>
     </MenubarContent>
   </MenubarMenu>
 </Menubar>;
@@ -468,14 +394,6 @@ import {
     </NavigationMenuItem>
   </NavigationMenuList>
 </NavigationMenu>;
-import { navigationMenuTriggerStyle } from "@/components/ui/navigation-menu";
-<NavigationMenuItem>
-  <Link href="/docs" legacyBehavior passHref>
-    <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-      Documentation
-    </NavigationMenuLink>
-  </Link>
-</NavigationMenuItem>;
 ```
 
 ### Available Component 21, popover:
@@ -547,7 +465,6 @@ import {
   <SelectContent>
     <SelectItem value="light">Light</SelectItem>
     <SelectItem value="dark">Dark</SelectItem>
-    <SelectItem value="system">System</SelectItem>
   </SelectContent>
 </Select>;
 ```
@@ -569,19 +486,7 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@/components/ui/sheet"
-<Sheet>
-  <SheetTrigger>Open</SheetTrigger>
-  <SheetContent>
-    <SheetHeader>
-      <SheetTitle>Are you sure absolutely sure?</SheetTitle>
-      <SheetDescription>
-        This action cannot be undone. This will permanently delete your account
-        and remove your data from our servers.
-      </SheetDescription>
-    </SheetHeader>
-  </SheetContent>
-</Sheet>
+} from "@/components/ui/sheet";
 <Sheet>
   <SheetTrigger>Open</SheetTrigger>
   <SheetContent className="w-[400px] sm:w-[540px]">
@@ -593,7 +498,7 @@ import {
       </SheetDescription>
     </SheetHeader>
   </SheetContent>
-</Sheet>
+</Sheet>;
 ```
 
 ### Available Component 28, skeleton:
@@ -629,17 +534,14 @@ import {
   TableHead,
   TableRow,
 } from "@/components/ui/table";
-
 // DON'T misunderstand:
 // TableHeader represents <thead>, while TableHead represents <th>
-
 <Table>
   <TableCaption>A list of your recent invoices.</TableCaption>
   <TableHeader>
     <TableRow>
       <TableHead className="w-[100px]">Invoice</TableHead>
       <TableHead>Status</TableHead>
-      <TableHead>Method</TableHead>
       <TableHead className="text-right">Amount</TableHead>
     </TableRow>
   </TableHeader>
@@ -647,7 +549,6 @@ import {
     <TableRow>
       <TableCell className="font-medium">INV001</TableCell>
       <TableCell>Paid</TableCell>
-      <TableCell>Credit Card</TableCell>
       <TableCell className="text-right">$250.00</TableCell>
     </TableRow>
   </TableBody>
@@ -682,7 +583,6 @@ import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 <ToggleGroup type="single">
   <ToggleGroupItem value="a">A</ToggleGroupItem>
   <ToggleGroupItem value="b">B</ToggleGroupItem>
-  <ToggleGroupItem value="c">C</ToggleGroupItem>
 </ToggleGroup>;
 ```
 
@@ -702,9 +602,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-
 // always include the TooltipProvider at the top level when you want to use tooltip
-
 <TooltipProvider>
   <Tooltip>
     <TooltipTrigger>Hover</TooltipTrigger>
@@ -945,19 +843,6 @@ function PieChart(props) {
   </header>
   <main className="flex-1 overflow-y-auto p-4">Main content goes here.</main>
   <footer className="bg-white p-4 shadow-md">Footer content goes here.</footer>
-</div>
-```
-
-### Available Component 47, Responsive Card Layout:
-
-```jsx
-<div className="p-4">
-  <div className="max-w-sm mx-auto bg-white rounded-lg overflow-hidden shadow-lg">
-    <div className="px-6 py-4">
-      <div className="font-bold text-xl mb-2">Card Title</div>
-      <p className="text-gray-700 text-base">Card content goes here.</p>
-    </div>
-  </div>
 </div>
 ```
 
