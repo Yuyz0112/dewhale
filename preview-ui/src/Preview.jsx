@@ -14,8 +14,8 @@ export default function K8sClusterDashboard() {
   const [selectedDeployment, setSelectedDeployment] = React.useState(null);
 
   return (
-    <div className="flex h-screen bg-gradient-to-br from-gray-700 to-gray-900 text-white">
-      <NavigationMenu as="nav" className="bg-gradient-to-b from-gray-800 to-gray-900 w-64 p-6 hidden sm:block">
+    <div className="flex h-screen bg-white">
+      <NavigationMenu as="nav" className="bg-blue-50 w-64 p-6 hidden sm:block">
         <NavigationMenuList>
           <NavigationMenuItem>
             <NavigationMenuTrigger>Deployments</NavigationMenuTrigger>
@@ -38,8 +38,8 @@ export default function K8sClusterDashboard() {
         </NavigationMenuList>
       </NavigationMenu>
       <div className="flex-1 flex flex-col">
-        <header className="bg-gradient-to-r from-gray-800 to-gray-900 p-4 shadow-md flex justify-between items-center">
-          <h1 className="text-xl font-semibold">Kubernetes Cluster Dashboard</h1>
+        <header className="bg-blue-100 p-4 shadow-md flex justify-between items-center">
+          <h1 className="text-xl font-semibold text-gray-700">Kubernetes Cluster Dashboard</h1>
           <Select className="w-40">
             <SelectTrigger>
               <SelectValue placeholder="Select Namespace" />
@@ -73,33 +73,35 @@ export default function K8sClusterDashboard() {
                     <Sheet>
                       <SheetTrigger asChild>
                         <button
-                          className="text-blue-300 hover:underline"
+                          className="text-blue-600 hover:underline"
                           onClick={() => setSelectedDeployment(deployment)}
                         >
                           View Details
                         </button>
                       </SheetTrigger>
-                      {selectedDeployment && selectedDeployment.name === deployment.name && (
-                        <SheetContent className="w-80 bg-gray-800 p-6">
-                          <SheetHeader>
-                            <SheetTitle>{selectedDeployment.name}</SheetTitle>
-                            <SheetDescription>
-                              Detailed information about the deployment.
-                            </SheetDescription>
-                          </SheetHeader>
-                          <div className="mt-4">
-                            <p><strong>Replicas:</strong> {selectedDeployment.replicas}</p>
-                            <p><strong>Available:</strong> {selectedDeployment.available}</p>
-                            <p><strong>Last Updated:</strong> {selectedDeployment.updated}</p>
-                          </div>
-                        </SheetContent>
-                      )}
                     </Sheet>
                   </TableCell>
                 </TableRow>
               ))}
             </TableBody>
           </Table>
+          {selectedDeployment && (
+            <Sheet open={selectedDeployment !== null} onOpenChange={setSelectedDeployment}>
+              <SheetContent className="w-80 bg-white p-6">
+                <SheetHeader>
+                  <SheetTitle>{selectedDeployment.name}</SheetTitle>
+                  <SheetDescription>
+                    Detailed information about the deployment.
+                  </SheetDescription>
+                </SheetHeader>
+                <div className="mt-4">
+                  <p><strong>Replicas:</strong> {selectedDeployment.replicas}</p>
+                  <p><strong>Available:</strong> {selectedDeployment.available}</p>
+                  <p><strong>Last Updated:</strong> {selectedDeployment.updated}</p>
+                </div>
+              </SheetContent>
+            </Sheet>
+          )}
         </main>
       </div>
     </div>
