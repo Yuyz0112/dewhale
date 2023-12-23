@@ -12,6 +12,8 @@ For detailed instructions on how to set up and use vx.dev, please refer to our [
 
 You can also watch this [demo video](http://www.youtube.com/watch?v=J4LAOBRcu2c).
 
+More examples can be found in the [issue list](https://github.com/Yuyz0112/vx.dev/issues).
+
 ## Features
 
 ### Lower Usage Costs

@@ -644,7 +644,6 @@ async function main() {
     null,
     2
   );
-  console.log(commitMsg);
 
   const currentCode = await getCurrentCode(owner, repo, branch);
   if (currentCode !== PLACEHOLDER_CODE) {
