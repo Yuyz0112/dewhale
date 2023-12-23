@@ -79,27 +79,29 @@ export default function K8sClusterDashboard() {
                           View Details
                         </button>
                       </SheetTrigger>
-                      {selectedDeployment && selectedDeployment.name === deployment.name && (
-                        <SheetContent className="w-80 bg-white p-6">
-                          <SheetHeader>
-                            <SheetTitle>{selectedDeployment.name}</SheetTitle>
-                            <SheetDescription>
-                              Detailed information about the deployment.
-                            </SheetDescription>
-                          </SheetHeader>
-                          <div className="mt-4">
-                            <p><strong>Replicas:</strong> {selectedDeployment.replicas}</p>
-                            <p><strong>Available:</strong> {selectedDeployment.available}</p>
-                            <p><strong>Last Updated:</strong> {selectedDeployment.updated}</p>
-                          </div>
-                        </SheetContent>
-                      )}
                     </Sheet>
                   </TableCell>
                 </TableRow>
               ))}
             </TableBody>
           </Table>
+          {selectedDeployment && (
+            <Sheet open={selectedDeployment !== null} onOpenChange={setSelectedDeployment}>
+              <SheetContent className="w-80 bg-white p-6">
+                <SheetHeader>
+                  <SheetTitle>{selectedDeployment.name}</SheetTitle>
+                  <SheetDescription>
+                    Detailed information about the deployment.
+                  </SheetDescription>
+                </SheetHeader>
+                <div className="mt-4">
+                  <p><strong>Replicas:</strong> {selectedDeployment.replicas}</p>
+                  <p><strong>Available:</strong> {selectedDeployment.available}</p>
+                  <p><strong>Last Updated:</strong> {selectedDeployment.updated}</p>
+                </div>
+              </SheetContent>
+            </Sheet>
+          )}
         </main>
       </div>
     </div>
