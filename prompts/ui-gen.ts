@@ -520,7 +520,7 @@ function refineCode(code: string) {
         !fromReact.has(elName) &&
         fallbacks.includes(elName)
       ) {
-        p.replace(types.builders.jsxIdentifier("Home"));
+        p.replace(types.builders.jsxIdentifier("div"));
       }
       this.traverse(p);
     },
