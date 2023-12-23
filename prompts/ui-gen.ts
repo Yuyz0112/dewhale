@@ -172,6 +172,22 @@ async function applyPR(
   return pr;
 }
 
+const PLACEHOLDER_CODE = `export default function VxDev() { return <p>vx.dev placeholder</p>; }`;
+async function getCurrentCode(owner: string, repo: string, branch: string) {
+  const code = (
+    await octokit.rest.repos.getContent({
+      owner,
+      repo,
+      ref: branch,
+      path: "preview-ui/src/Preview.jsx",
+    })
+  ).data;
+
+  if ("type" in code && code.type === "file") {
+    return atob(code.content);
+  }
+}
+
 async function collectPromptAndImages(
   owner: string,
   repo: string,
@@ -613,19 +629,13 @@ async function main() {
           issue.number,
           branch,
           {
-            "preview-ui/src/Preview.jsx":
-              "export default function VxDev() { return <p>vx.dev placeholder</p>; }",
+            "preview-ui/src/Preview.jsx": PLACEHOLDER_CODE,
           },
           "[Skip CI] vx.dev: init the PR"
         );
   }
 
-  const { prompt, images } = await collectPromptAndImages(
-    owner,
-    repo,
-    issue,
-    pr
-  );
+  let { prompt, images } = await collectPromptAndImages(owner, repo, issue, pr);
   const commitMsg = JSON.stringify(
     {
       prompt,
@@ -635,6 +645,16 @@ async function main() {
     2
   );
   console.log(commitMsg);
+
+  const currentCode = await getCurrentCode(owner, repo, branch);
+  if (currentCode !== PLACEHOLDER_CODE) {
+    prompt += `
+Rreviously you already implemented the following code, use it as a reference and meet my new requirements:
+\`\`\`jsx
+${currentCode}
+\`\`\`
+`;
+  }
 
   const { code, usage, description } = await getCode(
     [
