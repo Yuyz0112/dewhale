@@ -1,3 +1,1 @@
-export default function VxDev() {
-  return <p>vx.dev</p>;
-}
+export default function VxDev() { return <p>vx.dev placeholder</p>; }
