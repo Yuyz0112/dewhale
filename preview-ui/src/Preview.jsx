@@ -27,32 +27,34 @@ export default function PhotoViewerApp() {
 
   return (
     <div className="flex flex-col h-screen">
-      <Carousel>
-        <CarouselContent>
-          {photos.map((photo, index) => (
-            <CarouselItem key={index}>
-              <Drawer>
-                <DrawerTrigger>
-                  <img src={photo.src} alt={`Photo by ${photo.author}`} className="cursor-pointer w-full h-full object-cover" />
-                </DrawerTrigger>
-                <DrawerContent>
-                  <DrawerHeader>
-                    <DrawerTitle>{photo.author}</DrawerTitle>
-                    <DrawerDescription>Photo Details</DrawerDescription>
-                  </DrawerHeader>
-                  <p>Created on: {photo.createTime}</p>
-                  <p>Labels: {photo.labels.join(', ')}</p>
-                  <DrawerClose>
-                    <button className="mt-4">Close</button>
-                  </DrawerClose>
-                </DrawerContent>
-              </Drawer>
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-        <CarouselPrevious />
-        <CarouselNext />
-      </Carousel>
+      <div className="ml-12 max-w-xs">
+        <Carousel>
+          <CarouselContent>
+            {photos.map((photo, index) => (
+              <CarouselItem key={index}>
+                <Drawer>
+                  <DrawerTrigger>
+                    <img src={photo.src} alt={`Photo by ${photo.author}`} className="cursor-pointer w-full h-full object-cover" />
+                  </DrawerTrigger>
+                  <DrawerContent>
+                    <DrawerHeader>
+                      <DrawerTitle>{photo.author}</DrawerTitle>
+                      <DrawerDescription>Photo Details</DrawerDescription>
+                    </DrawerHeader>
+                    <p>Created on: {photo.createTime}</p>
+                    <p>Labels: {photo.labels.join(', ')}</p>
+                    <DrawerClose>
+                      <button className="mt-4">Close</button>
+                    </DrawerClose>
+                  </DrawerContent>
+                </Drawer>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious />
+          <CarouselNext />
+        </Carousel>
+      </div>
 
       <div className="flex-1 overflow-y-auto p-4">
         <ResizablePanelGroup direction="horizontal">
