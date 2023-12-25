@@ -613,7 +613,103 @@ import {
 </TooltipProvider>;
 ```
 
-### Available Component 38, SVG icons:
+### Available Component 38, carousel:
+
+```jsx
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+<Carousel>
+  <CarouselContent>
+    <CarouselItem>...</CarouselItem>
+    <CarouselItem>...</CarouselItem>
+    <CarouselItem>...</CarouselItem>
+  </CarouselContent>
+  <CarouselPrevious />
+  <CarouselNext />
+</Carousel>;
+```
+
+### Available Component 39, drawer:
+
+```jsx
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+  DrawerFooter,
+} from "@/components/ui/drawer";
+<Drawer>
+  <DrawerTrigger>Open</DrawerTrigger>
+  <DrawerContent>
+    <DrawerHeader>
+      <DrawerTitle>Are you sure absolutely sure?</DrawerTitle>
+      <DrawerDescription>This action cannot be undone.</DrawerDescription>
+    </DrawerHeader>
+    <DrawerFooter>
+      <Button>Submit</Button>
+      <DrawerClose>
+        <Button variant="outline">Cancel</Button>
+      </DrawerClose>
+    </DrawerFooter>
+  </DrawerContent>
+</Drawer>;
+```
+
+### Available Component 40, pagination:
+
+```jsx
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
+<Pagination>
+  <PaginationContent>
+    <PaginationItem>
+      <PaginationPrevious href="#" />
+    </PaginationItem>
+    <PaginationItem>
+      <PaginationLink href="#">1</PaginationLink>
+    </PaginationItem>
+    <PaginationItem>
+      <PaginationEllipsis />
+    </PaginationItem>
+    <PaginationItem>
+      <PaginationNext href="#" />
+    </PaginationItem>
+  </PaginationContent>
+</Pagination>;
+```
+
+### Available Component 41, resizable:
+
+```jsx
+import {
+  ResizableHandle,
+  ResizablePanel,
+  ResizablePanelGroup,
+} from "@/components/ui/resizable";
+<ResizablePanelGroup direction="horizontal">
+  <ResizablePanel>One</ResizablePanel>
+  <ResizableHandle />
+  <ResizablePanel>Two</ResizablePanel>
+</ResizablePanelGroup>;
+```
+
+### Available Component 42, SVG icons:
 
 ```jsx
 import { Home, User, Settings } from "lucide-react";
@@ -625,7 +721,7 @@ import { Home, User, Settings } from "lucide-react";
 </div>;
 ```
 
-### Available Component 39, BarChart:
+### Available Component 43, BarChart:
 
 ```jsx
 import { ResponsiveBar } from "@nivo/bar";
@@ -661,7 +757,7 @@ function BarChart(props) {
 </div>;
 ```
 
-### Available Component 40, DotChart:
+### Available Component 44, DotChart:
 
 ```jsx
 import { ResponsiveScatterPlot } from "@nivo/scatterplot";
@@ -701,7 +797,7 @@ function DotChart(props) {
 </div>;
 ```
 
-### Available Component 41, HeatmapChart:
+### Available Component 45, HeatmapChart:
 
 ```jsx
 import { ResponsiveHeatMap } from "@nivo/heatmap";
@@ -737,7 +833,7 @@ function HeatmapChart(props) {
 </div>;
 ```
 
-### Available Component 42, LineChart:
+### Available Component 46, LineChart:
 
 ```jsx
 import { ResponsiveLine } from "@nivo/line";
@@ -780,7 +876,7 @@ function LineChart(props) {
 </div>;
 ```
 
-### Available Component 43, PieChart:
+### Available Component 47, PieChart:
 
 ```jsx
 import { ResponsivePie } from "@nivo/pie";
@@ -813,7 +909,7 @@ function PieChart(props) {
 </div>;
 ```
 
-### Available Component 44, Grid Layout:
+### Available Component 48, Grid Layout:
 
 ```jsx
 <div className="grid grid-cols-3 gap-4 p-4">
@@ -823,7 +919,7 @@ function PieChart(props) {
 </div>
 ```
 
-### Available Component 45, Sidebar Layout:
+### Available Component 49, Sidebar Layout:
 
 ```jsx
 <div className="flex h-screen bg-gray-100">
@@ -834,7 +930,7 @@ function PieChart(props) {
 </div>
 ```
 
-### Available Component 46, Header and Footer Layout:
+### Available Component 50, Header and Footer Layout:
 
 ```jsx
 <div className="flex flex-col h-screen">

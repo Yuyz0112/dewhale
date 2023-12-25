@@ -46,13 +46,16 @@
     "clsx": "^2.0.0",
     "cmdk": "^0.2.0",
     "date-fns": "^3.0.1",
+    "embla-carousel-react": "^8.0.0-rc17",
     "lucide-react": "^0.298.0",
     "react": "^18.2.0",
     "react-copy-to-clipboard": "^5.1.0",
     "react-day-picker": "^8.9.1",
     "react-dom": "^18.2.0",
+    "react-resizable-panels": "^1.0.5",
     "tailwind-merge": "^2.1.0",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "vaul": "^0.8.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.43",

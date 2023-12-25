@@ -397,6 +397,22 @@ function mapImports(used: string[], declarations: Set<string>) {
       source: "@/components/ui/context-menu",
     },
     {
+      matcher: "^Carousel.*",
+      source: "@/components/ui/carousel",
+    },
+    {
+      matcher: "^Drawer.*",
+      source: "@/components/ui/drawer",
+    },
+    {
+      matcher: "^Pagination.*",
+      source: "@/components/ui/pagination",
+    },
+    {
+      matcher: "^Resizable.*",
+      source: "@/components/ui/resizable",
+    },
+    {
       matcher: "^ResponsiveBar",
       source: "@nivo/bar",
     },
