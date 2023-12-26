@@ -41,7 +41,8 @@ import { ref } from 'vue';
 
 const commandHistory = ref([
   { command: 'Last login: Tue Mar 23 21:22:09 on ttys000', output: '' },
-  { command: 'user@localhost:~$ ls', output: ['Applications', 'Documents', 'Desktop', 'Downloads'] },
+  // The initial command history now includes the 'vite build' command
+  { command: 'user@localhost:~$ vite build', output: 'Building for production...' },
   // Add more command history as needed
 ]);
 
