@@ -102,6 +102,7 @@ ${currentCode}
     branch,
     {
       "vue-preview-ui/src/Preview.vue": refineCode(code),
+      "scripts/build-task": "vue-preview-ui",
     },
     `${vxDevPrefix} prompt:\r\n${commitMsg}`,
     [vueUiGenLabel]
