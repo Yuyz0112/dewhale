@@ -1,11 +1,11 @@
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
-import { Plus, Send } from 'lucide-react';
+import { Plus, Paperclip, Smile, Send } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import React from 'react';
 
 export default function ChatApp() {
   return (
-    <div className="flex flex-col h-screen bg-gray-900 text-white">
+    <div className="max-w-[600px] mx-auto flex flex-col h-screen bg-gray-900 text-white">
       <header className="flex items-center justify-between p-4 border-b border-gray-700">
         <div className="flex items-center space-x-3">
           <Avatar>
@@ -38,8 +38,14 @@ export default function ChatApp() {
         </div>
       </div>
       <div className="flex items-center justify-between p-4 bg-gray-800">
-        <Input placeholder="Type your message..." className="flex-1 text-black rounded px-4 py-2" />
-        <button className="ml-4 p-2 rounded-full bg-orange-500">
+        <button className="p-2 rounded-full bg-gray-700">
+          <Paperclip className="w-6 h-6" />
+        </button>
+        <Input placeholder="Type your message..." className="flex-1 mx-2 text-black rounded px-4 py-2" />
+        <button className="p-2 rounded-full bg-gray-700">
+          <Smile className="w-6 h-6" />
+        </button>
+        <button className="ml-2 p-2 rounded-full bg-orange-500">
           <Send className="w-6 h-6" />
         </button>
       </div>
