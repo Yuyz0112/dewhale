@@ -295,10 +295,7 @@ try {
   }
 } catch {}
 
-export async function composeWorkflow(
-  label: string,
-  placeholderFiles: Record<string, string>
-) {
+export async function getIssueEvent() {
   const githubEventPath = Deno.env.get("GITHUB_EVENT_PATH");
   assert(githubEventPath, "failed to get github event path");
 
@@ -310,6 +307,15 @@ export async function composeWorkflow(
 
   const eventName = Deno.env.get("GITHUB_EVENT_NAME");
   assert(eventName, "failed to get event name");
+
+  return { githubEvent, eventName };
+}
+
+export async function composeWorkflow(
+  label: string,
+  placeholderFiles: Record<string, string>
+) {
+  const { githubEvent, eventName } = await getIssueEvent();
 
   console.log(
     githubEvent.action,
