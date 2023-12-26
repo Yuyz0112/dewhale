@@ -14,6 +14,8 @@
           <span class="text-green-500">➜</span>
           <span class="text-blue-500">~</span>
           <input
+            v-model="currentCommand"
+            @keyup.enter="runCommand"
             type="text"
             class="bg-transparent focus:outline-none w-full"
             placeholder="Type your command..."
@@ -21,9 +23,13 @@
         </div>
         <div class="mt-4 space-y-2">
           <!-- Command output simulation -->
-          <div class="text-gray-400">Last login: Tue Mar 23 21:22:09 on ttys000</div>
-          <div class="text-gray-400">user@localhost:~$ ls</div>
-          <div class="text-gray-200">Applications Documents Desktop Downloads</div>
+          <div v-for="(entry, index) in commandHistory" :key="index" class="space-y-2">
+            <div class="text-gray-400">{{ entry.command }}</div>
+            <div v-if="Array.isArray(entry.output)" class="text-gray-200">
+              <div v-for="(line, lineIndex) in entry.output" :key="lineIndex">{{ line }}</div>
+            </div>
+            <div v-else class="text-gray-200">{{ entry.output }}</div>
+          </div>
         </div>
       </div>
     </div>
@@ -34,7 +40,8 @@
 import { ref } from 'vue';
 
 const commandHistory = ref([
-  { command: 'ls', output: ['Applications', 'Documents', 'Desktop', 'Downloads'] },
+  { command: 'Last login: Tue Mar 23 21:22:09 on ttys000', output: '' },
+  { command: 'user@localhost:~$ ls', output: ['Applications', 'Documents', 'Desktop', 'Downloads'] },
   // Add more command history as needed
 ]);
 
@@ -42,10 +49,17 @@ const currentCommand = ref('');
 
 const runCommand = () => {
   // Here you would handle the command execution logic
-  // For now, we just add it to the history
+  // For now, we just simulate the output for 'vite build'
+  let output = '';
+  if (currentCommand.value === 'vite build') {
+    output = 'Building for production...';
+  } else {
+    output = `Command '${currentCommand.value}' not found`;
+  }
+
   commandHistory.value.push({
-    command: currentCommand.value,
-    output: ['Command executed!'] // Replace with actual command output
+    command: `user@localhost:~$ ${currentCommand.value}`,
+    output: output
   });
   currentCommand.value = ''; // Clear the input after running the command
 };
