@@ -8,6 +8,8 @@ const generateData = () => {
   const nodes = Array.from({ length: 10 }, (_, i) => ({
     id: `node-${i}`,
     label: `Node ${i}`,
+    x: Math.random() * 100,
+    y: Math.random() * 100,
     color: `hsl(${Math.random() * 360}, 70%, 50%)`,
   }));
 
@@ -51,7 +53,8 @@ const NetworkVisualizationPage = () => {
                   style={{
                     width: '20px',
                     height: '20px',
-                    transform: `translate(${Math.random() * 100}%, ${Math.random() * 100}%)`,
+                    left: `${node.x}%`,
+                    top: `${node.y}%`,
                   }}
                   title={node.label}
                 >
@@ -66,24 +69,35 @@ const NetworkVisualizationPage = () => {
               </DialogContent>
             </Dialog>
           ))}
-          {links.map((link, index) => (
-            <svg key={index} className="absolute w-full h-full top-0 left-0">
-              <line
-                x1={`${Math.random() * 100}%`}
-                y1={`${Math.random() * 100}%`}
-                x2={`${Math.random() * 100}%`}
-                y2={`${Math.random() * 100}%`}
-                stroke="black"
-              />
-              <text
-                x={`${(Math.random() + Math.random()) / 2 * 100}%`}
-                y={`${(Math.random() + Math.random()) / 2 * 100}%`}
-                fill="black"
-              >
-                {link.label}
-              </text>
-            </svg>
-          ))}
+          {links.map((link, index) => {
+            const sourceNode = nodes.find(node => node.id === link.source);
+            const targetNode = nodes.find(node => node.id === link.target);
+            return (
+              <div key={index} className="absolute w-full h-full top-0 left-0">
+                <div
+                  className="absolute bg-black"
+                  style={{
+                    width: '2px',
+                    height: `${Math.sqrt(Math.pow(targetNode.y - sourceNode.y, 2) + Math.pow(targetNode.x - sourceNode.x, 2))}%`,
+                    backgroundColor: 'black',
+                    transform: `rotate(${Math.atan2(targetNode.y - sourceNode.y, targetNode.x - sourceNode.x) * (180 / Math.PI)}deg)`,
+                    transformOrigin: '0 0',
+                    left: `${sourceNode.x}%`,
+                    top: `${sourceNode.y}%`,
+                  }}
+                />
+                <div
+                  className="absolute"
+                  style={{
+                    left: `${(sourceNode.x + targetNode.x) / 2}%`,
+                    top: `${(sourceNode.y + targetNode.y) / 2}%`,
+                  }}
+                >
+                  {link.label}
+                </div>
+              </div>
+            );
+          })}
         </div>
       </main>
       <footer className="bg-white p-4 shadow-md">
