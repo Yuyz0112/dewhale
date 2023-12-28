@@ -22,7 +22,7 @@ const photos = [
 
 export default function PhotographyPortfolio() {
   return (
-    <div className="flex flex-col bg-gray-900 text-white">
+    <div className="flex flex-col min-h-screen bg-gray-900 text-white">
       {/* Photographer's Nickname and Introduction */}
       <div className="relative h-screen w-full">
         <img
@@ -78,8 +78,10 @@ export default function PhotographyPortfolio() {
       </div>
 
       {/* Footer */}
-      <footer className="bg-gray-800 p-4 text-center">
-        <p>© {new Date().getFullYear()} John Doe Photography. All rights reserved.</p>
+      <footer className="bg-gray-800">
+        <div className="container mx-auto py-4 px-5 text-center">
+          <p>© {new Date().getFullYear()} John Doe Photography. All rights reserved.</p>
+        </div>
       </footer>
     </div>
   );
