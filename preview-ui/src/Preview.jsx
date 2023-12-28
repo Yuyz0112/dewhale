@@ -5,15 +5,15 @@ import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@/componen
 import React from 'react';
 
 const generateData = () => {
-  const nodes = Array.from({ length: 5 }, (_, i) => ({
+  const nodes = Array.from({ length: 10 }, (_, i) => ({
     id: `node-${i}`,
     label: `Node ${i}`,
-    x: Math.random() * 80 + 10,
-    y: Math.random() * 80 + 10,
+    x: Math.random() * 90 + 5,
+    y: Math.random() * 90 + 5,
     color: `hsl(${Math.random() * 360}, 70%, 50%)`,
   }));
 
-  const links = Array.from({ length: 4 }, (_, i) => ({
+  const links = Array.from({ length: 9 }, (_, i) => ({
     source: `node-${i}`,
     target: `node-${i + 1}`,
     label: `Link ${i}`,
@@ -55,6 +55,7 @@ const NetworkVisualizationPage = () => {
                     height: '20px',
                     left: `${node.x}%`,
                     top: `${node.y}%`,
+                    transform: 'translate(-50%, -50%)',
                   }}
                   title={node.label}
                 >
@@ -81,7 +82,8 @@ const NetworkVisualizationPage = () => {
                     y1={`${sourceNode.y}%`}
                     x2={`${targetNode.x}%`}
                     y2={`${targetNode.y}%`}
-                    stroke="black"
+                    stroke={sourceNode.color}
+                    strokeWidth="2"
                   />
                   <text
                     x={`${(sourceNode.x + targetNode.x) / 2}%`}
