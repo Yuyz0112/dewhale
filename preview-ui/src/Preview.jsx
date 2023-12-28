@@ -22,7 +22,7 @@ const photos = [
 
 export default function PhotographyPortfolio() {
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col bg-gray-900 text-white">
       {/* Photographer's Nickname and Introduction */}
       <div className="relative h-screen w-full">
         <img
@@ -31,7 +31,7 @@ export default function PhotographyPortfolio() {
           className="absolute inset-0 object-cover w-full h-full"
         />
         <div className="absolute inset-0 bg-black bg-opacity-50" />
-        <div className="relative z-10 flex flex-col items-center justify-center h-full text-center text-white">
+        <div className="relative z-10 flex flex-col items-center justify-center h-full text-center">
           <h1 className="text-6xl font-bold">John Doe</h1>
           <p className="mt-4 text-xl">Capturing moments from today, creating memories for a lifetime.</p>
         </div>
@@ -47,25 +47,25 @@ export default function PhotographyPortfolio() {
                   <img src={photo.src} alt={`Photo by John Doe - ${photo.label}`} className="object-cover" />
                 </AspectRatio>
                 <div className="mt-2 text-center">
-                  <Button variant="outline">{photo.label}</Button>
+                  <Button variant="outline" className="text-white border-white">{photo.label}</Button>
                 </div>
               </div>
             </DialogTrigger>
-            <DialogContent>
-              <div className="flex flex-col items-center p-4">
+            <DialogContent className="bg-gray-800 p-6 rounded-lg">
+              <div className="flex flex-col items-center">
                 <img src={photo.src} alt={`Photo by John Doe - ${photo.label}`} className="rounded-md" />
                 <p className="mt-4">{photo.description}</p>
                 <div className="mt-4 space-x-2">
-                  <Button variant="outline">
+                  <Button variant="outline" className="text-white border-white">
                     <Mail className="w-5 h-5 mr-2" />
                     Contact for Original
                   </Button>
-                  <Button variant="outline">
+                  <Button variant="outline" className="text-white border-white">
                     <Heart className="w-5 h-5 mr-2" />
                     Like
                   </Button>
                 </div>
-                <Button variant="outline" className="mt-4">
+                <Button variant="outline" className="mt-4 text-white border-white">
                   <X className="w-5 h-5 mr-2" />
                   Close
                 </Button>
