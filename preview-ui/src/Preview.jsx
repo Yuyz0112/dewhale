@@ -1,6 +1,7 @@
 import { ChevronDown, Inbox, Home, Send, FileText, Trash2, Archive, Printer, Settings } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Separator } from '@/components/ui/separator';
@@ -11,7 +12,7 @@ export default function MailboxUI() {
   return (
     (<div className="flex h-screen bg-gray-100">
       {/* Sidebar */}
-      <div className="bg-gray-800 text-white w-64 p-6 hidden sm:block">
+      <div className="bg-white text-gray-800 w-64 p-6 hidden sm:block">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-xl font-semibold">Alicia Koch</h2>
           <ChevronDown className="w-5 h-5" />
@@ -32,7 +33,7 @@ export default function MailboxUI() {
           <Button variant="outline" className="text-left w-full mb-4">
             <Trash2 className="w-5 h-5 mr-2" /> Trash <Badge variant="solid" className="ml-2">21</Badge>
           </Button>
-          <Button variant="outline" className="text-left w-full mb-4">
+          <Button variant="outline" className="text-left w-full">
             <Archive className="w-5 h-5 mr-2" /> Archive
           </Button>
         </nav>
@@ -49,6 +50,11 @@ export default function MailboxUI() {
             <Button variant="outline">Unread</Button>
           </div>
         </header>
+
+        {/* Search Bar */}
+        <div className="px-4 py-2 bg-white">
+          <Input placeholder="Search" className="w-full" />
+        </div>
 
         {/* Email List */}
         <ScrollArea className="flex-1">
@@ -72,7 +78,7 @@ export default function MailboxUI() {
         </ScrollArea>
 
         {/* Email Detail View */}
-        <div className="bg-gray-800 text-white w-96 p-6 hidden lg:block">
+        <div className="bg-white text-gray-800 w-96 p-6 hidden lg:block">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-xl font-semibold">William Smith</h2>
             <div className="flex items-center">
@@ -83,7 +89,7 @@ export default function MailboxUI() {
           <div className="mb-6">
             <div className="flex items-center justify-between mb-1">
               <h3 className="text-lg font-semibold">Meeting Tomorrow</h3>
-              <span className="text-sm text-gray-400">Oct 22, 2023, 9:00:00 AM</span>
+              <span className="text-sm text-gray-500">Oct 22, 2023, 9:00:00 AM</span>
             </div>
             <div className="flex items-center mb-4">
               <Avatar className="mr-2">
