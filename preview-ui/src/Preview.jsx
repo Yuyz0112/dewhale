@@ -1,4 +1,4 @@
-import { Dialog, DialogTrigger, DialogContent, DialogClose } from '@/components/ui/dialog';
+import { Dialog, DialogTrigger, DialogContent } from '@/components/ui/dialog';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 import { Button } from '@/components/ui/button';
 import { Mail, Heart, X } from 'lucide-react';
@@ -65,12 +65,10 @@ export default function PhotographyPortfolio() {
                     Like
                   </Button>
                 </div>
-                <DialogClose asChild>
-                  <Button variant="outline" className="mt-4">
-                    <X className="w-5 h-5 mr-2" />
-                    Close
-                  </Button>
-                </DialogClose>
+                <Button variant="outline" className="mt-4">
+                  <X className="w-5 h-5 mr-2" />
+                  Close
+                </Button>
               </div>
             </DialogContent>
           </Dialog>
