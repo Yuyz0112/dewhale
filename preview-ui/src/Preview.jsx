@@ -5,18 +5,18 @@ import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@/componen
 import React from 'react';
 
 const generateData = () => {
-  const nodes = Array.from({ length: 10 }, (_, i) => ({
+  const nodes = Array.from({ length: 5 }, (_, i) => ({
     id: `node-${i}`,
     label: `Node ${i}`,
-    x: Math.random() * 100,
-    y: Math.random() * 100,
+    x: Math.random() * 80 + 10,
+    y: Math.random() * 80 + 10,
     color: `hsl(${Math.random() * 360}, 70%, 50%)`,
   }));
 
-  const links = Array.from({ length: 15 }, () => ({
-    source: `node-${Math.floor(Math.random() * 10)}`,
-    target: `node-${Math.floor(Math.random() * 10)}`,
-    label: `Link ${Math.floor(Math.random() * 10)}`,
+  const links = Array.from({ length: 4 }, (_, i) => ({
+    source: `node-${i}`,
+    target: `node-${i + 1}`,
+    label: `Link ${i}`,
   }));
 
   return { nodes, links };
@@ -72,29 +72,28 @@ const NetworkVisualizationPage = () => {
           {links.map((link, index) => {
             const sourceNode = nodes.find(node => node.id === link.source);
             const targetNode = nodes.find(node => node.id === link.target);
+            if (!sourceNode || !targetNode) return null;
             return (
-              <div key={index} className="absolute w-full h-full top-0 left-0">
-                <div
-                  className="absolute bg-black"
-                  style={{
-                    width: '2px',
-                    height: `${Math.sqrt(Math.pow(targetNode.y - sourceNode.y, 2) + Math.pow(targetNode.x - sourceNode.x, 2))}%`,
-                    backgroundColor: 'black',
-                    transform: `rotate(${Math.atan2(targetNode.y - sourceNode.y, targetNode.x - sourceNode.x) * (180 / Math.PI)}deg)`,
-                    transformOrigin: '0 0',
-                    left: `${sourceNode.x}%`,
-                    top: `${sourceNode.y}%`,
-                  }}
-                />
-                <div
-                  className="absolute"
-                  style={{
-                    left: `${(sourceNode.x + targetNode.x) / 2}%`,
-                    top: `${(sourceNode.y + targetNode.y) / 2}%`,
-                  }}
-                >
-                  {link.label}
-                </div>
+              <div key={index} className="absolute w-full h-full top-0 left-0 pointer-events-none">
+                <svg width="100%" height="100%" className="absolute top-0 left-0">
+                  <line
+                    x1={`${sourceNode.x}%`}
+                    y1={`${sourceNode.y}%`}
+                    x2={`${targetNode.x}%`}
+                    y2={`${targetNode.y}%`}
+                    stroke="black"
+                  />
+                  <text
+                    x={`${(sourceNode.x + targetNode.x) / 2}%`}
+                    y={`${(sourceNode.y + targetNode.y) / 2}%`}
+                    fill="black"
+                    fontSize="10"
+                    dy=".3em"
+                    textAnchor="middle"
+                  >
+                    {link.label}
+                  </text>
+                </svg>
               </div>
             );
           })}
