@@ -1,4 +1,4 @@
-import { Dialog, DialogTrigger, DialogContent } from '@/components/ui/dialog';
+import { Dialog, DialogTrigger, DialogContent, DialogClose } from '@/components/ui/dialog';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 import { Button } from '@/components/ui/button';
 import { Mail, Heart, X } from 'lucide-react';
@@ -30,7 +30,7 @@ export default function PhotographyPortfolio() {
           alt="Main background"
           className="absolute inset-0 object-cover w-full h-full"
         />
-        <div className="absolute inset-0 bg-black bg-opacity-50" />
+        <div className="absolute inset-0 bg-black bg-opacity-60" />
         <div className="relative z-10 flex flex-col items-center justify-center h-full text-center">
           <h1 className="text-6xl font-bold">John Doe</h1>
           <p className="mt-4 text-xl">Capturing moments from today, creating memories for a lifetime.</p>
@@ -51,11 +51,11 @@ export default function PhotographyPortfolio() {
                 </div>
               </div>
             </DialogTrigger>
-            <DialogContent className="bg-gray-800 p-6 rounded-lg">
-              <div className="flex flex-col items-center">
+            <DialogContent className="fixed inset-0 bg-black bg-opacity-80 flex justify-center items-center p-4">
+              <div className="bg-gray-800 p-6 rounded-lg max-w-2xl w-full">
                 <img src={photo.src} alt={`Photo by John Doe - ${photo.label}`} className="rounded-md" />
                 <p className="mt-4">{photo.description}</p>
-                <div className="mt-4 space-x-2">
+                <div className="flex justify-between items-center mt-4">
                   <Button variant="outline" className="text-white border-white">
                     <Mail className="w-5 h-5 mr-2" />
                     Contact for Original
@@ -65,10 +65,12 @@ export default function PhotographyPortfolio() {
                     Like
                   </Button>
                 </div>
-                <Button variant="outline" className="mt-4 text-white border-white">
-                  <X className="w-5 h-5 mr-2" />
-                  Close
-                </Button>
+                <DialogClose asChild>
+                  <Button variant="outline" className="text-white border-white mt-4">
+                    <X className="w-5 h-5 mr-2" />
+                    Close
+                  </Button>
+                </DialogClose>
               </div>
             </DialogContent>
           </Dialog>
