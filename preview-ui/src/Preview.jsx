@@ -3,14 +3,16 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@/components/ui/accordion';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
-import React from 'react';
+import React, { useState } from 'react';
 
 export default function ComponentShowcase() {
+  const [selectedTab, setSelectedTab] = useState('components');
+
   return (
     <div className="flex h-screen">
       <div className="bg-white w-64 p-6 hidden sm:block">
         <ScrollArea className="h-full">
-          <Tabs defaultValue="components" className="flex flex-col">
+          <Tabs defaultValue={selectedTab} onValueChange={setSelectedTab} className="flex flex-col">
             <TabsList>
               <TabsTrigger value="components">Components</TabsTrigger>
               <TabsTrigger value="hooks">Hooks</TabsTrigger>
@@ -62,7 +64,7 @@ export default function ComponentShowcase() {
         </ScrollArea>
       </div>
       <div className="flex-1 p-6 overflow-y-auto">
-        <Tabs defaultValue="components">
+        <Tabs defaultValue={selectedTab}>
           <TabsContent value="components">
             <Card>
               <CardHeader>
