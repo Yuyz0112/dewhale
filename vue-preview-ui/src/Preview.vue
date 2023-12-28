@@ -94,8 +94,9 @@
         </Table>
       </TabsContent>
       <TabsContent value="metrics">
-        <!-- Placeholder for metrics monitoring chart -->
+        <!-- Metrics monitoring chart -->
         <div class="aspect-w-16 aspect-h-9">
+          <!-- Replace this div with actual chart component when available -->
           <div class="bg-gray-200 rounded-lg flex items-center justify-center">
             <span class="text-gray-500">Metrics Chart Placeholder</span>
           </div>
@@ -127,7 +128,7 @@ import {
 } from "@/components/ui";
 </script>
 
-<style>
+<style scoped>
 /* Ensure the aspect ratio utility works */
 .aspect-w-16 {
   width: 100%;
