@@ -1,4 +1,4 @@
-import { Dialog, DialogTrigger, DialogContent } from '@/components/ui/dialog';
+import { Dialog, DialogTrigger, DialogContent, DialogClose } from '@/components/ui/dialog';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -22,7 +22,7 @@ export default function PhotographyPortfolio() {
   ];
 
   return (
-    <div>
+    <div className="flex flex-col min-h-screen">
       <header className="relative">
         <div className="absolute inset-0">
           <img
@@ -37,7 +37,7 @@ export default function PhotographyPortfolio() {
         </div>
       </header>
 
-      <main className="p-8 bg-white">
+      <main className="p-8 bg-white flex-grow">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           {photos.map((photo) => (
             <Dialog key={photo.id}>
@@ -68,13 +68,19 @@ export default function PhotographyPortfolio() {
                   </div>
                   <Button>Contact for Original</Button>
                   <Button variant="outline" className="mt-2">Like</Button>
-                  <Button variant="outline" className="mt-2">Close</Button>
+                  <DialogClose asChild>
+                    <Button variant="outline" className="mt-2">Close</Button>
+                  </DialogClose>
                 </div>
               </DialogContent>
             </Dialog>
           ))}
         </div>
       </main>
+
+      <footer className="bg-gray-800 text-white p-4 text-center">
+        <p>© 2021 John Doe Photography. All rights reserved.</p>
+      </footer>
     </div>
   );
 }
