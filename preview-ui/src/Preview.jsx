@@ -76,6 +76,11 @@ export default function PhotographyPortfolio() {
           </Dialog>
         ))}
       </div>
+
+      {/* Footer */}
+      <footer className="bg-gray-800 p-4 text-center">
+        <p>© {new Date().getFullYear()} John Doe Photography. All rights reserved.</p>
+      </footer>
     </div>
   );
 }
