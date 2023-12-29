@@ -24,17 +24,31 @@
       >
         {{ copied ? "Copied!" : "Copy Code" }}
       </Button>
-      <code>{{ previewStr }}</code>
+      <div v-html="code"></div>
     </div>
   </main>
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import { Button } from "./components/ui/button";
 import ErrorBoundary from "./ErrorBoundary.vue";
 import Preview from "./Preview.vue";
 import previewStr from "./Preview.vue?raw";
+import { getHighlighter, setCDN } from "shiki";
+
+const code = ref("");
+function setCodeHighlighter() {
+  setCDN("/shiki/");
+  getHighlighter({ theme: "one-dark-pro", langs: ["vue"] })
+    .then((h) => {
+      const html = h.codeToHtml(previewStr, { lang: "vue" });
+      code.value = html;
+    })
+    .catch((error) => {
+      code.value = error;
+    });
+}
 
 const showCanvas = ref(true);
 const copied = ref(false);
@@ -50,6 +64,9 @@ const copyCode = () => {
     setTimeout(() => (copied.value = false), 2000);
   });
 };
+onMounted(() => {
+  setCodeHighlighter();
+});
 </script>
 
 <style scoped>
