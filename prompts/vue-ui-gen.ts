@@ -1,13 +1,15 @@
-import { assert } from "https://deno.land/std@0.201.0/assert/assert.ts";
 import {
   getCode,
   octokit,
   vxDevPrefix,
   applyPR,
-  lucideIcons,
   composeWorkflow,
+  shadcnRules,
 } from "./common.ts";
 import { join } from "https://deno.land/std@0.188.0/path/mod.ts";
+import { parse, print, visit } from "npm:recast";
+import "npm:@babel/parser";
+import tsParser from "npm:recast/parsers/babel-ts.js";
 
 const vueUiGenLabel = `vue-ui-gen`;
 
@@ -40,8 +42,76 @@ async function getCurrentCode(owner: string, repo: string, branch: string) {
 }
 
 function refineCode(code: string) {
-  // TODO: refine Vue code
-  return code;
+  const regex = /<script setup>([\s\S]*?)<\/script>/;
+  const matches = code.match(regex);
+
+  if (!matches) {
+    return code;
+  }
+
+  const scriptContent = matches[1];
+
+  const ast = parse(scriptContent, {
+    parser: tsParser,
+  });
+
+  let importStr = "";
+
+  visit(ast, {
+    visitImportDeclaration(p) {
+      const isRootUi =
+        p.node.source.type === "StringLiteral" &&
+        p.node.source.value === "@/components/ui";
+
+      if (isRootUi) {
+        const components = (p.node.specifiers || [])
+          .map((c) => c.local?.name.toString() || "")
+          .filter(Boolean);
+
+        importStr = mapShadcnImports(components).importStr;
+
+        p.replace();
+      }
+
+      this.traverse(p);
+    },
+  });
+
+  return code.replace(scriptContent, "\n" + importStr + print(ast).code);
+}
+
+function mapShadcnImports(used: string[]) {
+  const importMap: Record<string, Set<string>> = {};
+
+  for (const u of used) {
+    let source = "";
+
+    for (const rule of shadcnRules) {
+      if (new RegExp(rule.matcher).test(u)) {
+        source = rule.source;
+        break;
+      }
+    }
+
+    if (!source) {
+      continue;
+    }
+
+    if (!importMap[source]) {
+      importMap[source] = new Set();
+    }
+    importMap[source].add(u);
+  }
+
+  let importStr = "";
+  for (const key in importMap) {
+    const statement = `import { ${Array.from(importMap[key]).join(
+      ", "
+    )} } from '${key}';`;
+    importStr += `${statement}\r\n`;
+  }
+
+  return { importStr };
 }
 
 async function main() {
