@@ -37,27 +37,77 @@
       </TabsList>
       <TabsContent value="pods">
         <div class="bg-white shadow rounded-lg p-4">
-          <!-- Pod list would be dynamically generated here -->
-          <ul>
-            <li>Pod 1</li>
-            <li>Pod 2</li>
-            <li>Pod 3</li>
-          </ul>
+          <Table>
+            <TableCaption>Pods associated with the deployment</TableCaption>
+            <TableHead>
+              <TableRow>
+                <TableHead>Name</TableHead>
+                <TableHead>Status</TableHead>
+                <TableHead>Restarts</TableHead>
+                <TableHead>Age</TableHead>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              <TableRow>
+                <TableCell>example-pod-1</TableCell>
+                <TableCell>Running</TableCell>
+                <TableCell>0</TableCell>
+                <TableCell>20m</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>example-pod-2</TableCell>
+                <TableCell>Running</TableCell>
+                <TableCell>1</TableCell>
+                <TableCell>1h</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>example-pod-3</TableCell>
+                <TableCell>Error</TableCell>
+                <TableCell>3</TableCell>
+                <TableCell>2h</TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
         </div>
       </TabsContent>
       <TabsContent value="events">
         <div class="bg-white shadow rounded-lg p-4">
-          <!-- Event list would be dynamically generated here -->
-          <ul>
-            <li>Event 1</li>
-            <li>Event 2</li>
-            <li>Event 3</li>
-          </ul>
+          <Table>
+            <TableCaption>Events related to the deployment</TableCaption>
+            <TableHead>
+              <TableRow>
+                <TableHead>Time</TableHead>
+                <TableHead>Type</TableHead>
+                <TableHead>Reason</TableHead>
+                <TableHead>Message</TableHead>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              <TableRow>
+                <TableCell>10m</TableCell>
+                <TableCell>Normal</TableCell>
+                <TableCell>Scheduled</TableCell>
+                <TableCell>Successfully assigned default/example-pod-1 to node1</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>1h</TableCell>
+                <TableCell>Warning</TableCell>
+                <TableCell>BackOff</TableCell>
+                <TableCell>Back-off restarting failed container</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>2h</TableCell>
+                <TableCell>Normal</TableCell>
+                <TableCell>Started</TableCell>
+                <TableCell>Started container with id abc123</TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
         </div>
       </TabsContent>
       <TabsContent value="metrics">
         <div class="bg-white shadow rounded-lg p-4">
-          <!-- Metrics chart would be dynamically generated here -->
+          <!-- Placeholder for Nivo chart component -->
           <div class="h-64">
             <!-- Placeholder for chart component -->
             <div class="w-full h-full bg-gray-200 rounded-lg"></div>
@@ -71,6 +121,15 @@
 <script setup>
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 </script>
 
 <style>
