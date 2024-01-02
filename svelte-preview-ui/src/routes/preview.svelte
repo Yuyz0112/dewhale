@@ -3,7 +3,6 @@
   import { Button } from "$lib/components/ui/button";
   import * as Tabs from "$lib/components/ui/tabs";
   import * as Menubar from "$lib/components/ui/menubar";
-  import * as Sidebar from "$lib/components/ui/sidebar";
   import { AspectRatio } from "$lib/components/ui/aspect-ratio";
   import { Search } from "lucide-svelte";
   import { Plus } from "lucide-svelte";
@@ -25,61 +24,59 @@
 </style>
 
 <div class="flex h-screen bg-gray-900 text-white">
-  <Sidebar.Root defaultOpen={true} class="w-64 bg-color-sidebar text-color-sidebar-text">
-    <Sidebar.Trigger class="p-4">
+  <div class="w-64 bg-color-sidebar text-color-sidebar-text">
+    <div class="p-4">
       <Search size="24" />
-    </Sidebar.Trigger>
-    <Sidebar.Content>
-      <div class="flex flex-col p-4 space-y-2">
-        <Sidebar.Item active>
-          <Music size="20" class="mr-2" />
-          Discover
-        </Sidebar.Item>
-        <Sidebar.Item>
-          <Radio size="20" class="mr-2" />
-          Radio
-        </Sidebar.Item>
-        <Sidebar.Item>
-          <FileText size="20" class="mr-2" />
-          Browse
-        </Sidebar.Item>
-        <div class="mt-4">
-          <p class="uppercase tracking-wide text-xs text-color-sidebar-text mb-2">Library</p>
-          <Sidebar.Item>
-            <Disc size="20" class="mr-2" />
-            Playlists
-          </Sidebar.Item>
-          <Sidebar.Item>
-            <Music size="20" class="mr-2" />
-            Songs
-          </Sidebar.Item>
-          <Sidebar.Item>
-            <Heart size="20" class="mr-2" />
-            Made for You
-          </Sidebar.Item>
-          <Sidebar.Item>
-            <User size="20" class="mr-2" />
-            Artists
-          </Sidebar.Item>
-          <Sidebar.Item>
-            <FileText size="20" class="mr-2" />
-            Albums
-          </Sidebar.Item>
+    </div>
+    <div class="flex flex-col p-4 space-y-2">
+      <div class="flex items-center p-2 rounded-md bg-color-sidebar-active">
+        <Music size="20" class="mr-2" />
+        Discover
+      </div>
+      <div class="flex items-center p-2 rounded-md hover:bg-color-sidebar-active transition-colors">
+        <Radio size="20" class="mr-2" />
+        Radio
+      </div>
+      <div class="flex items-center p-2 rounded-md hover:bg-color-sidebar-active transition-colors">
+        <FileText size="20" class="mr-2" />
+        Browse
+      </div>
+      <div class="mt-4">
+        <p class="uppercase tracking-wide text-xs text-color-sidebar-text mb-2">Library</p>
+        <div class="flex items-center p-2 rounded-md hover:bg-color-sidebar-active transition-colors">
+          <Disc size="20" class="mr-2" />
+          Playlists
         </div>
-        <div class="mt-4">
-          <p class="uppercase tracking-wide text-xs text-color-sidebar-text mb-2">Playlists</p>
-          <Sidebar.Item>
-            <Star size="20" class="mr-2" />
-            Top Songs
-          </Sidebar.Item>
-          <Sidebar.Item>
-            <Clock size="20" class="mr-2" />
-            Recently Played
-          </Sidebar.Item>
+        <div class="flex items-center p-2 rounded-md hover:bg-color-sidebar-active transition-colors">
+          <Music size="20" class="mr-2" />
+          Songs
+        </div>
+        <div class="flex items-center p-2 rounded-md hover:bg-color-sidebar-active transition-colors">
+          <Heart size="20" class="mr-2" />
+          Made for You
+        </div>
+        <div class="flex items-center p-2 rounded-md hover:bg-color-sidebar-active transition-colors">
+          <User size="20" class="mr-2" />
+          Artists
+        </div>
+        <div class="flex items-center p-2 rounded-md hover:bg-color-sidebar-active transition-colors">
+          <FileText size="20" class="mr-2" />
+          Albums
         </div>
       </div>
-    </Sidebar.Content>
-  </Sidebar.Root>
+      <div class="mt-4">
+        <p class="uppercase tracking-wide text-xs text-color-sidebar-text mb-2">Playlists</p>
+        <div class="flex items-center p-2 rounded-md hover:bg-color-sidebar-active transition-colors">
+          <Star size="20" class="mr-2" />
+          Top Songs
+        </div>
+        <div class="flex items-center p-2 rounded-md hover:bg-color-sidebar-active transition-colors">
+          <Clock size="20" class="mr-2" />
+          Recently Played
+        </div>
+      </div>
+    </div>
+  </div>
 
   <div class="flex-1 flex flex-col">
     <Menubar.Root class="bg-color-primary p-4">
@@ -132,34 +129,11 @@
           <h2 class="text-xl font-semibold text-color-content-text mb-4">Listen Now</h2>
           <p class="text-color-content-text mb-4">Top picks for you. Updated daily.</p>
           <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <AspectRatio ratio={1} class="bg-muted">
-              <img
-                src="https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=800&dpr=2&q=80"
-                alt="React Rendezvous"
-                class="rounded-md object-cover"
-              />
-            </AspectRatio>
-            <AspectRatio ratio={1} class="bg-muted">
-              <img
-                src="https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=800&dpr=2&q=80"
-                alt="Async Awakenings"
-                class="rounded-md object-cover"
-              />
-            </AspectRatio>
-            <AspectRatio ratio={1} class="bg-muted">
-              <img
-                src="https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=800&dpr=2&q=80"
-                alt="The Art of Reusability"
-                class="rounded-md object-cover"
-              />
-            </AspectRatio>
-            <AspectRatio ratio={1} class="bg-muted">
-              <img
-                src="https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=800&dpr=2&q=80"
-                alt="Stateful Symphony"
-                class="rounded-md object-cover"
-              />
-            </AspectRatio>
+            <!-- Image placeholders with solid colors -->
+            <div class="bg-orange-300 rounded-md aspect-w-1 aspect-h-1"></div>
+            <div class="bg-orange-300 rounded-md aspect-w-1 aspect-h-1"></div>
+            <div class="bg-orange-300 rounded-md aspect-w-1 aspect-h-1"></div>
+            <div class="bg-orange-300 rounded-md aspect-w-1 aspect-h-1"></div>
           </div>
         </Tabs.Content>
         <Tabs.Content value="podcasts">
@@ -174,34 +148,11 @@
         <h2 class="text-xl font-semibold text-color-content-text mb-4">Made for You</h2>
         <p class="text-color-content-text mb-4">Your personal playlists. Updated daily.</p>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <AspectRatio ratio={1} class="bg-muted">
-            <img
-              src="https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=800&dpr=2&q=80"
-              alt="Thinking Components"
-              class="rounded-md object-cover"
-            />
-          </AspectRatio>
-          <AspectRatio ratio={1} class="bg-muted">
-            <img
-              src="https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=800&dpr=2&q=80"
-              alt="Functional Fury"
-              class="rounded-md object-cover"
-            />
-          </AspectRatio>
-          <AspectRatio ratio={1} class="bg-muted">
-            <img
-              src="https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=800&dpr=2&q=80"
-              alt="React Rendezvous"
-              class="rounded-md object-cover"
-            />
-          </AspectRatio>
-          <AspectRatio ratio={1} class="bg-muted">
-            <img
-              src="https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=800&dpr=2&q=80"
-              alt="Stateful Symphony"
-              class="rounded-md object-cover"
-            />
-          </AspectRatio>
+          <!-- Image placeholders with solid colors -->
+          <div class="bg-orange-300 rounded-md aspect-w-1 aspect-h-1"></div>
+          <div class="bg-orange-300 rounded-md aspect-w-1 aspect-h-1"></div>
+          <div class="bg-orange-300 rounded-md aspect-w-1 aspect-h-1"></div>
+          <div class="bg-orange-300 rounded-md aspect-w-1 aspect-h-1"></div>
         </div>
       </div>
 
