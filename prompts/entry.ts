@@ -11,10 +11,12 @@ const entry = labels.has("ui-gen")
   ? "ui-gen"
   : labels.has("vue-ui-gen")
   ? "vue-ui-gen"
+  : labels.has("svelte-ui-gen")
+  ? "svelte-ui-gen"
   : null;
 if (!entry) {
-  throw new Error("unknown entry");
+  console.warn("unknown entry");
+} else {
+  const module = await import(join(__dirname, `./${entry}.ts`));
+  module.main?.();
 }
-
-const module = await import(join(__dirname, `./${entry}.ts`));
-module.main?.();
