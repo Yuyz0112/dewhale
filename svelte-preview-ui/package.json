@@ -8,7 +8,7 @@
     "preview": "vite preview"
   },
   "devDependencies": {
-    "@sveltejs/adapter-auto": "^3.0.0",
+    "@sveltejs/adapter-static": "^3.0.1",
     "@sveltejs/kit": "^2.0.0",
     "@sveltejs/vite-plugin-svelte": "^3.0.0",
     "autoprefixer": "^10.4.16",
@@ -20,8 +20,10 @@
   },
   "type": "module",
   "dependencies": {
+    "@internationalized/date": "^3.5.1",
     "bits-ui": "^0.13.0",
     "clsx": "^2.1.0",
+    "cmdk-sv": "^0.0.12",
     "lucide-svelte": "^0.303.0",
     "tailwind-merge": "^2.2.0",
     "tailwind-variants": "^0.1.19"

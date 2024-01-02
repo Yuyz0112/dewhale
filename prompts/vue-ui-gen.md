@@ -122,7 +122,11 @@ import { AspectRatio } from "@/components/ui/aspect-ratio";
 <template>
   <div class="w-[450px]">
     <AspectRatio :ratio="16 / 9">
-      <img src="..." alt="Image" class="rounded-md object-cover" />
+      <img
+        src="https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=800&dpr=2&q=80"
+        alt="Image"
+        class="rounded-md object-cover"
+      />
     </AspectRatio>
   </div>
 </template>
@@ -137,7 +141,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 <template>
   <Avatar>
-    <AvatarImage src="https://github.com/radix-vue.png" alt="@radix-vue" />
+    <AvatarImage src="https://github.com/Yuyz0112.png" />
     <AvatarFallback>CN</AvatarFallback>
   </Avatar>
 </template>
@@ -163,7 +167,7 @@ import { Button } from "@/components/ui/button";
 </script>
 
 <template>
-  <Button>Button</Button>
+  <Button variant="outline">Button</Button>
 </template>
 ```
 
@@ -245,39 +249,6 @@ const isOpen = ref(false);
 ### Component Example 12, command:
 
 ```vue
-<script setup>
-import {
-  Command,
-  CommandDialog,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-  CommandSeparator,
-  CommandShortcut,
-} from "@/components/ui/command";
-</script>
-
-<template>
-  <Command>
-    <CommandInput placeholder="Type a command or search..." />
-    <CommandList>
-      <CommandEmpty>No results found.</CommandEmpty>
-      <CommandGroup heading="Suggestions">
-        <CommandItem value="calendar"> Calendar </CommandItem>
-        <CommandItem value="search-emoji"> Search Emoji </CommandItem>
-        <CommandItem value="calculator"> Calculator </CommandItem>
-      </CommandGroup>
-      <CommandSeparator />
-      <CommandGroup heading="Settings">
-        <CommandItem value="profile"> Profile </CommandItem>
-        <CommandItem value="billing"> Billing </CommandItem>
-        <CommandItem value="settings"> Settings </CommandItem>
-      </CommandGroup>
-    </CommandList>
-  </Command>
-</template>
 <script setup>
 import { useMagicKeys } from "@vueuse/core";
 
