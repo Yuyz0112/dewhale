@@ -1,7 +1,7 @@
 <script>
-import { AspectRatio } from '@/components/ui/aspect-ratio';
-import { Button } from '@/components/ui/button';
 
+  import { AspectRatio } from '@/components/ui/aspect-ratio';
+  import { Button } from '@/components/ui/button';
   import * as Dialog from "$lib/components/ui/dialog";
   import { Heart, Download, X } from "lucide-svelte";
 
@@ -44,6 +44,7 @@ import { Button } from '@/components/ui/button';
             alt="Photo"
             class="rounded-md object-cover"
             loading="lazy"
+            style="height: auto;"
           />
         </AspectRatio>
         <div class="flex flex-wrap gap-2 justify-center mt-2">
