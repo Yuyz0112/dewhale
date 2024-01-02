@@ -12,7 +12,7 @@ export default function Home() {
   const [code, setCode] = useState("");
 
   function setCodeHighlighter() {
-    setCDN("/shiki/");
+    setCDN("https://cdn.jsdelivr.net/npm/shiki");
     getHighlighter({ theme: "one-dark-pro", langs: ["jsx"] })
       .then((h) => {
         const html = h.codeToHtml(previewStr, { lang: "jsx" });

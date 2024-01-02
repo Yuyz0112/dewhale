@@ -39,7 +39,7 @@ import { getHighlighter, setCDN } from "shiki";
 
 const code = ref("");
 function setCodeHighlighter() {
-  setCDN("/shiki/");
+  setCDN("https://cdn.jsdelivr.net/npm/shiki");
   getHighlighter({ theme: "one-dark-pro", langs: ["vue"] })
     .then((h) => {
       const html = h.codeToHtml(previewStr, { lang: "vue" });

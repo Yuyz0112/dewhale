@@ -4,10 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "copy": "shx mkdir -p public/shiki && shx cp -r node_modules/shiki/{dist,languages,samples,themes} public/shiki/",
-    "dev": "npm run copy && vite",
-    "build": "npm run copy && vite build",
-    "preview": "npm run copy && vite preview"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "dependencies": {
     "@vueuse/core": "^10.7.0",
@@ -25,7 +24,6 @@
     "@vitejs/plugin-vue": "^4.5.2",
     "autoprefixer": "^10.4.16",
     "postcss": "^8.4.32",
-    "shx": "^0.3.4",
     "tailwindcss": "^3.4.0",
     "vite": "^5.0.8"
   }
