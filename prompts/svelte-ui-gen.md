@@ -37,7 +37,7 @@ Remember: you love your designers and want them to be happy. The more complete a
 ### Component Example 1, accordion:
 
 ```svelte
-<script lang="ts">
+<script>
   import * as Accordion from "$lib/components/ui/accordion";
 </script>
 
@@ -54,7 +54,7 @@ Remember: you love your designers and want them to be happy. The more complete a
 ### Component Example 2, alert-dialog:
 
 ```svelte
-<script lang="ts">
+<script>
   import * as AlertDialog from "$lib/components/ui/alert-dialog";
 </script>
 
@@ -79,7 +79,7 @@ Remember: you love your designers and want them to be happy. The more complete a
 ### Component Example 3, alert:
 
 ```svelte
-<script lang="ts">
+<script>
   import * as Alert from "$lib/components/ui/alert";
 </script>
 
@@ -94,7 +94,7 @@ Remember: you love your designers and want them to be happy. The more complete a
 ### Component Example 4, aspect-ratio:
 
 ```svelte
-<script lang="ts">
+<script>
   import { AspectRatio } from "lib/components/ui/aspect-ratio";
 </script>
 
@@ -110,7 +110,7 @@ Remember: you love your designers and want them to be happy. The more complete a
 ### Component Example 5, avatar:
 
 ```svelte
-<script lang="ts">
+<script>
   import * as Avatar from "$lib/components/ui/avatar";
 </script>
 
@@ -123,7 +123,7 @@ Remember: you love your designers and want them to be happy. The more complete a
 ### Component Example 6, badge:
 
 ```svelte
-<script lang="ts">
+<script>
   import { Badge } from "$lib/components/ui/badge";
 </script>
 <Badge variant="outline">Badge</Badge>
@@ -132,7 +132,7 @@ Remember: you love your designers and want them to be happy. The more complete a
 ### Component Example 7, button:
 
 ```svelte
-<script lang="ts">
+<script>
   import { Button } from "$lib/components/ui/button";
 </script>
 <Button variant="outline">Button</Button>
@@ -141,7 +141,7 @@ Remember: you love your designers and want them to be happy. The more complete a
 ### Component Example 8, calendar:
 
 ```svelte
-<script lang="ts">
+<script>
   import { Calendar } from "$lib/components/ui/calendar";
   import { today, getLocalTimeZone } from "@internationalized/date";
 
@@ -154,7 +154,7 @@ Remember: you love your designers and want them to be happy. The more complete a
 ### Component Example 9, card:
 
 ```svelte
-<script lang="ts">
+<script>
   import * as Card from "$lib/components/ui/card";
 </script>
 
@@ -177,7 +177,7 @@ Remember: you love your designers and want them to be happy. The more complete a
 ### Component Example 10, checkbox:
 
 ```svelte
-<script lang="ts">
+<script>
   import { Checkbox } from "$lib/components/ui/checkbox";
 </script>
 <Checkbox />
@@ -186,7 +186,7 @@ Remember: you love your designers and want them to be happy. The more complete a
 ### Component Example 11, collapsible:
 
 ```svelte
-<script lang="ts">
+<script>
   import * as Collapsible from "$lib/components/ui/collapsible";
 </script>
 
@@ -202,7 +202,7 @@ Remember: you love your designers and want them to be happy. The more complete a
 ### Component Example 12, command:
 
 ```svelte
-<script lang="ts">
+<script>
   import * as Command from "$lib/components/ui/command";
   import { onMount } from "svelte";
 
@@ -240,7 +240,7 @@ Remember: you love your designers and want them to be happy. The more complete a
 ### Component Example 13, context-menu:
 
 ```svelte
-<script lang="ts">
+<script>
   import * as ContextMenu from "$lib/components/ui/context-menu";
 </script>
 
@@ -258,7 +258,7 @@ Remember: you love your designers and want them to be happy. The more complete a
 ### Component Example 14, dialog:
 
 ```svelte
-<script lang="ts">
+<script>
   import * as Dialog from "$lib/components/ui/dialog";
 </script>
 
@@ -279,7 +279,7 @@ Remember: you love your designers and want them to be happy. The more complete a
 ### Component Example 15, dropdown-menu:
 
 ```svelte
-<script lang="ts">
+<script>
   import * as DropdownMenu from "$lib/components/ui/dropdown-menu";
 </script>
 
@@ -301,7 +301,7 @@ Remember: you love your designers and want them to be happy. The more complete a
 ### Component Example 16, hover-card:
 
 ```svelte
-<script lang="ts">
+<script>
   import * as HoverCard from "$lib/components/ui/hover-card";
 </script>
 
@@ -316,7 +316,7 @@ Remember: you love your designers and want them to be happy. The more complete a
 ### Component Example 17, input:
 
 ```svelte
-<script lang="ts">
+<script>
   import { Input } from "$lib/components/ui/input";
 </script>
 
@@ -326,7 +326,7 @@ Remember: you love your designers and want them to be happy. The more complete a
 ### Component Example 18, label:
 
 ```svelte
-<script lang="ts">
+<script>
   import { Label } from "$lib/components/ui/label";
 </script>
 
@@ -336,7 +336,7 @@ Remember: you love your designers and want them to be happy. The more complete a
 ### Component Example 19, menubar:
 
 ```svelte
-<script lang="ts">
+<script>
   import * as Menubar from "$lib/components/ui/menubar";
 </script>
 
@@ -361,7 +361,7 @@ Remember: you love your designers and want them to be happy. The more complete a
 ### Component Example 21, popover:
 
 ```svelte
-<script lang="ts">
+<script>
   import * as Popover from "$lib/components/ui/popover";
 </script>
 
@@ -374,7 +374,7 @@ Remember: you love your designers and want them to be happy. The more complete a
 ### Component Example 22, progress:
 
 ```svelte
-<script lang="ts">
+<script>
   import { Progress } from "$lib/components/ui/progress";
 </script>
 
@@ -384,7 +384,7 @@ Remember: you love your designers and want them to be happy. The more complete a
 ### Component Example 23, radio-group:
 
 ```svelte
-<script lang="ts">
+<script>
   import { Label } from "$lib/components/ui/label";
   import * as RadioGroup from "$lib/components/ui/radio-group";
 </script>
@@ -404,7 +404,7 @@ Remember: you love your designers and want them to be happy. The more complete a
 ### Component Example 25, select:
 
 ```svelte
-<script lang="ts">
+<script>
   import * as Select from "$lib/components/ui/select";
 </script>
 
@@ -423,7 +423,7 @@ Remember: you love your designers and want them to be happy. The more complete a
 ### Component Example 26, separator:
 
 ```svelte
-<script lang="ts">
+<script>
   import { Separator } from "$lib/components/ui/separator";
 </script>
 
@@ -433,7 +433,7 @@ Remember: you love your designers and want them to be happy. The more complete a
 ### Component Example 27, sheet:
 
 ```svelte
-<script lang="ts">
+<script>
   import * as Sheet from "$lib/components/ui/sheet";
 </script>
 
@@ -454,7 +454,7 @@ Remember: you love your designers and want them to be happy. The more complete a
 ### Component Example 28, skeleton:
 
 ```svelte
-<script lang="ts">
+<script>
   import { Skeleton } from "$lib/components/ui/skeleton";
 </script>
 <Skeleton class="w-[100px] h-[20px] rounded-full" />
@@ -463,7 +463,7 @@ Remember: you love your designers and want them to be happy. The more complete a
 ### Component Example 29, slider:
 
 ```svelte
-<script lang="ts">
+<script>
   import { Slider } from "$lib/components/ui/slider";
 </script>
 
@@ -473,7 +473,7 @@ Remember: you love your designers and want them to be happy. The more complete a
 ### Component Example 30, switch:
 
 ```svelte
-<script lang="ts">
+<script>
   import { Switch } from "$lib/components/ui/switch";
 </script>
 
@@ -483,7 +483,7 @@ Remember: you love your designers and want them to be happy. The more complete a
 ### Component Example 31, table:
 
 ```svelte
-<script lang="ts">
+<script>
   import * as Table from "$lib/components/ui/table";
 </script>
 <Table.Root>
@@ -510,7 +510,7 @@ Remember: you love your designers and want them to be happy. The more complete a
 ### Component Example 32, tabs:
 
 ```svelte
-<script lang="ts">
+<script>
   import * as Tabs from "$lib/components/ui/tabs";
 </script>
 
@@ -529,7 +529,7 @@ Remember: you love your designers and want them to be happy. The more complete a
 ### Component Example 33, textarea:
 
 ```svelte
-<script lang="ts">
+<script>
   import { Textarea } from "$lib/components/ui/textarea";
 </script>
 <Textarea />
@@ -538,7 +538,7 @@ Remember: you love your designers and want them to be happy. The more complete a
 ### Component Example 35, toggle-group:
 
 ```svelte
-<script lang="ts">
+<script>
   import * as ToggleGroup from "$lib/components/ui/toggle-group";
 </script>
 
@@ -552,7 +552,7 @@ Remember: you love your designers and want them to be happy. The more complete a
 ### Component Example 36, toggle:
 
 ```svelte
-<script lang="ts">
+<script>
   import { Toggle } from "$lib/components/ui/toggle";
 </script>
 
@@ -562,7 +562,7 @@ Remember: you love your designers and want them to be happy. The more complete a
 ### Component Example 37, tooltip:
 
 ```svelte
-<script lang="ts">
+<script>
   import * as Tooltip from "$lib/components/ui/tooltip";
 </script>
 
