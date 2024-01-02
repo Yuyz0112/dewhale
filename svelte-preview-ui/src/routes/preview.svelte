@@ -1,7 +1,8 @@
-<script lang="ts">
-  import { AspectRatio, Button } from "$lib/components/ui";
+<script>
+import { AspectRatio } from '@/components/ui/aspect-ratio';
+import { Button } from '@/components/ui/button';
+
   import * as Dialog from "$lib/components/ui/dialog";
-  import { onMount } from "svelte";
   import { Heart, Download, X } from "lucide-svelte";
 
   // Mock data for the photo wall
@@ -26,21 +27,6 @@
     openDialog = false;
     selectedPhoto = null;
   }
-
-  // Function to handle lazy loading (mock implementation)
-  onMount(() => {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          // Here you would fetch and display new photos
-        }
-      });
-    });
-
-    document.querySelectorAll('.photo-wall img').forEach((img) => {
-      observer.observe(img);
-    });
-  });
 </script>
 
 <main class="space-y-12">
