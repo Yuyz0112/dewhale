@@ -130,3 +130,5 @@ dist
 .pnp.*
 
 .vscode
+
+__debug
