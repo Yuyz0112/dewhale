@@ -82,7 +82,7 @@ function mapShadcnImports(used: string[]) {
 
     for (const rule of shadcnRules) {
       if (new RegExp(rule.matcher).test(u)) {
-        source = rule.source;
+        source = rule.source.replace("@/components", "$lib/components");
         break;
       }
     }
