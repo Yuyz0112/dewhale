@@ -53,6 +53,7 @@
     "react-day-picker": "^8.9.1",
     "react-dom": "^18.2.0",
     "react-resizable-panels": "^1.0.5",
+    "shiki": "^0.14.7",
     "tailwind-merge": "^2.1.0",
     "tailwindcss-animate": "^1.0.7",
     "vaul": "^0.8.0"
