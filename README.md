@@ -42,6 +42,6 @@ To understand the underlying architecture and workings of vx.dev, please see our
 
 ## Roadmap
 
-As vx.dev continues to evolve, we have outlined a key feature that we plan to implement in the near future:
+As vx.dev continues to evolve, we have outlined key features that we plan to implement in the near future:
 
 - **Precise Iteration through Code Review Comments**: We aim to support the ability to precisely iterate parts of the code via code review comments. This feature will allow users to make specific requests or suggestions for code modifications directly within the comments of a code review.
