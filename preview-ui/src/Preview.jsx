@@ -8,7 +8,7 @@ import React from 'react';
 export default function PaymentForm() {
   return (
     <div className="bg-white p-6 rounded-lg shadow-md max-w-md mx-auto my-8">
-      <h1 className="text-2xl font-semibold mb-4">Payment Method</h1>
+      <h1 className="text-2xl font-semibold mb-4 text-green-600">Payment Method</h1>
       <p className="text-gray-600 mb-6">Add a new payment method to your account.</p>
       <ToggleGroup type="single" defaultValue="card" className="mb-6">
         <ToggleGroupItem value="card" className="rounded-lg border border-green-500 text-green-500">
@@ -49,7 +49,7 @@ export default function PaymentForm() {
             </Select>
           </div>
           <div>
-            <Label htmlFor="expires-year" className="sr-only">Year</Label>
+            <Label htmlFor="expires-year" className="block text-sm font-medium text-gray-700">Year</Label>
             <Select id="expires-year" className="mt-1">
               <SelectTrigger className="w-full">
                 <SelectValue placeholder="Year" />
@@ -67,7 +67,7 @@ export default function PaymentForm() {
           </div>
         </div>
       </div>
-      <Button className="w-full bg-green-500 text-white py-2 rounded-lg">Continue</Button>
+      <Button className="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700">Continue</Button>
     </div>
   );
 }
