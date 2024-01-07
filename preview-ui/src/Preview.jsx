@@ -28,15 +28,17 @@ const LiveStreamPage = () => {
   };
 
   return (
-    <div className="flex flex-col h-screen bg-pink-50">
-      <div className="flex-grow">
+    <div className="flex h-screen bg-pink-50">
+      <div className="flex-2">
         <AspectRatio ratio={16 / 9} className="bg-black">
           {/* Placeholder for video player */}
           <div className="flex justify-center items-center h-full">
             <span className="text-white text-2xl">Live Stream Video Player</span>
           </div>
         </AspectRatio>
-        <ScrollArea className="h-48 p-4 overflow-y-auto">
+      </div>
+      <div className="flex-1 flex flex-col">
+        <ScrollArea className="flex-1 p-4 overflow-y-auto">
           {comments.map(comment => (
             <div key={comment.id} className="flex items-center space-x-2 mb-4">
               <Avatar>
@@ -50,33 +52,33 @@ const LiveStreamPage = () => {
             </div>
           ))}
         </ScrollArea>
-      </div>
-      <div className="p-4 bg-white border-t-2 border-pink-200">
-        <div className="flex items-center space-x-2">
-          <Input
-            className="flex-grow"
-            placeholder="Say something nice..."
-            value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
-            onKeyPress={(e) => e.key === 'Enter' && handleSendComment()}
-          />
-          <Button variant="primary" className="bg-pink-500 text-white" onClick={handleSendComment}>
-            <Send className="w-5 h-5" />
-          </Button>
-        </div>
-        <div className="flex justify-between mt-4">
-          <Button variant="primary" className="bg-pink-500 text-white">
-            <Heart className="w-5 h-5 mr-2" />
-            Like
-          </Button>
-          <Button variant="primary" className="bg-pink-500 text-white">
-            <MessageCircle className="w-5 h-5 mr-2" />
-            Comment
-          </Button>
-          <Button variant="primary" className="bg-pink-500 text-white">
-            <Gift className="w-5 h-5 mr-2" />
-            Gift
-          </Button>
+        <div className="p-4 bg-white border-t-2 border-pink-200">
+          <div className="flex items-center space-x-2">
+            <Input
+              className="flex-grow"
+              placeholder="Say something nice..."
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
+              onKeyPress={(e) => e.key === 'Enter' && handleSendComment()}
+            />
+            <Button variant="primary" className="bg-pink-500 text-white" onClick={handleSendComment}>
+              <Send className="w-5 h-5" />
+            </Button>
+          </div>
+          <div className="flex justify-between mt-4">
+            <Button variant="primary" className="bg-pink-500 text-white">
+              <Heart className="w-5 h-5 mr-2" />
+              Like
+            </Button>
+            <Button variant="primary" className="bg-pink-500 text-white">
+              <MessageCircle className="w-5 h-5 mr-2" />
+              Comment
+            </Button>
+            <Button variant="primary" className="bg-pink-500 text-white">
+              <Gift className="w-5 h-5 mr-2" />
+              Gift
+            </Button>
+          </div>
         </div>
       </div>
     </div>
