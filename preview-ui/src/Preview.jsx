@@ -29,7 +29,7 @@ const LiveStreamPage = () => {
 
   return (
     <div className="flex h-screen bg-pink-50">
-      <div className="flex-2">
+      <div className="flex-grow flex-shrink w-2/3">
         <AspectRatio ratio={16 / 9} className="bg-black">
           {/* Placeholder for video player */}
           <div className="flex justify-center items-center h-full">
@@ -37,8 +37,8 @@ const LiveStreamPage = () => {
           </div>
         </AspectRatio>
       </div>
-      <div className="flex-1 flex flex-col">
-        <ScrollArea className="flex-1 p-4 overflow-y-auto">
+      <div className="w-1/3 flex flex-col">
+        <ScrollArea className="flex-grow overflow-y-auto">
           {comments.map(comment => (
             <div key={comment.id} className="flex items-center space-x-2 mb-4">
               <Avatar>
