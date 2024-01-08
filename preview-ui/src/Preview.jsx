@@ -1,7 +1,8 @@
-import { Folder, Home, Trash, User, Settings, Upload, File, ArrowRight } from 'lucide-react';
+import { Folder, Home, Trash, User, Settings, FileText, MoreHorizontal, Download, Share2, Copy, Move, Trash2, FilePlus, PlusCircle, Archive, FileMinus, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Table, TableCaption, TableHeader, TableRow, TableCell, TableBody } from '@/components/ui/table';
 import { Checkbox } from '@/components/ui/checkbox';
+import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from '@/components/ui/dropdown-menu';
 import { Switch } from '@/components/ui/switch';
 import { TooltipProvider, Tooltip, TooltipTrigger, TooltipContent } from '@/components/ui/tooltip';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
@@ -40,30 +41,46 @@ export default function FileManager() {
               <TableCell>Size</TableCell>
               <TableCell>Last modified</TableCell>
               <TableCell>Created at</TableCell>
-              <TableCell>
-                <Button variant="outline" className="mr-2">
-                  <Upload className="w-4 h-4 mr-1" /> Upload
-                </Button>
-                <Button variant="outline" className="mr-2">
-                  <Folder className="w-4 h-4 mr-1" /> New folder
-                </Button>
-                <Button variant="outline">
-                  <File className="w-4 h-4 mr-1" /> New file
-                </Button>
-              </TableCell>
+              <TableCell>Actions</TableCell>
             </TableRow>
           </TableHeader>
           <TableBody>
-            {/* Example file row */}
+            {/* Example file rows */}
             <TableRow>
               <TableCell><Checkbox /></TableCell>
               <TableCell>
-                <File className="w-4 h-4 mr-2" />
+                <FileText className="w-4 h-4 mr-2" />
                 example_document.pdf
               </TableCell>
               <TableCell>1.2 MB</TableCell>
               <TableCell>Jan 1, 2023</TableCell>
               <TableCell>Dec 1, 2022</TableCell>
+              <TableCell>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="ghost">
+                      <MoreHorizontal className="w-4 h-4" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent>
+                    <DropdownMenuItem>
+                      <Download className="w-4 h-4 mr-2" /> Download
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <Share2 className="w-4 h-4 mr-2" /> Share
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <Copy className="w-4 h-4 mr-2" /> Copy
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <Move className="w-4 h-4 mr-2" /> Move
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <Trash2 className="w-4 h-4 mr-2" /> Move to Trash
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </TableCell>
             </TableRow>
             {/* Example folder row */}
             <TableRow>
@@ -75,6 +92,38 @@ export default function FileManager() {
               <TableCell>—</TableCell>
               <TableCell>Jan 2, 2023</TableCell>
               <TableCell>Dec 2, 2022</TableCell>
+              <TableCell>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="ghost">
+                      <MoreHorizontal className="w-4 h-4" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent>
+                    <DropdownMenuItem>
+                      <FilePlus className="w-4 h-4 mr-2" /> New File
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <PlusCircle className="w-4 h-4 mr-2" /> New Folder
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <Copy className="w-4 h-4 mr-2" /> Copy
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <Move className="w-4 h-4 mr-2" /> Move
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <Archive className="w-4 h-4 mr-2" /> Compress
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <FileMinus className="w-4 h-4 mr-2" /> Decompress
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <Trash2 className="w-4 h-4 mr-2" /> Move to Trash
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </TableCell>
             </TableRow>
           </TableBody>
         </Table>
