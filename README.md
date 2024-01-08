@@ -6,6 +6,8 @@
 
 An open-source alternative to Vercel's [v0.dev](https://v0.dev/). Cost-effective, highly customizable, and seamlessly integrated within GitHub.
 
+[中文文档](./README.zh_CN.md)
+
 ## Quick Start
 
 For detailed instructions on how to set up and use vx.dev, please refer to our [Guide](./docs/quick-start.md).

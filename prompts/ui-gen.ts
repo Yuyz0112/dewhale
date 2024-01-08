@@ -10,6 +10,7 @@ import {
   lucideIcons,
   composeWorkflow,
   shadcnRules,
+  getFileContent,
 } from "./common.ts";
 
 const uiGenLabel = `ui-gen`;
@@ -18,19 +19,8 @@ const __dirname = new URL(".", import.meta.url).pathname;
 const systemPrompt = await Deno.readTextFile(join(__dirname, "./ui-gen.md"));
 
 const PLACEHOLDER_CODE = `export default function VxDev() { return <p>vx.dev placeholder</p>; }`;
-async function getCurrentCode(owner: string, repo: string, branch: string) {
-  const code = (
-    await octokit.rest.repos.getContent({
-      owner,
-      repo,
-      ref: branch,
-      path: "preview-ui/src/Preview.jsx",
-    })
-  ).data;
-
-  if ("type" in code && code.type === "file") {
-    return atob(code.content);
-  }
+function getCurrentCode(owner: string, repo: string, branch: string) {
+  return getFileContent(owner, repo, branch, "preview-ui/src/Preview.jsx");
 }
 
 function mapImports(used: string[], declarations: Set<string>) {
@@ -177,7 +167,7 @@ async function main() {
   const currentCode = await getCurrentCode(owner, repo, branch);
   if (currentCode !== PLACEHOLDER_CODE) {
     prompt += `
-Rreviously you already implemented the following code, use it as a reference and meet my new requirements:
+Previously you already implemented the following code, use it as a reference and meet my new requirements:
 \`\`\`jsx
 ${currentCode}
 \`\`\`

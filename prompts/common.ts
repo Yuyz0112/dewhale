@@ -233,7 +233,8 @@ async function collectPromptAndImages(
   owner: string,
   repo: string,
   issue: { number: number; body?: string | null },
-  pr: { number: number }
+  pr: { number: number },
+  branch: string
 ) {
   const prComments = (
     await octokit.rest.issues.listComments({
@@ -250,7 +251,7 @@ async function collectPromptAndImages(
     })
   ).data;
 
-  const commentsStr = issueComments
+  let commentsStr = issueComments
     .concat(prComments)
     .filter((c) => isValidComment(c))
     .sort(
@@ -259,6 +260,34 @@ async function collectPromptAndImages(
     )
     .map((c) => c.body)
     .join("\n");
+
+  const prReviews = (
+    await octokit.rest.pulls.listReviewComments({
+      owner,
+      repo,
+      pull_number: pr.number,
+    })
+  ).data;
+  for (const r of prReviews
+    .filter((r) => isValidComment(r) && r.commit_id === r.original_commit_id)
+    .sort(
+      (a, b) =>
+        new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
+    )) {
+    let lineCode = "";
+    if (r.line) {
+      const code = await getFileContent(owner, repo, branch, r.path);
+      lineCode = (code || "").split("\n")[r.line - 1];
+    }
+    if (lineCode) {
+      commentsStr += `In your previous implemented code, I want to modify this part:
+\`\`\`
+${lineCode}
+\`\`\`
+`;
+    }
+    commentsStr += `\n${r.body}\n`;
+  }
 
   let prompt = `${issue.body || ""}\n${commentsStr}`;
   const regex = /!\[.*?\]\((.*?)\)/g;
@@ -393,7 +422,13 @@ export async function composeWorkflow(
         );
   }
 
-  let { prompt, images } = await collectPromptAndImages(owner, repo, issue, pr);
+  const { prompt, images } = await collectPromptAndImages(
+    owner,
+    repo,
+    issue,
+    pr,
+    branch
+  );
   const commitMsg = JSON.stringify(
     {
       prompt,
@@ -593,3 +628,23 @@ export const shadcnRules = [
     source: "@nivo/heatmap",
   },
 ];
+
+export async function getFileContent(
+  owner: string,
+  repo: string,
+  branch: string,
+  path: string
+) {
+  const code = (
+    await octokit.rest.repos.getContent({
+      owner,
+      repo,
+      ref: branch,
+      path,
+    })
+  ).data;
+
+  if ("type" in code && code.type === "file") {
+    return atob(code.content);
+  }
+}

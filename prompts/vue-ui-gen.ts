@@ -5,6 +5,7 @@ import {
   applyPR,
   composeWorkflow,
   shadcnRules,
+  getFileContent,
 } from "./common.ts";
 import { join } from "https://deno.land/std@0.188.0/path/mod.ts";
 import { parse, print, visit } from "npm:recast";
@@ -26,19 +27,8 @@ const props = defineProps({});
   <p>vx.dev placeholder</p>
 </template>`;
 
-async function getCurrentCode(owner: string, repo: string, branch: string) {
-  const code = (
-    await octokit.rest.repos.getContent({
-      owner,
-      repo,
-      ref: branch,
-      path: "vue-preview-ui/src/Preview.vue",
-    })
-  ).data;
-
-  if ("type" in code && code.type === "file") {
-    return atob(code.content);
-  }
+function getCurrentCode(owner: string, repo: string, branch: string) {
+  return getFileContent(owner, repo, branch, "vue-preview-ui/src/Preview.vue");
 }
 
 function refineCode(code: string) {
@@ -129,8 +119,8 @@ async function main() {
   const currentCode = await getCurrentCode(owner, repo, branch);
   if (currentCode !== PLACEHOLDER_CODE) {
     prompt += `
-Rreviously you already implemented the following code, use it as a reference and meet my new requirements:
-\`\`\`jsx
+Previously you already implemented the following code, use it as a reference and meet my new requirements:
+\`\`\`vue
 ${currentCode}
 \`\`\`
 `;
