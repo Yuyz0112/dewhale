@@ -328,7 +328,7 @@ export async function getIssueEvent() {
   const githubEventPath = Deno.env.get("GITHUB_EVENT_PATH");
   assert(githubEventPath, "failed to get github event path");
 
-  const githubEvent: IssueEvent = (
+  let githubEvent: IssueEvent = (
     await import(githubEventPath, {
       with: { type: "json" },
     })
@@ -337,7 +337,40 @@ export async function getIssueEvent() {
   const eventName = Deno.env.get("GITHUB_EVENT_NAME");
   assert(eventName, "failed to get event name");
 
-  return { githubEvent, eventName };
+  if (eventName === "pull_request_review_comment") {
+    const { action, comment, pull_request } = githubEvent as unknown as {
+      action: string;
+      comment: { body: string };
+      pull_request: { body: string };
+    };
+    const { owner, repo } = getOwnerAndRepo();
+
+    githubEvent = {
+      action,
+      comment,
+      issue: (await getConnectedIssue(
+        owner,
+        repo,
+        pull_request.body
+      )) as IssueEvent["issue"],
+    };
+  }
+
+  return { githubEvent: githubEvent, eventName };
+}
+
+function getOwnerAndRepo() {
+  const owner = Deno.env.get("GITHUB_REPOSITORY_OWNER");
+  assert(owner, "failed to get repo owner");
+
+  let repo = Deno.env.get("GITHUB_REPOSITORY");
+  assert(repo, "failed to get repo name");
+  repo = repo.replace(`${owner}/`, "");
+
+  return {
+    owner,
+    repo,
+  };
 }
 
 export async function composeWorkflow(
@@ -372,7 +405,7 @@ export async function composeWorkflow(
 
   // ignore invalid comment
   if (
-    eventName === "issue_comment" &&
+    ["issue_comment", "pull_request_review_comment"].includes(eventName) &&
     githubEvent.comment &&
     !isValidComment(githubEvent.comment)
   ) {
@@ -384,12 +417,7 @@ export async function composeWorkflow(
     return;
   }
 
-  const owner = Deno.env.get("GITHUB_REPOSITORY_OWNER");
-  assert(owner, "failed to get repo owner");
-
-  let repo = Deno.env.get("GITHUB_REPOSITORY");
-  assert(repo, "failed to get repo name");
-  repo = repo.replace(`${owner}/`, "");
+  const { owner, repo } = getOwnerAndRepo();
 
   const issue = isPr
     ? await getConnectedIssue(owner, repo, githubEvent.issue.body)
