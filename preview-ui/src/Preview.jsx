@@ -5,7 +5,11 @@ export default function Calculator() {
   const [input, setInput] = useState('');
 
   const handleInput = (value) => {
-    setInput(input + value);
+    if (value === 'x') {
+      setInput(input + '*');
+    } else {
+      setInput(input + value);
+    }
   };
 
   const calculateResult = () => {
@@ -37,7 +41,7 @@ export default function Calculator() {
           <Button onClick={() => handleInput('4')}>4</Button>
           <Button onClick={() => handleInput('5')}>5</Button>
           <Button onClick={() => handleInput('6')}>6</Button>
-          <Button onClick={() => handleInput('*')}>x</Button> {/* Modified here */}
+          <Button onClick={() => handleInput('x')}>x</Button> {/* Modified here */}
           <Button onClick={() => handleInput('1')}>1</Button>
           <Button onClick={() => handleInput('2')}>2</Button>
           <Button onClick={() => handleInput('3')}>3</Button>
