@@ -10,6 +10,7 @@ export default function Calculator() {
 
   const calculateResult = () => {
     try {
+      // Replace eval with a safer alternative in a real-world app
       setInput(eval(input).toString());
     } catch {
       setInput('Error');
@@ -36,7 +37,7 @@ export default function Calculator() {
           <Button onClick={() => handleInput('4')}>4</Button>
           <Button onClick={() => handleInput('5')}>5</Button>
           <Button onClick={() => handleInput('6')}>6</Button>
-          <Button onClick={() => handleInput('*')}>*</Button>
+          <Button onClick={() => handleInput('*')}>x</Button> {/* Modified here */}
           <Button onClick={() => handleInput('1')}>1</Button>
           <Button onClick={() => handleInput('2')}>2</Button>
           <Button onClick={() => handleInput('3')}>3</Button>
