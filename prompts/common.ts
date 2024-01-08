@@ -280,11 +280,11 @@ async function collectPromptAndImages(
       lineCode = (code || "").split("\n")[r.line - 1];
     }
     if (lineCode) {
-      commentsStr += `In your previous implemented code, I want to modify this part:
+      commentsStr += `\nIn your previous implemented code, I want to modify this part:
 \`\`\`
 ${lineCode}
 \`\`\`
-`;
+by following the instruction:`;
     }
     commentsStr += `\n${r.body}\n`;
   }
