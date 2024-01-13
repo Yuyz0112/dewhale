@@ -339,6 +339,7 @@ export async function getIssueEvent() {
       with: { type: "json" },
     })
   ).default;
+  console.log(JSON.stringify(githubEvent));
 
   const eventName = Deno.env.get("GITHUB_EVENT_NAME");
   assert(eventName, "failed to get event name");
