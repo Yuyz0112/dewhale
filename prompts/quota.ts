@@ -14,7 +14,6 @@ async function checkQuota(
   login: string
 ): Promise<boolean> {
   const configStr = Deno.env.get("CONFIG");
-  console.log({ configStr });
 
   if (!configStr) {
     return false;
@@ -23,7 +22,6 @@ async function checkQuota(
   const { quota: quotaConfig } = parse(configStr, { schema: CORE_SCHEMA }) as {
     quota: QuotaConfig;
   };
-  console.log({ quotaConfig });
 
   const workflows = await octokit.rest.actions.listRepoWorkflows({
     owner,
