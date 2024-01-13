@@ -339,10 +339,12 @@ export async function getIssueEvent() {
       with: { type: "json" },
     })
   ).default;
-  console.log(JSON.stringify(githubEvent));
 
   const eventName = Deno.env.get("GITHUB_EVENT_NAME");
   assert(eventName, "failed to get event name");
+
+  const actor = Deno.env.get("ACTOR");
+  assert(actor, "failed to get actor");
 
   if (eventName === "pull_request_review_comment") {
     const { action, comment, pull_request } = githubEvent as unknown as {
@@ -353,7 +355,9 @@ export async function getIssueEvent() {
     const { owner, repo } = getOwnerAndRepo();
 
     githubEvent = {
-      actor: githubEvent.actor,
+      actor: {
+        login: actor,
+      },
       action,
       comment,
       issue: (await getConnectedIssue(

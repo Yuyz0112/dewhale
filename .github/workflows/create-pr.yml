@@ -26,4 +26,5 @@ jobs:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           WHITELIST: ${{ secrets.WHITELIST }}
           CONFIG: ${{ secrets.CONFIG }}
+          ACTOR: ${{ github.actor }}
         run: deno run -A prompts/entry.ts
