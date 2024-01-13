@@ -12,6 +12,7 @@ import { toMarkdown } from "https://esm.sh/mdast-util-to-markdown@2.1.0";
 import { remove } from "https://esm.sh/unist-util-remove@4.0.0";
 import { Octokit } from "npm:octokit";
 import commitPlugin from "npm:octokit-commit-multiple-files";
+import { checkValid } from "./quota.ts";
 
 const apiKey = Deno.env.get("OPENAI_API_KEY");
 assert(apiKey, "failed to get openAI API key");
@@ -68,6 +69,7 @@ export async function getCode(
 }
 
 type IssueEvent = {
+  actor: { login: string };
   action: string;
   issue: {
     body: string;
@@ -90,20 +92,16 @@ export const octokit: Octokit = new PatchedOctokit({
   auth: ghToken,
 });
 
-const whitelistStr = Deno.env.get("WHITELIST");
-assert(whitelistStr, "failed to get whitelist");
-const whitelist = whitelistStr.split(",");
-
 export const vxDevPrefix = `[vx.dev]`;
 
-function isValidComment(comment: {
-  body?: string;
-  user?: { login: string } | null;
-}) {
-  return (
-    !comment.body?.includes(vxDevPrefix) &&
-    whitelist.some((item) => item === comment.user?.login)
-  );
+function isValidComment(
+  comment: {
+    body?: string;
+    user?: { login: string } | null;
+  },
+  login: string
+) {
+  return !comment.body?.includes(vxDevPrefix) && comment.user?.login === login;
 }
 
 async function getConnectedPr(
@@ -232,7 +230,11 @@ export async function applyPR(
 async function collectPromptAndImages(
   owner: string,
   repo: string,
-  issue: { number: number; body?: string | null },
+  issue: {
+    number: number;
+    body?: string | null;
+    user?: { login: string } | null;
+  },
   pr: { number: number },
   branch: string
 ) {
@@ -253,7 +255,7 @@ async function collectPromptAndImages(
 
   let commentsStr = issueComments
     .concat(prComments)
-    .filter((c) => isValidComment(c))
+    .filter((c) => isValidComment(c, issue.user?.login || "-"))
     .sort(
       (a, b) =>
         new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
@@ -269,7 +271,11 @@ async function collectPromptAndImages(
     })
   ).data;
   for (const r of prReviews
-    .filter((r) => isValidComment(r) && r.commit_id === r.original_commit_id)
+    .filter(
+      (r) =>
+        isValidComment(r, issue.user?.login || "-") &&
+        r.commit_id === r.original_commit_id
+    )
     .sort(
       (a, b) =>
         new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
@@ -346,6 +352,7 @@ export async function getIssueEvent() {
     const { owner, repo } = getOwnerAndRepo();
 
     githubEvent = {
+      actor: githubEvent.actor,
       action,
       comment,
       issue: (await getConnectedIssue(
@@ -393,11 +400,6 @@ export async function composeWorkflow(
     return;
   }
 
-  // only accept issue/PR created by whitelist users
-  if (whitelist.every((item) => item !== githubEvent.issue.user.login)) {
-    return;
-  }
-
   // ignore non-comments event in PR
   if (isPr && eventName === "issues") {
     return;
@@ -407,7 +409,7 @@ export async function composeWorkflow(
   if (
     ["issue_comment", "pull_request_review_comment"].includes(eventName) &&
     githubEvent.comment &&
-    !isValidComment(githubEvent.comment)
+    !isValidComment(githubEvent.comment, githubEvent.issue.user.login)
   ) {
     return;
   }
@@ -418,6 +420,12 @@ export async function composeWorkflow(
   }
 
   const { owner, repo } = getOwnerAndRepo();
+
+  // check whitelist and quota
+  const valid = await checkValid(owner, repo, githubEvent.actor.login);
+  if (!valid) {
+    return;
+  }
 
   const issue = isPr
     ? await getConnectedIssue(owner, repo, githubEvent.issue.body)

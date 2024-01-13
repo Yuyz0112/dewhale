@@ -15,7 +15,7 @@ const entry = labels.has("ui-gen")
   ? "svelte-ui-gen"
   : null;
 if (!entry) {
-  console.warn("unknown entry");
+  throw new Error("unknown entry");
 } else {
   const module = await import(join(__dirname, `./${entry}.ts`));
   module.main?.();
