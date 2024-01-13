@@ -368,7 +368,15 @@ export async function getIssueEvent() {
     };
   }
 
-  return { githubEvent: githubEvent, eventName };
+  return {
+    githubEvent: {
+      ...githubEvent,
+      actor: {
+        login: actor,
+      },
+    },
+    eventName,
+  };
 }
 
 function getOwnerAndRepo() {
@@ -395,7 +403,8 @@ export async function composeWorkflow(
     githubEvent.action,
     eventName,
     githubEvent.issue,
-    githubEvent.comment
+    githubEvent.comment,
+    githubEvent.action
   );
 
   const isPr = Boolean(githubEvent.issue.pull_request);
