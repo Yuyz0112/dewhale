@@ -2,7 +2,6 @@
 
   import { Button } from "$lib/components/ui/button";
   import { Input } from "$lib/components/ui/input";
-  import { useState } from "svelte";
 
   let currentInput = "";
   let result = "";
@@ -44,7 +43,8 @@
       <Button variant="outline" on:click={() => handleInput('9')}>9</Button>
       <Button variant="outline" on:click={() => handleInput('*')}>*</Button>
       <Button variant="outline" on:click={() => handleInput('0')}>0</Button>
-      <Button variant="outline" on:click={clearInput}>C</Button>
+      <!-- Modified button with red color -->
+      <Button class="bg-red-500 text-white" on:click={clearInput}>C</Button>
       <Button variant="outline" on:click={calculateResult}>=</Button>
       <Button variant="outline" on:click={() => handleInput('/')}>/</Button>
     </div>
