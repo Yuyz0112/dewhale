@@ -25,6 +25,6 @@ jobs:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           WHITELIST: ${{ secrets.WHITELIST }}
-          CONFIG: ${{ secrets.CONFIG }}
+          CONFIG: ${{ vars.CONFIG }}
           ACTOR: ${{ github.actor }}
         run: deno run -A prompts/entry.ts
