@@ -26,8 +26,8 @@ export default function Calculator() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-gray-100 p-4">
-      <div className="bg-white w-full max-w-md rounded-lg shadow-md p-6">
+    <div className="flex flex-col items-center justify-center h-screen p-4 bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500">
+      <div className="w-full max-w-md rounded-lg shadow-lg p-6 bg-white bg-opacity-90">
         <div className="mb-4">
           <div className="bg-gray-200 p-4 rounded text-right text-2xl overflow-x-auto">
             {input || '0'}
@@ -41,7 +41,7 @@ export default function Calculator() {
           <Button onClick={() => handleInput('4')}>4</Button>
           <Button onClick={() => handleInput('5')}>5</Button>
           <Button onClick={() => handleInput('6')}>6</Button>
-          <Button onClick={() => handleInput('x')}>x</Button> {/* Modified here */}
+          <Button onClick={() => handleInput('x')}>x</Button>
           <Button onClick={() => handleInput('1')}>1</Button>
           <Button onClick={() => handleInput('2')}>2</Button>
           <Button onClick={() => handleInput('3')}>3</Button>
