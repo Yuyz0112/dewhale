@@ -16,7 +16,7 @@ export default function FansList() {
         <ScrollArea className="h-full">
           <Card>
             <CardHeader>
-              <CardTitle>Top Fans</CardTitle>
+              <CardTitle>Fans</CardTitle>
               <CardDescription>Most engaged fans of the channel</CardDescription>
             </CardHeader>
             <CardContent>
