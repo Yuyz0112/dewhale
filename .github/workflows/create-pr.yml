@@ -25,4 +25,5 @@ jobs:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           WHITELIST: ${{ secrets.WHITELIST }}
+          CONFIG: ${{ secrets.CONFIG }}
         run: deno run -A prompts/entry.ts
