@@ -404,33 +404,29 @@ export async function composeWorkflow(
     eventName,
     githubEvent.issue,
     githubEvent.comment,
-    githubEvent.action
+    githubEvent.actor
   );
 
   const isPr = Boolean(githubEvent.issue.pull_request);
 
-  // only accept issue with ui-gen label
   if (githubEvent.issue.labels.every((l) => l.name !== label)) {
-    return;
+    throw new Error("label mismatch");
   }
 
-  // ignore non-comments event in PR
   if (isPr && eventName === "issues") {
-    return;
+    throw new Error("non-comments event in PR");
   }
 
-  // ignore invalid comment
   if (
     ["issue_comment", "pull_request_review_comment"].includes(eventName) &&
     githubEvent.comment &&
     !isValidComment(githubEvent.comment, githubEvent.issue.user.login)
   ) {
-    return;
+    throw new Error("invalid comment");
   }
 
-  // ignore closed issue/PR
   if (githubEvent.issue.state !== "open") {
-    return;
+    throw new Error("closed issue/PR");
   }
 
   const { owner, repo } = getOwnerAndRepo();
@@ -438,7 +434,9 @@ export async function composeWorkflow(
   // check whitelist and quota
   const valid = await checkValid(owner, repo, githubEvent.actor.login);
   if (!valid) {
-    return;
+    throw new Error(
+      "invalid request, please check the whitelist or quota config"
+    );
   }
 
   const issue = isPr
