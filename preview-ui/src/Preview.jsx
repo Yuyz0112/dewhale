@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button';
-import { List, Home, Rss, Plus, Upload, Lock } from 'lucide-react';
-import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@/components/ui/card';
+import { List, Home, Rss, Plus, Upload, Lock, Folder, FilePlus } from 'lucide-react';
+import { Card, CardHeader, CardTitle, CardContent, CardFooter, CardDescription } from '@/components/ui/card';
+import { AspectRatio } from '@/components/ui/aspect-ratio';
 import { AlertDialog, AlertDialogTrigger, AlertDialogContent, AlertDialogHeader, AlertDialogTitle, AlertDialogFooter, AlertDialogCancel, AlertDialogAction } from '@/components/ui/alert-dialog';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Label } from '@/components/ui/label';
@@ -12,10 +13,10 @@ export default function BlogUI() {
   const [viewMode, setViewMode] = useState('grid');
   const [selectedBlog, setSelectedBlog] = useState(null);
 
-  const blogCategories = ['Technology', 'Design', 'Culture', 'Business', 'Science'];
+  const blogCategories = ['Default', 'Technology', 'Design', 'Culture', 'Business', 'Science'];
   const blogPosts = [
-    { id: 1, title: 'Understanding Rust Lifetimes', category: 'Technology', summary: 'Lifetimes in Rust ensure that references are valid as long as we need them to be.' },
-    { id: 2, title: 'The Future of TypeScript', category: 'Design', summary: 'TypeScript has taken the JavaScript community by storm. What does the future hold?' },
+    { id: 1, title: 'Understanding Rust Lifetimes', category: 'Technology', summary: 'Lifetimes in Rust ensure that references are valid as long as we need them to be.', thumbnail: 'https://images.unsplash.com/photo-1581090700227-1e37b190418e' },
+    { id: 2, title: 'The Future of TypeScript', category: 'Design', summary: 'TypeScript has taken the JavaScript community by storm. What does the future hold?', thumbnail: 'https://images.unsplash.com/photo-1581093448796-1e374f9e3e8a' },
     // ... more blog posts
   ];
 
@@ -54,7 +55,14 @@ export default function BlogUI() {
               <CardTitle>{selectedBlog.title}</CardTitle>
             </CardHeader>
             <CardContent>
-              <p>{selectedBlog.summary}</p>
+              <AspectRatio ratio={16 / 9}>
+                <img
+                  src={selectedBlog.thumbnail}
+                  alt="Thumbnail"
+                  className="rounded-md object-cover"
+                />
+              </AspectRatio>
+              <p className="mt-4">{selectedBlog.summary}</p>
             </CardContent>
             <CardFooter>
               <Button variant="outline" onClick={() => setSelectedBlog(null)}>
@@ -70,7 +78,14 @@ export default function BlogUI() {
                   <CardTitle>{post.title}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p>{post.summary}</p>
+                  <AspectRatio ratio={16 / 9}>
+                    <img
+                      src={post.thumbnail}
+                      alt="Thumbnail"
+                      className="rounded-md object-cover"
+                    />
+                  </AspectRatio>
+                  <CardDescription>{post.summary}</CardDescription>
                 </CardContent>
               </Card>
             ))}
@@ -105,6 +120,7 @@ export default function BlogUI() {
               <TabsTrigger value="details">Details</TabsTrigger>
               <TabsTrigger value="content">Content</TabsTrigger>
               <TabsTrigger value="settings">Settings</TabsTrigger>
+              <TabsTrigger value="plugins">Plugins</TabsTrigger>
             </TabsList>
             <TabsContent value="details">
               <div className="flex flex-col space-y-4 p-4">
@@ -127,6 +143,28 @@ export default function BlogUI() {
               <div className="flex items-center space-x-4 p-4">
                 <Lock className="w-5 h-5" />
                 <p>Encrypt blog data for security</p>
+                <Button variant="outline">
+                  <Folder className="w-5 h-5 mr-2" />Select Storage Location
+                </Button>
+                <Button variant="outline">
+                  <FilePlus className="w-5 h-5 mr-2" />Import JSON Data
+                </Button>
+              </div>
+            </TabsContent>
+            <TabsContent value="plugins">
+              <div className="flex flex-col space-y-4 p-4">
+                <Button variant="outline">
+                  <div className="w-5 h-5 mr-2" />Add Plugin
+                </Button>
+                <div className="flex flex-wrap gap-4">
+                  {/* Placeholder for plugin examples */}
+                  <div className="w-32 h-32 bg-gray-200 rounded-lg flex items-center justify-center">
+                    <p>Plugin 1</p>
+                  </div>
+                  <div className="w-32 h-32 bg-gray-200 rounded-lg flex items-center justify-center">
+                    <p>Plugin 2</p>
+                  </div>
+                </div>
               </div>
             </TabsContent>
           </Tabs>
