@@ -9,11 +9,11 @@
       <!-- Analog Clock Display -->
       <div class="relative flex h-48 w-48 items-center justify-center rounded-full border-4 border-white">
         <div
-          class="absolute left-1/2 top-1/2 h-0.5 w-20 -translate-x-1/2 -translate-y-1/2 bg-white"
+          class="minute-hand absolute left-1/2 top-1/2 h-0.5 w-20 -translate-x-1/2 -translate-y-1/2 bg-white"
           :style="{ transform: `rotate(${minutesAngle}deg)` }"
         ></div>
         <div
-          class="absolute left-1/2 top-1/2 h-0.5 w-16 -translate-x-1/2 -translate-y-1/2 bg-white"
+          class="second-hand absolute left-1/2 top-1/2 h-0.5 w-16 -translate-x-1/2 -translate-y-1/2 bg-red-600"
           :style="{ transform: `rotate(${secondsAngle}deg)` }"
         ></div>
       </div>
@@ -60,5 +60,12 @@ const secondsAngle = computed(() => (360 * totalSeconds.value) / 60);
 </script>
 
 <style scoped>
-/* Additional styles can be placed here if needed */
+.minute-hand, .second-hand {
+  transition: transform 0.5s cubic-bezier(0.4, 2.3, 0.3, 1);
+  transform-origin: 50% 100%;
+}
+
+.second-hand {
+  transition-timing-function: linear;
+}
 </style>
