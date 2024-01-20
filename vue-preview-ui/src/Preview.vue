@@ -1,11 +1,13 @@
 <template>
   <main class="bg-gray-900 text-white overflow-hidden">
     <section class="relative">
-      <img
-        src="https://images.unsplash.com/photo-1542223616-740d5dff7f56?w=2048&q=80"
-        alt="Aerial view of a city"
-        class="w-full h-96 object-cover parallax"
-      />
+      <div class="parallax-wrapper">
+        <img
+          src="https://images.unsplash.com/photo-1542223616-740d5dff7f56?w=2048&q=80"
+          alt="Aerial view of a city"
+          class="w-full h-96 object-cover parallax"
+        />
+      </div>
       <div class="absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-center items-center text-center space-y-4">
         <h1 class="text-4xl font-bold animate-fadeIn">Empower Your Blockchain Journey</h1>
         <p class="max-w-2xl mx-auto animate-fadeIn delay-150">
@@ -32,9 +34,22 @@
 </script>
 
 <style scoped>
+/* Parallax wrapper */
+.parallax-wrapper {
+  overflow: hidden;
+  position: relative;
+  height: 96vh; /* Adjusted to viewport height for a full effect */
+}
+
 /* Parallax effect */
 .parallax {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   transition: transform 0.3s ease-out;
+  will-change: transform;
 }
 
 /* Fade-in animations */
@@ -60,10 +75,10 @@
 
 /* Add the parallax scrolling effect */
 @keyframes parallaxScroll {
-  from {
+  0% {
     transform: translateY(0);
   }
-  to {
+  100% {
     transform: translateY(-20%);
   }
 }
