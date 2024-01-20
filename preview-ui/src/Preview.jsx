@@ -1,5 +1,6 @@
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 import { Button } from '@/components/ui/button';
+import { Sparkles } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 
 export default function BreakoutGameApp() {
@@ -51,7 +52,14 @@ export default function BreakoutGameApp() {
         <canvas ref={canvasRef} width="800" height="600" className="bg-gray-300"></canvas>
       </AspectRatio>
       <div className="flex space-x-4 mt-4">
-        <Button variant="outline" onClick={startGame} className={`${gameStarted ? 'opacity-50 cursor-not-allowed' : ''}`}>Start Game</Button>
+        <Button 
+          variant="outline" 
+          onClick={startGame} 
+          className={`relative ${gameStarted ? 'bg-red-500 text-white cursor-not-allowed' : 'bg-blue-500 text-white'}`}
+        >
+          {gameStarted && <Sparkles className="absolute inset-0 m-auto" />}
+          Start Game
+        </Button>
         <Button variant="outline">Pause Game</Button>
         <Button variant="outline">Restart Game</Button>
       </div>
