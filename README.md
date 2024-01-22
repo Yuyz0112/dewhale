@@ -10,6 +10,8 @@ An open-source alternative to Vercel's [v0.dev](https://v0.dev/). Cost-effective
 
 ## Quick Start
 
+**🌟You can star this repository to experience AI code generation for free 3 times.**
+
 For detailed instructions on how to set up and use vx.dev, please refer to our [Guide](./docs/quick-start.md).
 
 You can also watch this [demo video](http://www.youtube.com/watch?v=J4LAOBRcu2c).
