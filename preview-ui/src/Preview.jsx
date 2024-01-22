@@ -13,7 +13,7 @@ export default function CalculatorUI() {
         <Input className="text-right p-2 rounded-lg border-2 border-gray-200" readOnly value="0" />
       </div>
       <div className="grid grid-cols-4 gap-4">
-        <Button className="rounded-lg">AC</Button>
+        <Button className="rounded-lg bg-red-500 text-white">AC</Button>
         <Button className="rounded-lg">(</Button>
         <Button className="rounded-lg">)</Button>
         <Button className="rounded-lg">%</Button>
