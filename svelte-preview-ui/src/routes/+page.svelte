@@ -3,6 +3,8 @@
   import ErrorBoundary from "./error-boundary.svelte";
   import Preview from "./preview.svelte";
   import previewStr from "./preview.svelte?raw";
+  import { onMount } from "svelte";
+  import { getHighlighter, setCDN } from "shiki";
 
   let showCanvas = true;
   let copied = false;
@@ -18,6 +20,33 @@
       setTimeout(() => (copied = false), 2000);
     });
   };
+
+  let lightCode = "";
+  let darkCode = "";
+  function setCodeHighlighter() {
+    setCDN("https://cdn.jsdelivr.net/npm/shiki");
+    getHighlighter({
+      themes: ["github-light", "github-dark"],
+      langs: ["svelte"],
+    })
+      .then((h) => {
+        lightCode = h.codeToHtml(previewStr, {
+          lang: "svelte",
+          theme: "github-light",
+        });
+        darkCode = h.codeToHtml(previewStr, {
+          lang: "svelte",
+          theme: "github-dark",
+        });
+      })
+      .catch((error) => {
+        lightCode = error;
+        darkCode = error;
+      });
+  }
+  onMount(() => {
+    setCodeHighlighter();
+  });
 </script>
 
 <main class="vx-dev-wrapper relative">
@@ -35,9 +64,7 @@
       </ErrorBoundary>
     </div>
   {:else}
-    <div
-      class="bg-gray-100 mx-1 p-1 rounded overflow-auto relative text-xs whitespace-pre"
-    >
+    <div class="bg-gray-100 mx-1 p-1 rounded relative text-xs">
       <Button
         on:click={copyCode}
         variant="outline"
@@ -45,7 +72,8 @@
       >
         {copied ? "Copied!" : "Copy Code"}
       </Button>
-      <code>{previewStr}</code>
+      <div>{@html lightCode}</div>
+      <div>{@html darkCode}</div>
     </div>
   {/if}
 </main>
