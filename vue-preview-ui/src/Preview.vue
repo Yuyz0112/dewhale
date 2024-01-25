@@ -18,7 +18,7 @@
       </ul>
     </aside>
 
-    <!-- Chat Content -->
+    <!-- Chat Window -->
     <main class="w-3/4 p-4">
       <div v-if="selectedContact" class="flex flex-col h-full">
         <div class="mb-4">
@@ -32,7 +32,7 @@
           </div>
         </div>
         <div class="mt-4">
-          <Input placeholder="Type a message..." class="w-full" />
+          <Input placeholder="Type a message..." />
         </div>
       </div>
       <div v-else class="flex items-center justify-center h-full">
@@ -45,21 +45,21 @@
 <script setup>
 
 import { ref } from 'vue';
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Input } from "@/components/ui/input";
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
+import { Input } from '@/components/ui/input';
 
 const contacts = [
   {
     id: 1,
     name: 'Alice Freeman',
-    avatar: 'https://images.unsplash.com/photo-1594745561169-eb2e4c7a6f8e?w=80&dpr=2&q=80',
+    avatar: 'https://images.unsplash.com/photo-1594745561169-eb2e4c7a4a0e',
     initials: 'AF',
     lastMessage: 'See you tomorrow!',
     lastSeen: '10m ago',
     messages: [
-      { id: 1, content: 'Hey, how are you?', time: '9:30 AM', isOwn: false },
-      { id: 2, content: 'I am fine, thanks!', time: '9:32 AM', isOwn: true },
-      { id: 3, content: 'See you tomorrow!', time: '9:35 AM', isOwn: false },
+      { id: 1, content: 'Hey, how are you?', time: '10:30 AM', isOwn: false },
+      { id: 2, content: 'I am fine, thanks!', time: '10:32 AM', isOwn: true },
+      { id: 3, content: 'See you tomorrow!', time: '10:35 AM', isOwn: false },
     ],
   },
   // ... more contacts
