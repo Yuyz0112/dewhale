@@ -21,13 +21,13 @@
     </div>
 
     <!-- Message Detail Dialog -->
-    <Dialog>
+    <Dialog v-model:open="isDialogOpen">
       <DialogTrigger as="template" />
       <DialogContent>
         <DialogHeader>
           <DialogTitle>{{ selectedMessage.title }}</DialogTitle>
           <DialogDescription>
-            Sent by: {{ selectedMessage.sender }}
+            Sent on: {{ selectedMessage.time }} by {{ selectedMessage.sender }}
           </DialogDescription>
         </DialogHeader>
         <p class="py-4">{{ selectedMessage.content }}</p>
@@ -62,10 +62,11 @@ const messages = ref([
 ]);
 
 const selectedMessage = ref({});
+const isDialogOpen = ref(false);
 
 const viewMessage = (message) => {
   selectedMessage.value = message;
-  // Open the dialog
+  isDialogOpen.value = true; // Open the dialog
 };
 
 const deleteMessage = (id) => {
@@ -74,7 +75,7 @@ const deleteMessage = (id) => {
 
 const closeMessageDetail = () => {
   selectedMessage.value = {};
-  // Close the dialog
+  isDialogOpen.value = false; // Close the dialog
 };
 </script>
 
