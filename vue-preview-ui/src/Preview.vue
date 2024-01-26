@@ -1,5 +1,5 @@
 <template>
-  <main class="p-6">
+  <main class="p-8">
     <!-- Search Bar -->
     <div class="flex items-center space-x-4 mb-6">
       <Input placeholder="Search messages..." class="flex-1" />
@@ -22,7 +22,7 @@
 
     <!-- Message Detail Dialog -->
     <Dialog>
-      <DialogTrigger as="div" v-if="selectedMessage" />
+      <DialogTrigger as="template" />
       <DialogContent>
         <DialogHeader>
           <DialogTitle>{{ selectedMessage.title }}</DialogTitle>
@@ -30,9 +30,9 @@
             Sent by: {{ selectedMessage.sender }}
           </DialogDescription>
         </DialogHeader>
-        <p>{{ selectedMessage.content }}</p>
+        <p class="py-4">{{ selectedMessage.content }}</p>
         <DialogFooter>
-          <Button variant="solid" @click="closeDetail">Close</Button>
+          <Button variant="solid" @click="closeMessageDetail">Close</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
@@ -42,8 +42,8 @@
 <script setup>
 
 import { ref } from 'vue';
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import {
   Dialog,
   DialogContent,
@@ -52,27 +52,29 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
+} from '@/components/ui/dialog';
 
 // Sample data for messages
 const messages = ref([
-  { id: 1, title: 'System Update', time: '2023-03-15 10:00', content: 'Your system has been updated successfully.', sender: 'System Admin' },
-  { id: 2, title: 'Welcome', time: '2023-03-14 09:30', content: 'Welcome to our service!', sender: 'Customer Support' },
+  { id: 1, title: 'Welcome to Vue', time: '2023-03-15 10:00', sender: 'System', content: 'Hello, welcome to Vue. We are glad you are here!' },
+  { id: 2, title: 'Scheduled Maintenance', time: '2023-03-16 14:00', sender: 'Admin', content: 'We will be performing scheduled maintenance on our servers.' },
   // ... more messages
 ]);
 
-const selectedMessage = ref(null);
+const selectedMessage = ref({});
 
 const viewMessage = (message) => {
   selectedMessage.value = message;
+  // Open the dialog
 };
 
 const deleteMessage = (id) => {
   messages.value = messages.value.filter((message) => message.id !== id);
 };
 
-const closeDetail = () => {
-  selectedMessage.value = null;
+const closeMessageDetail = () => {
+  selectedMessage.value = {};
+  // Close the dialog
 };
 </script>
 
