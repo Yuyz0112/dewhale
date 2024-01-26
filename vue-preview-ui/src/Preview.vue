@@ -3,5 +3,5 @@ const props = defineProps({});
 </script>
 
 <template>
-  <p>vx.dev</p>
+  <p>vx.dev placeholder</p>
 </template>
