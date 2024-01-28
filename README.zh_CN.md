@@ -4,7 +4,7 @@
 
 # Dewhale
 
-[v0.dev](https://v0.dev/) 的开源替代品。成本可控，高度可定制，无缝集成 GitHub。
+Dewhale 是一个充分发挥 Github 平台能力的通用 AI 工作流。
 
 ## 快速入门
 
@@ -42,8 +42,6 @@ Dewhale 在 GPT-4 模型下利用提示工程技术发出指令。成本主要�
 
 要了解 Dewhale 的底层架构和工作原理，请参阅我们详细的[架构概述](./docs/architecture.zh_CN.md)。
 
-## 路线图
+## 加入讨论
 
-随着 Dewhale 的不断发展，我们已经概述了我们计划在不久的将来实现的主要特性:
-
-- **通过 inline code review 进行精确迭代**：我们的目标是支持通过 code review comments 精确迭代代码的某些部分的能力。此功能将允许用户直接在 code review 中提出特定的请求或建议以修改代码。
+如果你喜欢 Dewhale 的设计理念，请随时加入我们的 [Github 讨论](https://github.com/Yuyz0112/dewhale/discussions)。
