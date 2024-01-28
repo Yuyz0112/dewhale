@@ -1,7 +1,7 @@
 import {
   getCode,
   octokit,
-  vxDevPrefix,
+  dewhalePrefix,
   applyPR,
   composeWorkflow,
   shadcnRules,
@@ -19,7 +19,7 @@ const systemPrompt = await Deno.readTextFile(
   join(__dirname, "./svelte-ui-gen.md")
 );
 
-const PLACEHOLDER_CODE = `<p>vx.dev placeholder</p>`;
+const PLACEHOLDER_CODE = `<p>Dewhale placeholder</p>`;
 
 function getCurrentCode(owner: string, repo: string, branch: string) {
   return getFileContent(
@@ -163,7 +163,7 @@ ${currentCode}
       "svelte-preview-ui/src/routes/preview.svelte": refineCode(code),
       "scripts/build-task": "svelte-preview-ui",
     },
-    `${vxDevPrefix} prompt:\r\n${commitMsg}`,
+    `${dewhalePrefix} prompt:\r\n${commitMsg}`,
     [svelteUiGenLabel]
   );
 
@@ -172,7 +172,7 @@ ${currentCode}
       owner,
       repo,
       issue_number: pr.number,
-      body: `${vxDevPrefix}: ${description}`,
+      body: `${dewhalePrefix}: ${description}`,
     });
   }
 }

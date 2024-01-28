@@ -1,8 +1,8 @@
-# Architecture of vx.dev
+# Architecture of Dewhale
 
 ## Overview
 
-vx.dev is designed as an open-source alternative to v0.dev, integrating advanced prompt engineering with GitHub for efficient UI generation and code optimization. The architecture of vx.dev comprises three primary components:
+Dewhale is designed as an open-source alternative to v0.dev, integrating advanced prompt engineering with GitHub for efficient UI generation and code optimization. The architecture of Dewhale comprises three primary components:
 
 1. **Prompt Engineering**: Utilizing AI models to output code that meets specific requirements.
 2. **Code Generation Optimization**: Adjusting flawed AI-generated results through manipulation of the code's Abstract Syntax Tree (AST).
@@ -10,7 +10,7 @@ vx.dev is designed as an open-source alternative to v0.dev, integrating advanced
 
 ## Prompt
 
-The prompt forms the core of vx.dev, playing a pivotal role in guiding the AI model to generate high quality code. We have meticulously designed our prompts to closely align with the output style and quality of v0.dev. This involves:
+The prompt forms the core of Dewhale, playing a pivotal role in guiding the AI model to generate high quality code. We have meticulously designed our prompts to closely align with the output style and quality of v0.dev. This involves:
 
 - **UI Component Library**: We use `@shadcn/ui` as the UI component library, incorporating its usage documentation as examples in our prompts, with slight modifications.
 - **Icon Library**: After experiments, we allow AI more freedom in selecting icons from the known `lucide` icon set. Errors in icon imports are corrected in the code generation optimization phase.

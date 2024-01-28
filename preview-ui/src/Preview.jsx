@@ -1,3 +1,3 @@
-export default function VxDev() {
-  return <p>vx.dev</p>;
+export default function Preview() {
+  return <p>Dewhale</p>;
 }

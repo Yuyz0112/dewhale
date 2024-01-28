@@ -5,7 +5,7 @@ import tsParser from "npm:recast/parsers/babel-ts.js";
 import {
   getCode,
   octokit,
-  vxDevPrefix,
+  dewhalePrefix,
   applyPR,
   lucideIcons,
   composeWorkflow,
@@ -18,7 +18,7 @@ const uiGenLabel = `ui-gen`;
 const __dirname = new URL(".", import.meta.url).pathname;
 const systemPrompt = await Deno.readTextFile(join(__dirname, "./ui-gen.md"));
 
-const PLACEHOLDER_CODE = `export default function VxDev() { return <p>vx.dev placeholder</p>; }`;
+const PLACEHOLDER_CODE = `export default function Preview() { return <p>Dewhale placeholder</p>; }`;
 function getCurrentCode(owner: string, repo: string, branch: string) {
   return getFileContent(owner, repo, branch, "preview-ui/src/Preview.jsx");
 }
@@ -211,7 +211,7 @@ ${currentCode}
     {
       "preview-ui/src/Preview.jsx": refineCode(code),
     },
-    `${vxDevPrefix} prompt:\r\n${commitMsg}`,
+    `${dewhalePrefix} prompt:\r\n${commitMsg}`,
     [uiGenLabel]
   );
 
@@ -220,7 +220,7 @@ ${currentCode}
       owner,
       repo,
       issue_number: pr.number,
-      body: `${vxDevPrefix}: ${description}`,
+      body: `${dewhalePrefix}: ${description}`,
     });
   }
 }

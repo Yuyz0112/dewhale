@@ -1,7 +1,7 @@
 import {
   getCode,
   octokit,
-  vxDevPrefix,
+  dewhalePrefix,
   applyPR,
   composeWorkflow,
   shadcnRules,
@@ -24,7 +24,7 @@ const props = defineProps({});
 </script>
 
 <template>
-  <p>vx.dev placeholder</p>
+  <p>Dewhale placeholder</p>
 </template>`;
 
 function getCurrentCode(owner: string, repo: string, branch: string) {
@@ -164,7 +164,7 @@ ${currentCode}
       "vue-preview-ui/src/Preview.vue": refineCode(code),
       "scripts/build-task": "vue-preview-ui",
     },
-    `${vxDevPrefix} prompt:\r\n${commitMsg}`,
+    `${dewhalePrefix} prompt:\r\n${commitMsg}`,
     [vueUiGenLabel]
   );
 
@@ -173,7 +173,7 @@ ${currentCode}
       owner,
       repo,
       issue_number: pr.number,
-      body: `${vxDevPrefix}: ${description}`,
+      body: `${dewhalePrefix}: ${description}`,
     });
   }
 }

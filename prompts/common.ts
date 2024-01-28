@@ -92,7 +92,8 @@ export const octokit: Octokit = new PatchedOctokit({
   auth: ghToken,
 });
 
-export const vxDevPrefix = `[vx.dev]`;
+const legacyVxDevPrefix = `[vx.dev]`;
+export const dewhalePrefix = `[Dewhale]`;
 
 function isValidComment(
   comment: {
@@ -101,7 +102,11 @@ function isValidComment(
   },
   login: string
 ) {
-  return !comment.body?.includes(vxDevPrefix) && comment.user?.login === login;
+  return (
+    !comment.body?.includes(legacyVxDevPrefix) &&
+    !comment.body?.includes(dewhalePrefix) &&
+    comment.user?.login === login
+  );
 }
 
 async function getConnectedPr(
@@ -211,8 +216,8 @@ export async function applyPR(
         repo,
         head: newBranch,
         base: baseBranch,
-        title: `${vxDevPrefix} implements #${issueNumber}`,
-        body: `${vxDevPrefix} This PR implements #${issueNumber}, created by vx.dev.`,
+        title: `${dewhalePrefix} implements #${issueNumber}`,
+        body: `${dewhalePrefix} This PR implements #${issueNumber}, created by Dewhale.`,
       })
     ).data as any;
   }
@@ -465,7 +470,7 @@ export async function composeWorkflow(
           issue.number,
           branch,
           placeholderFiles,
-          "[Skip CI] vx.dev: init the PR",
+          "[Skip CI] Dewhale: init the PR",
           [label]
         );
   }
