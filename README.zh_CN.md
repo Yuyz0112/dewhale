@@ -8,9 +8,9 @@ Dewhale 是一个充分发挥 Github 平台能力的通用 AI 工作流。
 
 ## 快速入门
 
-**🌟 你可以通过 star 当前仓库，免费体验 3 次 AI 代码生成。**
-
 有关如何设置和使用 Dewhale 的详细说明，请参阅我们的[指南](./docs/quick-start.zh_CN.md)。
+
+> 在配额管理功能的帮助下，我们允许 stargazers 试用 3 次。
 
 您也可以观看这个[演示视频](http://www.youtube.com/watch?v=J4LAOBRcu2c)。
 

@@ -12,9 +12,9 @@ Dewhale is a GitHub-Powered AI for effortless development.
 
 ## Quick Start
 
-**🌟You can star this repository to experience AI code generation for free 3 times.**
-
 For detailed instructions on how to set up and use Dewhale, please refer to our [Guide](./docs/quick-start.md).
+
+> With the power of our quota management feature, we allow stargazers to have 3 trials.
 
 You can also watch this [demo video](http://www.youtube.com/watch?v=J4LAOBRcu2c).
 
