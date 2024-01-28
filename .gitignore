@@ -132,3 +132,6 @@ dist
 .vscode
 
 __debug
+
+# macOS-specific files
+.DS_Store
