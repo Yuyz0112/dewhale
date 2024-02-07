@@ -3,5 +3,5 @@ const props = defineProps({});
 </script>
 
 <template>
-  <p>Dewhale</p>
+  <p>Dewhale placeholder</p>
 </template>
