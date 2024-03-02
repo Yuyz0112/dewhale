@@ -1,0 +1,97 @@
+# These settings are synced to GitHub by https://probot.github.io/apps/settings/
+
+repository:
+  allow_merge_commit: false
+
+  delete_branch_on_merge: true
+
+  enable_vulnerability_alerts: true
+
+labels:
+  - name: ui-gen
+    color: '#61dbfb'
+    description: will trigger a React UI generating workflow
+
+  - name: vue-ui-gen
+    color: '#41b883'
+    description: will trigger a Vue UI generating workflow
+
+  - name: svelte-ui-gen
+    color: '#aa1e1e'
+    description: will trigger a Svelte UI generating workflow
+
+  - name: bug
+    color: '#d73a4a'
+    description: Something isn't working
+
+  - name: documentation
+    color: '#0075ca'
+    description: Improvements or additions to documentation
+
+  - name: duplicate
+    color: '#cfd3d7'
+    description: This issue or pull request already exists
+
+  - name: enhancement
+    color: '#a2eeef'
+    description: Some improvements
+
+  - name: feature
+    color: '#16b33f'
+    description: New feature or request
+
+  - name: good first issue
+    color: '#7057ff'
+    description: Good for newcomers
+
+  - name: help wanted
+    color: '#008672'
+    description: Extra attention is needed
+
+  - name: invalid
+    color: '#e4e669'
+    description: This doesn't seem right
+
+  - name: question
+    color: '#d876e3'
+    description: Further information is requested
+
+  - name: wontfix
+    color: '#ffffff'
+    description: This will not be worked on
+
+branches:
+  - name: main
+    # https://docs.github.com/en/rest/reference/repos#update-branch-protection
+    protection:
+      # Required. Require at least one approving review on a pull request, before merging. Set to null to disable.
+      required_pull_request_reviews:
+        # The number of approvals required. (1-6)
+        required_approving_review_count: 1
+        # Dismiss approved reviews automatically when a new commit is pushed.
+        dismiss_stale_reviews: true
+        # Blocks merge until code owners have reviewed.
+        require_code_owner_reviews: true
+        # Specify which users and teams can dismiss pull request reviews.
+        # Pass an empty dismissal_restrictions object to disable.
+        # User and team dismissal_restrictions are only available for organization-owned repositories.
+        # Omit this parameter for personal repositories.
+        dismissal_restrictions:
+          # users: []
+          # teams: []
+      # Required. Require status checks to pass before merging. Set to null to disable
+      required_status_checks:
+        # Required. Require branches to be up to date before merging.
+        strict: true
+        # Required. The list of status checks to require in order to merge into this branch
+        contexts: []
+      # Required. Enforce all configured restrictions for administrators.
+      # Set to true to enforce required status checks for repository administrators.
+      # Set to null to disable.
+      enforce_admins: true
+      # Prevent merge commits from being pushed to matching branches
+      required_linear_history: true
+      # Required. Restrict who can push to this branch.
+      # Team and user restrictions are only available for organization-owned repositories.
+      # Set to null to disable.
+      restrictions: null
