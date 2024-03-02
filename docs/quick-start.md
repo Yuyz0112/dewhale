@@ -4,7 +4,6 @@
 
 Users can start by creating their own Dewhale repository based on the current template repo. In the repository's [`settings -> secrets and variables -> actions`](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions#creating-secrets-for-a-repository) section, the following repository secrets need to be set up:
 
-- `GH_TOKEN`: This should be a Github Personal Access Token with repo scope permissions. [How to create one?](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-personal-access-token-classic)
 - `OPENAI_API_KEY`: This is an OpenAI API key. [How to create one?](https://platform.openai.com/docs/quickstart/account-setup)
 - `WHITELIST`: A list of GitHub usernames allowed to use Dewhale, separated by commas. Only issues and comments created by users in the WHITELIST will be responded to by Dewhale, ensuring API usage safety.
 
