@@ -113,7 +113,7 @@ async function getQuota(
   return quotaConfig.total_limit;
 }
 
-function checkWhitelist(login: string): boolean {
+export function checkWhitelist(login: string): boolean {
   const whitelistStr = Deno.env.get("WHITELIST");
 
   if (!whitelistStr) {

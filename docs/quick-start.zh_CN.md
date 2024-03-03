@@ -9,7 +9,6 @@
 
 用户可以基于当前的模板仓库创建自己的 Dewhale 仓库。在仓库的[settings -> secrets and variables -> actions][3]部分，需要设置以下仓库 secret:
 
-- `GH_TOKEN`：这应该是一个具有 repo 范围权限的 GitHub 个人访问令牌。[如何创建?][4]
 - `OPENAI_API_KEY`：这是一个 OpenAI API 密钥。[如何创建?][5]
 - `WHITELIST`：允许使用 Dewhale 的 GitHub 用户名列表，用逗号分隔。仅由 WHITELIST 中的用户创建的 issue 和评论才会受到 Dewhale 的响应，确保 API 使用安全。
 
