@@ -25,6 +25,7 @@
     "clsx": "^2.1.0",
     "cmdk-sv": "^0.0.12",
     "lucide-svelte": "^0.303.0",
+    "shiki": "^0.14.7",
     "tailwind-merge": "^2.2.0",
     "tailwind-variants": "^0.1.19"
   }

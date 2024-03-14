@@ -9,17 +9,27 @@ import { getHighlighter, setCDN } from "shiki";
 export default function Home() {
   const [showCanvas, setShowCanvas] = useState(true);
   const [copied, setCopied] = useState(false);
-  const [code, setCode] = useState("");
+  const [lightCode, setLightCode] = useState("");
+  const [darkCode, setDarkCode] = useState("");
 
   function setCodeHighlighter() {
     setCDN("https://cdn.jsdelivr.net/npm/shiki");
-    getHighlighter({ theme: "one-dark-pro", langs: ["jsx"] })
+    getHighlighter({ themes: ["github-light", "github-dark"], langs: ["jsx"] })
       .then((h) => {
-        const html = h.codeToHtml(previewStr, { lang: "jsx" });
-        setCode(html);
+        const ligitHtmlCode = h.codeToHtml(previewStr, {
+          lang: "jsx",
+          theme: "github-light",
+        });
+        setLightCode(ligitHtmlCode);
+        const darkHtmlCode = h.codeToHtml(previewStr, {
+          lang: "jsx",
+          theme: "github-dark",
+        });
+        setDarkCode(darkHtmlCode);
       })
       .catch((error) => {
-        setCode(error);
+        setLightCode(error);
+        setDarkCode(error);
       });
   }
 
@@ -40,7 +50,7 @@ export default function Home() {
           </ErrorBoundary>
         </div>
       ) : (
-        <pre className="bg-gray-100 mx-1 p-1 rounded overflow-auto relative text-xs">
+        <pre className="bg-gray-100 mx-1 p-1 rounded relative text-xs">
           <CopyToClipboard
             text={previewStr}
             onCopy={() => {
@@ -52,7 +62,8 @@ export default function Home() {
               {copied ? "Copied!" : "Copy Code"}
             </Button>
           </CopyToClipboard>
-          <div dangerouslySetInnerHTML={{ __html: code }}></div>
+          <div dangerouslySetInnerHTML={{ __html: lightCode }}></div>
+          <div dangerouslySetInnerHTML={{ __html: darkCode }}></div>
         </pre>
       )}
     </main>

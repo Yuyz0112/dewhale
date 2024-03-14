@@ -75,3 +75,25 @@
     @apply bg-background text-foreground;
   }
 }
+
+.shiki {
+  padding: 10px;
+  overflow: auto;
+}
+
+.shiki.github-dark {
+  display: none;
+}
+
+.shiki.github-light {
+  display: block;
+}
+
+/* 当 body 存在 'dark' 类名时应用的样式 */
+body.dark .shiki.github-dark {
+  display: block;
+}
+
+body.dark .shiki.github-light {
+  display: none;
+}
