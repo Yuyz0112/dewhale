@@ -1,3 +1,1 @@
-export default function Preview() {
-  return <p>Dewhale</p>;
-}
+export default function Preview() { return <p>Dewhale placeholder</p>; }
