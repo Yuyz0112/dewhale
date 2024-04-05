@@ -2,40 +2,46 @@
   <main class="bg-gray-100 p-8">
     <div class="max-w-7xl mx-auto">
       <h1 class="text-3xl font-bold mb-6">Kubernetes Log Viewer</h1>
-      <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+      <div class="bg-white shadow overflow-hidden sm:rounded-lg mb-6">
         <div class="px-4 py-5 sm:px-6 flex justify-between items-center">
           <h3 class="text-lg leading-6 font-medium text-gray-900">
-            Pod Logs
+            Select Namespace and Pod
           </h3>
           <Button variant="solid" @click="fetchLogs">Refresh Logs</Button>
         </div>
-        <div class="border-t border-gray-200">
-          <dl>
-            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-              <dt class="text-sm font-medium text-gray-500">
-                Namespace
-              </dt>
-              <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                {{ namespace }}
-              </dd>
-            </div>
-            <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-              <dt class="text-sm font-medium text-gray-500">
-                Pod Name
-              </dt>
-              <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                {{ podName }}
-              </dd>
-            </div>
-            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-              <dt class="text-sm font-medium text-gray-500">
-                Container
-              </dt>
-              <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                {{ containerName }}
-              </dd>
-            </div>
-          </dl>
+        <div class="border-t border-gray-200 px-4 py-5 sm:px-6">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <Select v-model="selectedNamespace" @change="fetchPods">
+              <SelectTrigger>
+                <SelectValue placeholder="Select Namespace" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup v-for="namespace in namespaces" :key="namespace">
+                  <SelectItem :value="namespace">{{ namespace }}</SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+            <Select v-model="selectedPod" @change="fetchContainers">
+              <SelectTrigger>
+                <SelectValue placeholder="Select Pod" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup v-for="pod in pods" :key="pod">
+                  <SelectItem :value="pod">{{ pod }}</SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+            <Select v-model="selectedContainer">
+              <SelectTrigger>
+                <SelectValue placeholder="Select Container" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup v-for="container in containers" :key="container">
+                  <SelectItem :value="container">{{ container }}</SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          </div>
         </div>
       </div>
       <div class="mt-6">
@@ -57,18 +63,85 @@
 
 <script setup>
 
-import { ref, onMounted } from 'vue';
+import { ref, watch } from 'vue';
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
-const namespace = ref('default');
-const podName = ref('example-pod');
-const containerName = ref('example-container');
+const selectedNamespace = ref('');
+const selectedPod = ref('');
+const selectedContainer = ref('');
+const namespaces = ref([]);
+const pods = ref([]);
+const containers = ref([]);
 const logs = ref([]);
 
-const fetchLogs = async () => {
+const fetchNamespaces = async () => {
   try {
-    const response = await fetch(`https://192.168.1.2:6443/api/v1/namespaces/${namespace.value}/pods/${podName.value}/log?container=${containerName.value}`, {
+    const response = await fetch(`https://192.168.1.2:6443/api/v1/namespaces`, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+      },
+      mode: 'cors',
+      credentials: 'include',
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+    namespaces.value = data.items.map(item => item.metadata.name);
+  } catch (error) {
+    console.error('Error fetching namespaces:', error);
+  }
+};
+
+const fetchPods = async () => {
+  if (!selectedNamespace.value) return;
+  try {
+    const response = await fetch(`https://192.168.1.2:6443/api/v1/namespaces/${selectedNamespace.value}/pods`, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+      },
+      mode: 'cors',
+      credentials: 'include',
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+    pods.value = data.items.map(item => item.metadata.name);
+  } catch (error) {
+    console.error('Error fetching pods:', error);
+  }
+};
+
+const fetchContainers = async () => {
+  if (!selectedPod.value) return;
+  try {
+    const response = await fetch(`https://192.168.1.2:6443/api/v1/namespaces/${selectedNamespace.value}/pods/${selectedPod.value}`, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+      },
+      mode: 'cors',
+      credentials: 'include',
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+    containers.value = data.spec.containers.map(container => container.name);
+  } catch (error) {
+    console.error('Error fetching containers:', error);
+  }
+};
+
+const fetchLogs = async () => {
+  if (!selectedNamespace.value || !selectedPod.value || !selectedContainer.value) return;
+  try {
+    const response = await fetch(`https://192.168.1.2:6443/api/v1/namespaces/${selectedNamespace.value}/pods/${selectedPod.value}/log?container=${selectedContainer.value}`, {
       method: 'GET',
       headers: {
         'Accept': 'application/json',
@@ -94,7 +167,23 @@ const fetchLogs = async () => {
   }
 };
 
-onMounted(fetchLogs);
+watch(selectedNamespace, () => {
+  selectedPod.value = '';
+  selectedContainer.value = '';
+  pods.value = [];
+  containers.value = [];
+  logs.value = [];
+  fetchPods();
+});
+
+watch(selectedPod, () => {
+  selectedContainer.value = '';
+  containers.value = [];
+  logs.value = [];
+  fetchContainers();
+});
+
+fetchNamespaces();
 </script>
 
 <style>
