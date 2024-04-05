@@ -162,7 +162,7 @@ async function getConnectedPr(
 
 async function getConnectedIssue(owner: string, repo: string, prBody: string) {
   const issueNumber = parseInt(
-    prBody.match(/\[vx\.dev\] This PR implements #(\d+),/)?.[1] || ""
+    prBody.match(/\[Dewhale\] This PR implements #(\d+),/)?.[1] || ""
   );
   if (!issueNumber) {
     throw new Error("failed to get connected issue");
