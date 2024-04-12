@@ -13,10 +13,7 @@
         <Preview />
       </ErrorBoundary>
     </div>
-    <div
-      v-else
-      class="bg-gray-100 mx-1 p-1 rounded overflow-auto relative text-xs whitespace-pre"
-    >
+    <div v-else class="bg-gray-100 mx-1 p-1 rounded relative text-xs">
       <Button
         @click="copyCode"
         variant="outline"
@@ -24,7 +21,8 @@
       >
         {{ copied ? "Copied!" : "Copy Code" }}
       </Button>
-      <div v-html="code"></div>
+      <div v-html="lightCode"></div>
+      <div v-html="darkCode"></div>
     </div>
   </main>
 </template>
@@ -37,16 +35,24 @@ import Preview from "./Preview.vue";
 import previewStr from "./Preview.vue?raw";
 import { getHighlighter, setCDN } from "shiki";
 
-const code = ref("");
+const lightCode = ref("");
+const darkCode = ref("");
 function setCodeHighlighter() {
   setCDN("https://cdn.jsdelivr.net/npm/shiki");
-  getHighlighter({ theme: "one-dark-pro", langs: ["vue"] })
+  getHighlighter({ themes: ["github-light", "github-dark"], langs: ["vue"] })
     .then((h) => {
-      const html = h.codeToHtml(previewStr, { lang: "vue" });
-      code.value = html;
+      lightCode.value = h.codeToHtml(previewStr, {
+        theme: "github-light",
+        lang: "vue",
+      });
+      darkCode.value = h.codeToHtml(previewStr, {
+        theme: "github-dark",
+        lang: "vue",
+      });
     })
     .catch((error) => {
-      code.value = error;
+      lightCode.value = error;
+      darkCode.value = error;
     });
 }
 
