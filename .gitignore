@@ -104,6 +104,9 @@ dist
 .temp
 .cache
 
+# SvelteKit generated modules
+.svelte-kit/
+
 # Docusaurus cache and generated files
 .docusaurus
 
