@@ -12,7 +12,7 @@ jobs:
   handle_issue:
     runs-on: ubuntu-latest
     name: Create PR
-    if: "!contains(github.event.comment.body , '[vx.dev]') && !contains(github.event.comment.body , '[Dewhale]') && github.event.comment.user.type != 'bot'"
+    if: ${{ !contains(github.event.comment.body, '[vx.dev]') && !contains(github.event.comment.body, '[Dewhale]') && github.event.comment.user.type != 'bot'}}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -22,6 +22,8 @@ jobs:
           deno-version: 1.38.3
       - name: generate UI
         env:
+          # auto set by GitHub, details in
+          # https://docs.github.com/en/actions/security-guides/automatic-token-authentication
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           WHITELIST: ${{ secrets.WHITELIST }}
