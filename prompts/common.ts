@@ -12,7 +12,7 @@ import { toMarkdown } from "https://esm.sh/mdast-util-to-markdown@2.1.0";
 import { remove } from "https://esm.sh/unist-util-remove@4.0.0";
 import { Octokit } from "npm:octokit";
 import commitPlugin from "npm:octokit-commit-multiple-files";
-import { checkValid } from "./quota.ts";
+import { checkValid, checkWhitelist } from "./quota.ts";
 
 const apiKey = Deno.env.get("OPENAI_API_KEY");
 assert(apiKey, "failed to get openAI API key");
@@ -100,12 +100,12 @@ function isValidComment(
     body?: string;
     user?: { login: string } | null;
   },
-  login: string
+  login?: string
 ) {
   return (
     !comment.body?.includes(legacyVxDevPrefix) &&
     !comment.body?.includes(dewhalePrefix) &&
-    comment.user?.login === login
+    (login ? comment.user?.login === login : checkWhitelist(comment.user?.login || ''))
   );
 }
 
@@ -333,7 +333,7 @@ try {
       .join("");
     lucideIcons[newKey] = iconNodes[key];
   }
-} catch {}
+} catch { }
 
 export async function getIssueEvent() {
   const githubEventPath = Deno.env.get("GITHUB_EVENT_PATH");
@@ -425,7 +425,7 @@ export async function composeWorkflow(
   if (
     ["issue_comment", "pull_request_review_comment"].includes(eventName) &&
     githubEvent.comment &&
-    !isValidComment(githubEvent.comment, githubEvent.issue.user.login)
+    !isValidComment(githubEvent.comment)
   ) {
     throw new Error("invalid comment");
   }
@@ -458,21 +458,21 @@ export async function composeWorkflow(
     const connectedPrNumber = await getConnectedPr(owner, repo, issue.number);
     pr = connectedPrNumber
       ? (
-          await octokit.rest.pulls.get({
-            owner,
-            repo,
-            pull_number: connectedPrNumber,
-          })
-        ).data
-      : await applyPR(
+        await octokit.rest.pulls.get({
           owner,
           repo,
-          issue.number,
-          branch,
-          placeholderFiles,
-          "[Skip CI] Dewhale: init the PR",
-          [label]
-        );
+          pull_number: connectedPrNumber,
+        })
+      ).data
+      : await applyPR(
+        owner,
+        repo,
+        issue.number,
+        branch,
+        placeholderFiles,
+        "[Skip CI] Dewhale: init the PR",
+        [label]
+      );
   }
 
   const { prompt, images } = await collectPromptAndImages(
