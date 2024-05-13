@@ -10,7 +10,7 @@ import { fromMarkdown } from "https://esm.sh/mdast-util-from-markdown@2.0.0";
 import { visitParents } from "https://esm.sh/unist-util-visit-parents@6.0.1";
 import { toMarkdown } from "https://esm.sh/mdast-util-to-markdown@2.1.0";
 import { remove } from "https://esm.sh/unist-util-remove@4.0.0";
-import { Octokit } from "npm:octokit";
+import { Octokit } from "npm:octokit@3.2.1";
 import commitPlugin from "npm:octokit-commit-multiple-files";
 import { checkValid, checkWhitelist } from "./quota.ts";
 
