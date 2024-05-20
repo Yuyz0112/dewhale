@@ -2,12 +2,16 @@
 
 ## 用模板创建仓库
 
-1.  为了自动创建专用 label，要在你的 GitHub 账号或组织中安装 **[Settings][1] GitHub 应用**。
-2.  在本 GitHub 仓库主页顶部点击 **[Use this template][2] 按钮**，然后在安装了上述 GitHub 应用的命名空间中创建你自己的仓库。
+1.  为了自动创建专用 label 和 badge，要在你的 GitHub 账号或组织中安装 **GitHub 应用**：
+
+    1.  [Probot settings][1]
+    2.  [PR badge][2]
+
+2.  在本 GitHub 仓库主页顶部点击 **[Use this template][3] 按钮**，然后在安装了上述 GitHub 应用的命名空间中创建你自己的仓库。
 
 ## 设置仓库 secret
 
-用户可以基于当前的模板仓库创建自己的 Dewhale 仓库。在仓库的[settings -> secrets and variables -> actions][3]部分，需要设置以下仓库 secret:
+用户可以基于当前的模板仓库创建自己的 Dewhale 仓库。在仓库的[settings -> secrets and variables -> actions][4]部分，需要设置以下仓库 secret:
 
 - `OPENAI_API_KEY`：这是一个 OpenAI API 密钥。[如何创建?][5]
 - `WHITELIST`：允许使用 Dewhale 的 GitHub 用户名列表，用逗号分隔。仅由 WHITELIST 中的用户创建的 issue 和评论才会受到 Dewhale 的响应，确保 API 使用安全。
@@ -27,7 +31,7 @@ Dewhale 包含预览 UI 功能。在模板仓库中，我们通过 Cloudflare Pa
 [如何配置持续部署](./CD.zh_CN.md)。
 
 [1]: https://github.com/apps/settings
-[2]: https://github.com/new?template_name=dewhale&template_owner=Yuyz0112
-[3]: https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions#creating-secrets-for-a-repository
-[4]: https://docs.github.com/zh/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token
+[2]: https://pullrequestbadge.com/
+[3]: https://github.com/new?template_name=dewhale&template_owner=Yuyz0112
+[4]: https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions#creating-secrets-for-a-repository
 [5]: https://platform.openai.com/docs/quickstart/account-setup
