@@ -1,0 +1,36 @@
+name: React UI generation
+description: will trigger a React UI generation workflow
+labels:
+  - ui-gen
+body:
+  - type: input
+    attributes:
+      label: Content language / 内容语言
+      description: such as English, Chinese, etc. / 如英文、中文等
+      value: English
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Major content / 主要内容
+      value: |-
+        1. content, function & component / 内容、功能和组件
+        2. content, function & component / 内容、功能和组件
+        3. content, function & component / 内容、功能和组件
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Style theme / 样式主题
+      description: such as Technical, Cute, Natural etc. / 如科技风、可爱风、自然风等
+  - type: textarea
+    attributes:
+      label: Referred image / 参考图片
+      description: >-
+        upload or paste Prototype, UI design or Screenshot images / 上传或粘贴 原型图、UI
+        设计图 或 屏幕截图
+  - type: markdown
+    attributes:
+      value: >-
+        This template was generated with [Issue Forms
+        Creator](https://issue-forms-creator.netlify.app)

@@ -162,7 +162,7 @@ async function getConnectedPr(
 
 async function getConnectedIssue(owner: string, repo: string, prBody: string) {
   const issueNumber = parseInt(
-    prBody.match(/\[Dewhale\] This PR implements #(\d+),/)?.[1] || ""
+    prBody.match(/\[Dewhale\] This PR implements & closes #(\d+),/)?.[1] || ""
   );
   if (!issueNumber) {
     throw new Error("failed to get connected issue");
@@ -217,7 +217,7 @@ export async function applyPR(
         head: newBranch,
         base: baseBranch,
         title: `${dewhalePrefix} implements #${issueNumber}`,
-        body: `${dewhalePrefix} This PR implements #${issueNumber}, created by Dewhale.`,
+        body: `${dewhalePrefix} This PR implements & closes #${issueNumber}, created by Dewhale.`,
       })
     ).data as any;
   }

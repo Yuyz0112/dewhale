@@ -1,0 +1,17 @@
+- icon: visualstudio
+  label: "GitHub.dev"
+  message: "PR-$prNumber"
+  color: "blue"
+  url: "https://github.dev/$owner/$repo/pull/$prNumber"
+
+- icon: github
+  label: "GitHub codespaces"
+  message: "PR-$prNumber"
+  color: "black"
+  url: "https://codespaces.new/$owner/$repo/pull/$prNumber"
+
+- icon: git
+  label: "GitPod.io"
+  message: "PR-$prNumber"
+  color: "orange"
+  url: "https://gitpod.io/?autostart=true#https://github.com/$owner/$repo/pull/$prNumber"
