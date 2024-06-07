@@ -17,7 +17,13 @@ import { checkValid, checkWhitelist } from "./quota.ts";
 const apiKey = Deno.env.get("OPENAI_API_KEY");
 assert(apiKey, "failed to get openAI API key");
 
+// default: https://api.openai.com/v1
+// my: https://api.ezchat.top/v1
+const baseURL = Deno.env.get("OPENAI_BASE_URL");
+assert(baseURL, "failed to get OPENAI_BASE_URL");
+
 const openai = new OpenAI({
+  baseURL: baseURL,
   apiKey: apiKey,
 });
 

@@ -26,6 +26,7 @@ jobs:
           # https://docs.github.com/en/actions/security-guides/automatic-token-authentication
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_BASE_URL: ${{ secrets.OPENAI_BASE_URL }}
           WHITELIST: ${{ secrets.WHITELIST }}
           CONFIG: ${{ vars.CONFIG }}
           ACTOR: ${{ github.actor }}
