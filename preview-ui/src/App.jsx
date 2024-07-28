@@ -1,31 +1,54 @@
 import { useEffect, useState } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button.jsx";
 import ErrorBoundary from "./ErrorBoundary.jsx";
-import Preview from "./Preview.jsx";
-import previewStr from "./Preview.jsx?raw";
+// @ts-ignore
+import previewURL from "url:./Preview.jsx";
 import { getHighlighter, setCDN } from "shiki";
+import { createHashRouter, RouterProvider } from "react-router-dom";
+
+import { generateRoutes } from "./lib/utils.js";
+// @ts-ignore
+import * as pages from "./pages/**/*.jsx";
+
+const router = createHashRouter(
+  [...generateRoutes(pages)].map(({ path, component: Tag }) => ({
+    path,
+    element: <Tag />,
+  }))
+);
 
 export default function Home() {
   const [showCanvas, setShowCanvas] = useState(true);
   const [copied, setCopied] = useState(false);
+  const [sourceCode, setSourceCode] = useState('')
   const [code, setCode] = useState("");
 
-  function setCodeHighlighter() {
+  async function setCodeHighlighter() {
     setCDN("https://cdn.jsdelivr.net/npm/shiki");
-    getHighlighter({ theme: "one-dark-pro", langs: ["jsx"] })
-      .then((h) => {
-        const html = h.codeToHtml(previewStr, { lang: "jsx" });
-        setCode(html);
-      })
-      .catch((error) => {
-        setCode(error);
+
+    try {
+      const { codeToHtml } = await getHighlighter({
+        theme: "one-dark-pro",
+        langs: ["jsx"],
       });
+      const response = await fetch(previewURL);
+      const previewStr = await response.text();
+
+      setSourceCode(previewStr)
+
+      const html = codeToHtml(previewStr, { lang: "jsx" });
+
+      setCode(html);
+    } catch (error) {
+      setCode(error);
+    }
   }
 
   useEffect(() => {
     setCodeHighlighter();
   }, []);
+
   return (
     <main className="vx-dev-wrapper relative">
       <div className="flex justify-end p-1">
@@ -36,13 +59,13 @@ export default function Home() {
       {showCanvas ? (
         <div className="rounded-lg border border-black/5 bg-white shadow-[0px_1px_2px_0px_rgba(0,_0,_0,_0.04)] mx-1 p-1">
           <ErrorBoundary>
-            <Preview />
+            <RouterProvider router={router} />
           </ErrorBoundary>
         </div>
       ) : (
         <pre className="bg-gray-100 mx-1 p-1 rounded overflow-auto relative text-xs">
           <CopyToClipboard
-            text={previewStr}
+            text={sourceCode}
             onCopy={() => {
               setCopied(true);
               setTimeout(() => setCopied(false), 2000);
@@ -52,7 +75,7 @@ export default function Home() {
               {copied ? "Copied!" : "Copy Code"}
             </Button>
           </CopyToClipboard>
-          <div dangerouslySetInnerHTML={{ __html: code }}></div>
+          <div dangerouslySetInnerHTML={{ __html: code }} />
         </pre>
       )}
     </main>

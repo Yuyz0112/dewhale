@@ -1,0 +1,12 @@
+{
+  "extends": "@parcel/config-default",
+  "resolvers": [
+    "@parcel/resolver-glob",
+    "..."
+  ],
+  "transformers": {
+    "url:*": [
+      "@parcel/transformer-raw"
+    ]
+  }
+}

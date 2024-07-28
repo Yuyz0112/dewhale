@@ -1,6 +1,9 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
+    "checkJs": true,
+    "module": "Node16",
+    "moduleResolution": "Node16",
+    "jsx": "react-jsx",
     "paths": {
       "@/*": ["./src/*"]
     }

@@ -4,10 +4,11 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
+    "clean": "rm -rf .parcel-cache/ dist/",
+    "dev": "npm run clean  &&  parcel index.html",
+    "build": "npm run clean  &&  parcel build index.html --public-url .",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "serve dist/"
   },
   "dependencies": {
     "@nivo/bar": "^0.84.0",
@@ -53,22 +54,27 @@
     "react-day-picker": "^8.9.1",
     "react-dom": "^18.2.0",
     "react-resizable-panels": "^1.0.5",
+    "react-router-dom": "^6.25.1",
     "shiki": "^0.14.7",
     "tailwind-merge": "^2.1.0",
     "tailwindcss-animate": "^1.0.7",
     "vaul": "^0.8.0"
   },
   "devDependencies": {
+    "@parcel/config-default": "~2.12.0",
+    "@parcel/resolver-glob": "~2.12.0",
+    "@parcel/transformer-raw": "~2.12.0",
     "@types/react": "^18.2.43",
     "@types/react-dom": "^18.2.17",
-    "@vitejs/plugin-react": "^4.2.1",
     "autoprefixer": "^10.4.16",
     "eslint": "^8.55.0",
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
+    "parcel": "~2.12.0",
     "postcss": "^8.4.32",
-    "tailwindcss": "^3.4.0",
-    "vite": "^5.0.8"
+    "process": "^0.11.10",
+    "serve": "^14.2.3",
+    "tailwindcss": "^3.4.0"
   }
 }
