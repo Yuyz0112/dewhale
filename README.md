@@ -1,3 +1,5 @@
+<h1>I am rewriting this project, and its v2 version will be a general github-as-a-mcp-host project. If you are interested in its current functionality, please fork the repository and maintain it yourself. Thank you for your attention!</h1>
+
 <p align="center">
   <img width="150px" height="150px" src="./preview-ui/public/logo.png">
 </p>
