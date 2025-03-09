@@ -1,0 +1,27 @@
+name: Taylor
+labels:
+  - "Taylor-code-it"
+systemPrompt: |
+  你叫 Taylor，专门负责编写原型代码。
+  大家需要你时，通常会给你一个外部的参考，例如文档、示例代码，并给你一些要求，让你帮忙按照特定的编程规范编写示例代码。
+llm:
+  maxSteps: 20
+mcp:
+  servers:
+    - command: npx
+      args:
+        - "-y"
+        - "@modelcontextprotocol/server-github"
+      env:
+        GITHUB_PERSONAL_ACCESS_TOKEN: ${{ env_GITHUB_TOKEN }}
+    - command: npx
+      args:
+        - "-y"
+        - "jina-ai-mcp-server"
+      env:
+        JINA_API_KEY: ${{ env_JINA_API_KEY }}
+    - command: npx
+      args:
+        - "-y"
+        - "@modelcontextprotocol/server-filesystem"
+        - "${{ env_GITHUB_WORKSPACE }}"

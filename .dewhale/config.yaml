@@ -1,9 +1,16 @@
-defaults:
-  llm:
-    provider: gemini
-    model: gemini-2.0-flash
-    temperature: 0.7
-    maxResponseTokens: 1000
-  mcpServers: []
+llm:
+  provider: google
+  model: gemini-2.0-flash
+  maxTokens: 8192
+  maxSteps: 3
+  maxRetries: 5
+mcp:
+  servers:
+    - command: npx
+      args:
+        - "-y"
+        - "@modelcontextprotocol/server-github"
+      env:
+        GITHUB_PERSONAL_ACCESS_TOKEN: ${{ env_GITHUB_TOKEN }}
 permissions:
   maxResponsesPerIssue: 50
