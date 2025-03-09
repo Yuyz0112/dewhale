@@ -7,24 +7,26 @@ on:
     types: [created, edited, deleted]
   pull_request_review_comment:
     types: [created, edited, deleted]
+  schedule:
+    - cron: '*/5 * * * *'
 
 jobs:
   dewhale-trigger:
     runs-on: ubuntu-latest
-    name: Create PR
+    name: Characters Trigger
     if: ${{ !contains(github.event.comment.body, '[Dewhale]') && github.event.comment.user.type != 'bot'}}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
       - name: Setup Deno
-        uses: denoland/setup-deno@v1
-        with:
-          deno-version: 1.38.3
+        uses: denoland/setup-deno@v2
       - name: trigger
         env:
           # auto set by GitHub, details in
           # https://docs.github.com/en/actions/security-guides/automatic-token-authentication
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ACTOR: ${{ github.actor }}
           DEWHALE_CONFIG: ${{ secrets.DEWHALE_CONFIG }}
-        run: deno run -A src/entry.ts
+        run: |
+          echo "${{ secrets.DEWHALE_CONFIG }}" > .env
+          deno run -A src/entry.ts
