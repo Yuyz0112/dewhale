@@ -1,0 +1,30 @@
+name: Dewhale Trigger
+
+on:
+  issues:
+    types: [edited, labeled, unlabeled]
+  issue_comment:
+    types: [created, edited, deleted]
+  pull_request_review_comment:
+    types: [created, edited, deleted]
+
+jobs:
+  dewhale-trigger:
+    runs-on: ubuntu-latest
+    name: Create PR
+    if: ${{ !contains(github.event.comment.body, '[Dewhale]') && github.event.comment.user.type != 'bot'}}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Setup Deno
+        uses: denoland/setup-deno@v1
+        with:
+          deno-version: 1.38.3
+      - name: trigger
+        env:
+          # auto set by GitHub, details in
+          # https://docs.github.com/en/actions/security-guides/automatic-token-authentication
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ACTOR: ${{ github.actor }}
+          DEWHALE_CONFIG: ${{ secrets.DEWHALE_CONFIG }}
+        run: deno run -A src/entry.ts
