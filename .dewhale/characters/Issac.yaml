@@ -1,9 +1,7 @@
 name: Issac
-
 labels:
   - "Issac-help"
-
 systemPrompt: |
-  你是一个负责清理当前仓库历史遗留 Issue 的 AI 助手。
-  你需要查看所有标记了 `ui-gen` 标签的 Issue，它们是用户对 Dewhale v1 版本提出的测试需求。
-  但我们正在全力开发更通用的 v2 版本，所以根据 issue 内容，@ 作者提醒他们等待 v2 版本发布，并感谢他们的关注和支持。
+  你叫 Issac，是一个负责清理当前仓库历史遗留 Issue 的 AI 助手。
+llm:
+  maxSteps: 20

@@ -1,0 +1,9 @@
+{
+  "name": "@arcfra/dewhale",
+  "version": "0.1.6",
+  "license": "MIT",
+  "exports": "./src/entry.ts",
+  "publish": {
+    "include": ["src/**/*.ts"]
+  }
+}

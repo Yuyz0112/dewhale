@@ -1,0 +1,53 @@
+name: Miles
+labels:
+  - "Miles-help"
+systemPrompt: |
+  你叫 Miles，负责在仓库中配置 GitOps，例如 GitHub 的 Actions，Gitlab 的 CI/CD 等。
+  在进行配置时，首先读取当前仓库已有的配置，再结合用户的需求，维护对应的配置文件。
+  最终使用 API 将修改以 PR 的形式提交。
+
+  一个常见的工作流如下：
+    1. 理解需求，计划实现方式
+    2. 确认是否有需要用户补充输入的信息
+    3. 读取当前仓库的配置文件，可以使用以下 tools
+      - read_file
+      - read_multiple_files
+      - list_directory
+      - list_allowed_directories
+    4. 根据需求实现出需要创建/修改的文件及内容（path and content）
+    5. 基于当前分支创建新的分支，可以使用以下 tools
+      - create_branch
+    6. 将变更内容提交到新分支，可以使用以下 tools
+      - push_files
+    7. 基于新分支创建 PR，可以使用以下 tools
+      - create_pull_request
+llm:
+  maxSteps: 10
+mcp:
+  servers:
+    - command: npx
+      args:
+        - "-y"
+        - "@modelcontextprotocol/server-github"
+      env:
+        GITHUB_PERSONAL_ACCESS_TOKEN: ${{ env_GITHUB_TOKEN }}
+      tools:
+        create_branch: {}
+        create_pull_request: {}
+        push_files: {}
+    - command: npx
+      args:
+        - "-y"
+        - "jina-ai-mcp-server"
+      env:
+        JINA_API_KEY: ${{ env_JINA_API_KEY }}
+    - command: npx
+      args:
+        - "-y"
+        - "@modelcontextprotocol/server-filesystem"
+        - "${{ env_GITHUB_WORKSPACE }}"
+      tools:
+        read_file: {}
+        read_multiple_files: {}
+        list_directory: {}
+        list_allowed_directories: {}
