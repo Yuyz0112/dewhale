@@ -1,28 +1,26 @@
-import PCA from 'ml-pca';
+import { PCA } from 'ml-pca';
 
 interface Point {
-  x: number;
-  y: number;
+  value: [number, number];
 }
 
 /**
- * 使用 PCA 降维 Gemini embeddings 并转换为 Recharts 散点图格式
- * @param embeddings Gemini embeddings 数组
- * @param dimensions 降维后的维度，默认为 2
- * @returns Recharts 散点图格式的数据
+ * 使用 PCA 降维 Gemini embeddings 到二维，并整理为 recharts 散点图格式。
+ *
+ * @param embeddings Gemini embeddings 数组。
+ * @returns recharts 散点图格式的数据。
  */
-export function reduceEmbeddings(embeddings: number[][], dimensions: number = 2): Point[] {
+export function reduceEmbeddingsToScatterData(embeddings: number[][]): Point[] {
   if (!embeddings || embeddings.length === 0) {
     return [];
   }
 
-  const pca = new PCA(embeddings);
-  const reducedData = pca.predict(embeddings, { nComponents: dimensions });
+  const pca = new PCA(embeddings, { nPcs: 2 });
+  const reducedData = pca.predict(embeddings).to2DArray();
 
-  const points: Point[] = reducedData.to2DArray().map((row: number[]) => ({
-    x: row[0],
-    y: row[1],
+  const scatterData: Point[] = reducedData.map((row) => ({
+    value: [row[0], row[1]],
   }));
 
-  return points;
+  return scatterData;
 }
