@@ -1,0 +1,41 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Deno
+        uses: denoland/setup-deno@v1
+        with:
+          deno-version: '1.x'
+
+      - name: Read jsr.json
+        id: jsr
+        run: |
+          VERSION=$(deno eval 'import { readFileSync } from "node:fs"; const json = JSON.parse(readFileSync("jsr.json", { encoding: "utf8" })); console.log(json.version)')
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+      
+      - name: Verify tag
+        run: |
+          TAG=${GITHUB_REF#refs/tags/}
+          if [ "$TAG" != "v${{ steps.jsr.outputs.version }}" ]; then
+            echo "Tag $TAG does not match jsr.json version v${{ steps.jsr.outputs.version }}"
+            exit 1
+          fi
+
+      - name: Publish to JSR
+        run: deno publish
+        env:
+          DENO_AUTH_TOKENS: ${{ secrets.JSR_AUTH_TOKEN }}
