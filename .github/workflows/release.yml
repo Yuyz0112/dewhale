@@ -1,0 +1,39 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Deno
+        uses: denoland/setup-deno@v1
+        with:
+          deno-version: '1.x'
+
+      - name: Read jsr.json
+        id: jsr
+        run: |
+          VERSION=$(deno eval 'import(new URL("./jsr.json", import.meta.url)).then(data => console.log(data.version))')
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+      
+      - name: Check tag
+        if: github.ref_name != steps.jsr.outputs.version
+        run: |
+          echo "Tag ${github.ref_name} does not match jsr.json version ${{ steps.jsr.outputs.version }}"
+          exit 1
+
+      - name: Publish to JSR
+        run: deno publish --token=${{ secrets.JSR_TOKEN }}
